@@ -4,6 +4,7 @@ body{
     margin:0px;
     justify-content:center;
     align-items:stretch;
+    font-family: 'Roboto', 'sans-serif'
 }
 
 ul{
@@ -30,7 +31,7 @@ li:hover{
 }
 
 .header{
-    padding: 40px 0px 40px 40px
+    padding: 40px 0px 40px 40px;
 }
 
 .section1 {
@@ -55,6 +56,11 @@ li:hover{
 .section2 .content{
     display:flex;
     justify-content: center;
+    gap: 40px;
+}
+
+.card{
+    flex-basis: 0;
 }
 
 .hero{
@@ -98,7 +104,7 @@ button:active{
     background-color:#3882F6;
     color: white;
     margin: 20px;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     display:flex;
     justify-content: space-between;
@@ -115,7 +121,8 @@ button:active{
 .quote{
     font-size: 36px;
     color:#1F2937;
-    width: 600px;
+    max-width: 600px;
+    font-style: italic;
 }
 
 .quoter{
@@ -125,4 +132,10 @@ button:active{
 img{
     height: 200px;
     width: auto;
+}
+
+.section1 img{
+    transform: rotate(90deg);
+    width: 400px;
+    height: auto;
 }
