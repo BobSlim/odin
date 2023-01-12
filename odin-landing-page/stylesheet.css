@@ -65,6 +65,15 @@ button{
     border-color: white;
     padding:8px;
     border-radius: 8px;
+    margin-top: 8px;
+}
+
+button.unbordered{
+    border: none;
+}
+
+button:active{
+    background-color:#2961b9;
 }
 
 .section4{
