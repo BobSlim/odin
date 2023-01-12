@@ -6,13 +6,25 @@ body{
     align-items:stretch;
 }
 
+ul{
+    float:left;
+    list-style:none;
+}
+
+li{
+    display:inline-block;
+}
+
 .section1, .header, .footer{
     background-color: #1f2937;
     color: #f9faf8;
+    padding: 40px;
 }
 
 .section1 {
     display: flex;
+    justify-content: center;
+    padding-bottom: 80px;
 }
 
 .section1 p{
@@ -20,8 +32,17 @@ body{
     color:#e5e7eb;
 }
 
+.section2{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
 .section2 .content{
     display:flex;
+    justify-content: center;
 }
 
 .hero{
@@ -42,19 +63,40 @@ button{
     background-color:#3882F6;
     color: #f9faf8;
     border-color: white;
+    padding:8px;
+    border-radius: 8px;
 }
 
-.section4 .floatbox{
-    background-color:#3882F6
+.section4{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.section4 .floatBox{
+    background-color:#3882F6;
+    color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .section3{
-    background-color:#E5E7EB
+    background-color:#E5E7EB;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 40px;
 }
 
 .quote{
     font-size: 36px;
     color:#1F2937;
+    width: 600px;
+}
+
+.quoter{
+    text-align: right;
 }
 
 img{
