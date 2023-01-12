@@ -13,18 +13,30 @@ ul{
 
 li{
     display:inline-block;
+    padding:8px;
+}
+
+li:hover{
+    background-color:#0f141b
 }
 
 .section1, .header, .footer{
     background-color: #1f2937;
     color: #f9faf8;
+}
+
+.footer{
     padding: 40px;
+}
+
+.header{
+    padding: 40px 0px 40px 40px
 }
 
 .section1 {
     display: flex;
     justify-content: center;
-    padding-bottom: 80px;
+    padding: 40px;
 }
 
 .section1 p{
