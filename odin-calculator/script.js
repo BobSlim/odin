@@ -48,9 +48,32 @@ let equation = {
     secondTerm: document.getElementById('secondTerm'),
     operation: document.getElementById('operation'),
     operate: function(){
-        if(this.firstTerm.innerText && this.operation.innerText && this.secondTerm.innerText){
-            //dostuff
-        };
+        let firstTermNum = +this.firstTerm.innerText;
+        let secondTermNum = +this.secondTerm.innerText;
+
+        if(!(this.firstTerm.innerText && this.operation.innerText && this.secondTerm.innerText)){
+            return 'requires three terms'
+        }
+        switch(this.operation.innerText){
+            case "+":
+                firstTermNum += secondTermNum
+                break;
+            case "-":
+                firstTermNum -= secondTermNum
+                break;
+            case "*":
+                firstTermNum *= secondTermNum
+                break;
+            case "/":
+                if(secondTermNum == 0){
+                    return 'cannot divide by zero'
+                }
+                firstTermNum /= secondTermNum
+                break;
+        }
+        this.firstTerm.innerText = firstTermNum.toString()
+        this.operation.innerText = ''
+        this.secondTerm.innerText = ''
     },
     backspace: function(){
         let target = this.activeTerm();
@@ -60,19 +83,34 @@ let equation = {
         const operationRegex = /\+|\-|\/|\*/
         switch(inputRequest){
             case 'Enter':
-
+                if(this.activeTerm() == this.secondTerm){
+                   this.operate() 
+                };
                 break;
             case 'Backspace':
                 this.backspace()
                 break;
             case '.':
-
+                if(this.activeTerm().innerText.match(/\./)){
+                    return
+                }
                 break;
         }
         if(inputRequest.match(operationRegex)){
-
-        }else if(inputRequest.match(/[0-9]/)){
-            this.activeTerm().innerText += inputRequest
+            if(this.activeTerm() == this.secondTerm){
+                this.operate()
+            };
+            if(this.activeTerm() == this.operation && inputRequest == '-'){
+                this.secondTerm.innerText += inputRequest;
+            }else if(this.activeTerm() == this.firstTerm && !(this.firstTerm.innerText) && inputRequest == '-'){
+                this.firstTerm.innerText += inputRequest;
+            }else{this.operation.innerText = inputRequest;}
+        }else if(inputRequest.match(/[0-9]|\./)){
+            if(this.activeTerm() == this.operation){
+                this.secondTerm.innerText += inputRequest
+            }else{
+                this.activeTerm().innerText += inputRequest
+            }
         }
     },
     activeTerm: function(){
@@ -80,7 +118,7 @@ let equation = {
             return this.secondTerm
         }else if(this.operation.innerText){
             return this.operation
-        }else if(this.firstTerm.innerText){
+        }else{
             return this.firstTerm
         }
     }
