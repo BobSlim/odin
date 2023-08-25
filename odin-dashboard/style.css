@@ -1,0 +1,319 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+body{
+    --sidebar-maxWidth: 240px;
+    --main-boxShadow: 1px 1px 2px gray;
+
+    min-height: 100vh;
+    min-width: 100vw;
+
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    --sidebar-gridRows: 1 / span 2;
+
+    font-family: sans-serif;
+}
+
+h1{
+    font-size: 2em;
+    padding: 0rem 1rem 1rem;
+    height: fit-content;
+}
+
+h2{
+    font-size: 1.5em;
+    margin: 0.5em 0px;
+}
+
+svg{
+    height: 24px;
+    width: 24px;
+}
+
+.sidebar{
+
+    --sidebar-color: white;
+
+    background-color: blue;
+    grid-row: var(--sidebar-gridRows);
+
+    max-width: min-content;
+
+    color: var(--sidebar-color);
+}
+
+.sidebar-item>h1{
+    padding: 0px;
+}
+
+.sidebar-item:first-child>svg{
+    height: 2em;
+    width: 2em;
+}
+
+.sidebar-item{
+    display: flex;
+    flex-direction: row;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.sidebar-item:hover{
+    background-color: navy;
+}
+
+.sidebar-item svg{
+    height: 1em;
+    width: 1em;
+    
+    fill: var(--sidebar-color)
+}
+
+.sidebar-item p{
+    margin-left: 1rem;
+}
+
+.header{
+    background-color: white;
+
+    width: auto;
+    padding: 1rem;
+
+    box-shadow: var(--main-boxShadow);
+    position: relative; /* enables box-shadow to show over sibling .main */
+
+    display: grid;
+    grid-template-columns: auto max-content;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+}
+
+.header #form{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+
+.header #form svg{
+    margin-right: 1rem;
+}
+
+#query{
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.header-profile{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.header-profile > *{
+    padding: 1rem;
+}
+
+.header-profile img{
+    height: 3rem;
+    width: auto;
+    border-radius: 50%;
+}
+
+.profile{
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: auto auto;
+}
+
+.profile img{
+    grid-row: 1 / 3;
+    border-radius: 50%;
+}
+
+.header-welcome{
+    margin-left: 3rem;
+}
+
+.header-welcome img{
+    height: 4rem;
+    width: auto;
+
+    margin-right: 2rem;
+}
+
+.header-welcomeName{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header-buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.header-button{
+    flex: 0 1 1;
+
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    border-style: none;
+    background-color: blue;
+    color: white;
+}
+
+.main{
+    --header-maxHeight: 180px;
+
+    background-color: lightgray;
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: auto min-content;
+    grid-template-rows: repeat(2, auto 1fr);
+    --projects-gridRows: 2 / span 3;
+
+    padding: 2rem;
+}
+
+.main .card{
+    --card-borderRadius: 0.5rem;
+    
+    background-color: white;
+    border-radius: var(--card-borderRadius);
+    box-shadow: var(--main-boxShadow);
+
+    margin: 1rem;
+    padding: 2rem;
+}
+
+.projects{
+    grid-row: var(--projects-gridRows);
+    --grid-maxWidth: 360px; 
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-maxWidth), 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.projects .card{
+    border-left: var(--card-borderRadius) solid orange;
+    display: flex;
+    flex-direction: column;
+}
+
+.projectCard-content{
+    margin-bottom: auto;
+    flex: 1;
+    color: gray;
+}
+
+.projectCard-icons{
+    display: flex;
+    justify-content: right;
+}
+
+.projectCard-icons *{
+    display: block;
+
+    max-height: 1.5rem;
+    max-width: 1.5rem;
+
+    margin-left: min(10%, 1.5rem);
+
+    fill: gray;
+}
+
+.rightBar{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    grid-row: -1 / 1;
+    grid-column: -2 / -1;
+}
+
+.announcements{
+    height: auto;
+    font-size: 0.75em;
+    flex: 1;
+}
+
+.announcement-listItem{
+    margin: 1rem;
+}
+
+.announcement-divider{
+    border-bottom: 1px solid gray;
+}
+
+.trending{
+    height: auto;
+    font-size:0.75em;
+    flex: 1;
+}
+
+.trending-listItem:not(:last-child){
+    margin-bottom: 1rem;
+}
+
+.trending-listItem img{
+    height: 3rem;
+    width: auto;
+    margin-right: 0.5rem;
+}

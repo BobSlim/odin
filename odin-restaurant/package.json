@@ -1,0 +1,28 @@
+{
+  "name": "odin-restaurant",
+  "version": "1.0.0",
+  "description": "Practise project to learn webpack",
+  "main": "index.js",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BobSlim/odin-restaurant.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BobSlim/odin-restaurant/issues"
+  },
+  "homepage": "https://github.com/BobSlim/odin-restaurant#readme",
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "file-loader": "^6.2.0"
+  }
+}

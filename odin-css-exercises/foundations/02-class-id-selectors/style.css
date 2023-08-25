@@ -1,0 +1,16 @@
+.basic{
+    background-color: #ffc0ff;
+    font-family:'Verdana', 'DejaVu Sans', 'sans-serif'
+}
+.large{
+    font-size: 36px
+}
+#one{
+    color: blue;
+    font-size: 36px;
+}
+#two{
+    background-color: hsl(120, 73%, 75%);
+    font-size: 24px;
+    font-weight: 900;
+}

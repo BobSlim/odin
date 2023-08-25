@@ -1,0 +1,130 @@
+body{
+    margin: 0px;
+
+    display:flex;
+
+    height: 100vh;
+
+    font-family: sans-serif;
+}
+
+main{
+    flex: 1;
+}
+
+ul{
+    list-style: none;
+    margin-block: 0;
+    padding-inline: 0;
+}
+
+.signUpForm{
+    padding-right: 10%;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    background-color: white;
+    box-shadow: 0.5rem 0.5rem 0.5rem gray;
+}
+
+.signUpForm-heading{
+    font-size: 1.25rem;
+}
+
+.signUpForm-field{
+    display: flex;
+    flex-direction: column;
+    
+    max-width: auto;
+
+    padding: 0.5rem;
+    padding-right: 3rem;
+}
+
+.signUpForm-fieldList{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.signUpForm-label{
+    margin-right: 1rem;
+    font-size: 0.75rem;
+}
+
+.signUpForm-input:focus{
+    outline-color: blue;
+    box-shadow: 0rem 0.25rem 0.125rem lightblue;
+}
+
+.signUpForm-input:invalid{
+    outline-color: red;
+}
+
+.signUpForm-registerButton{
+    padding: 1rem;
+    background-color: #596D48;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+.signUpForm-loginButton{
+    color:#596D48;
+}
+
+@font-face {
+    font-family: "norse-bold";
+    src: url(Norse-Bold.otf);
+}
+
+.hero{
+    background-image:url(foilage.avif);
+    max-width: 680px;
+    flex: 1;
+}
+
+.hero-ribbon{
+    font-size: 8rem;
+    
+    font-family: 'norse-bold', sans-serif;
+    color: white;
+    background-color: hsla(0, 50%, 10%, 0.5);
+    height: min-content;
+
+    display:flex;
+    align-items:center;
+    justify-content: center;
+
+    margin: 0px auto;
+
+    width: 100%;
+
+    position: relative;
+    top: 15%
+}
+
+.hero-branding{
+    padding: 2rem;
+    margin: 2rem auto;
+
+    white-spacE:nowrap;
+}
+
+.hero-logo{
+    height: 1em;
+}
+
+.primary{
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-color: hsl(0, 0%, 90%);
+
+}
+
+.primary > *{
+    padding-left: 4rem;
+}
+
+.callToAction{
+    font-size: 1.5rem;
+}
