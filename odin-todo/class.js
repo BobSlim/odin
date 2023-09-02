@@ -96,24 +96,37 @@ class App {
     addProject() {
         this.projects.push(new Project());
         console.log("new project!")
+        this.render()
     }
-    construct() {
-        let construct = /*html*/`
-            <h1> To Do List </h1>
-                <main>
-                    ${this.concatProjects()}
-                    <button onclick="addProject()">+</button>
-                </main>
-        `
-        return construct
+    generateButton() {
+        let that = this;
+        let output = document.createElement("button")
+        output.innerText = "+"
+        output.onclick = function () {
+            that.addProject()
+        }
+        return output;
+    }
+    generateTitle() {
+        let output = document.createElement("h1")
+        output.innerText = "To-do List"
+        return output
+    }
+    generateMain() {
+        let main = document.createElement("main")
+        main.innerHTML = /*html*/`${this.concatProjects()}`
+        main.appendChild(this.generateButton())
+        return main
     }
     render() {
-        document.getElementById("body").innerHTML = this.construct()
+        let body = document.getElementById("body")
+        body.innerHTML = ""
+        body.appendChild(this.generateTitle())
+        body.appendChild(this.generateMain())
     }
 }
 
 myApp = new App()
 myApp.addProject()
 myApp.projects[0].addTask()
-
 myApp.render()
