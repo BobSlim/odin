@@ -102,7 +102,7 @@ class App {
             <h1> To Do List </h1>
                 <main>
                     ${this.concatProjects()}
-                    <button>+</button>
+                    <button onclick="addProject()">+</button>
                 </main>
         `
         return construct
