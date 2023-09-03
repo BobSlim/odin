@@ -1,132 +1,122 @@
-const EISEN = {
-    DO: 0,
-    SCHEDULE: 1,
-    DELEGATE: 2,
-    DELETE: 3
+function ping(message = "something happened!") {
+    console.log(message)
 }
 
-class Task {
-    constructor(title = "New Task", description = "Description") {
+function generateButton(text = "button", htmlClass = "", onclickFunction) {
+    let output = document.createElement("button")
+    if (htmlClass) {
+        output.classList.add(htmlClass)
+    }
+    output.innerText = text
+    output.onclick = onclickFunction
+    return output;
+}
+
+class HtmlElement {
+    elementType = "div"
+    elementClass = ""
+    childContainer
+    constructor(title = "", description = "") {
         this.title = title
         this.description = description
-        this.dueDate = 0
-        this.important = false
-        this.urgent = false
-        this.done = false
     }
-    importantToggle() {
-        this.important = !important
-        this.evaluateEisenhower()
-    }
-    urgentToggle() {
-        this.urgent = !urgent
-        this.evaluateEisenhower()
-    }
-    evaluateEisenhower() {
-        if (this.important && this.urgent) {
-            //Do style
-        } else if (this.important && !this.urgent) {
-            //Schedule style
-        } else if (!this.important && this.urgent) {
-            //Delegate style
-        } else {
-            //Delete style
-        }
-    }
-    taskToggle() {
-        this.done = !this.done
-        if (done) {
-            //complete the task
-        } else {
-            //uncomplete the task
-        }
-    }
+
     construct() {
-        return /*html*/`
-        <article class="task">
-            <h3>${this.title}</h3>
+        let output = document.createElement(this.elementType)
+        if (this.elementClass) {
+            output.classList.add(this.elementClass)
+        }
+        output.insertAdjacentHTML(
+            "afterbegin",
+            /*html*/`
+                <h3>${this.title}</h3>
+                <p>${this.description}</p>
+        `)
+        childContainer = document.createElement("div")
+        output.appendChild(childContainer)
+        return output
+    }
+
+    addChild(newChild) {
+        this.childContainer.insertAdjacentElement
+    }
+}
+
+class Task extends HtmlElement {
+    elementType = "article"
+    elementClass = "task"
+}
+
+class Project extends HtmlElement {
+    elementType = "section"
+    elementClass = "project"
+    update() {
+        let output = document.createElement(this.elementType)
+        if (this.elementClass) {
+            output.classList.add(this.elementClass)
+        }
+        output.insertAdjacentHTML("afterbegin", /*html*/`
+            <h2>${this.title}</h3>
             <p>${this.description}</p>
-        </article>
-        `
+        `)
+        output.appendChild(this.listChildren())
+        this.dom = output
     }
-}
-
-class Project {
-    constructor(name = "New Project") {
-        this.name = name
-        this.todos = []
+    addChild() {
+        const newChild = new Task("New Task", "Description")
+        this.children.push(newChild)
+        newChild.update()
+        this.dom.appendChild(newChild.dom)
     }
-    concatTodos() {
-        let output = ""
-        this.todos.forEach(element => {
-            output += element.construct()
-        })
-        return output;
-    }
-    addTask() {
-        this.todos.push(new Task())
-        console.log("add tasks!")
-    }
-    construct() {
-        return /*html*/`
-        <section class="project">
-            <h2>Project 1</h2>
-            <div class="project_taskList">
-                ${this.concatTodos()}
-                <button onclick=${this.addTask()}>
-                    Add new task
-                </button>
-            </div >
-        </section >
-            `
-    }
-}
-
-class App {
-    constructor() {
-        this.projects = []
-    }
-    concatProjects() {
-        let output = ""
-        this.projects.forEach(element => {
-            output += element.construct()
-        })
-        return output
-    }
-    addProject() {
-        this.projects.push(new Project());
-        console.log("new project!")
-        this.render()
-    }
-    generateButton() {
-        let that = this;
-        let output = document.createElement("button")
-        output.innerText = "+"
-        output.onclick = function () {
-            that.addProject()
+    buttonAdd() {
+        const that = this
+        const addThing = () => {
+            that.addChild()
         }
-        return output;
-    }
-    generateTitle() {
-        let output = document.createElement("h1")
-        output.innerText = "To-do List"
+        let output = generateButton(
+            "add new task",
+            "addButton",
+            addThing
+        )
         return output
     }
-    generateMain() {
-        let main = document.createElement("main")
-        main.innerHTML = /*html*/`${this.concatProjects()}`
-        main.appendChild(this.generateButton())
-        return main
+    listChildren() {
+        let output = document.createElement("div");
+        output.classList.add(this.elementClass + "_childList");
+        this.children.forEach(element => {
+            output.appendChild(element.dom)
+        })
+        output.appendChild(this.buttonAdd())
+        return output;
+    }
+}
+
+class App extends Project {
+    elementType = "main"
+    elementClass = "main"
+    addChild() {
+        const newChild = new Project("New Task", "Description")
+        this.children.push(newChild)
+        newChild.update()
+        this.dom.appendChild(newChild.dom)
+    }
+    buttonAdd() {
+        const that = this
+        let output = generateButton("+", "addButton", () => { that.addChild() });
+        return output
     }
     render() {
-        let body = document.getElementById("body")
-        body.innerHTML = ""
-        body.appendChild(this.generateTitle())
-        body.appendChild(this.generateMain())
+        body.appendChild(this.dom)
     }
 }
 
-myApp = new App()
-myApp.addProject()
-myApp.projects[0].addTask()
-myApp.render()
+const body = document.getElementById("body")
+const myApp = new App("To-do list")
+myApp.addChild()
+myApp.addChild()
+myApp.children[0].addChild()
+myApp.children[0].addChild()
+myApp.children[0].addChild()
+myApp.children[1].addChild()
+console.log(myApp.children)
+body.appendChild(generateButton())
