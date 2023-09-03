@@ -1,122 +1,68 @@
-function ping(message = "something happened!") {
-    console.log(message)
+const taskTemplate = /*html*/`
+    <article class="task">
+        <div class="header">
+            <h3 contenteditable="true">Task</h3>
+            <div class="buttons">
+                <button onclick="toggleParentStyle(this, '.task', 'done')">Toggle Done</button>
+                <button onclick="toggleParentStyle(this, '.task', 'important')">Toggle Important</button>
+                <button onclick="removeParent(this, '.task')">Delete</button>
+            </div>
+        </div>
+        <p contenteditable="true">Description</p>
+    </article>`
+
+const newTaskTemplate = /*html*/`<button onclick="addTask(this)">Add new task</button>`
+
+const newProjectTemplate = /*html*/`<button onclick="addProject(this)">+</button>`
+
+function generateProject() {
+    let output = /*html*/`
+        <section class="project">
+            <div class="header">
+                <h2 contenteditable="true">Project</h2>
+                <div class="buttons">
+                    <button onclick="toggleParentStyle(this, '.project', 'done')">Toggle Done</button>
+                    <button onclick="toggleParentStyle(this, '.project', 'important')">Toggle Important</button>
+                    <button onclick="removeParent(this, '.project')">Delete</button>
+                </div>
+            </div>
+            ${taskTemplate}
+            ${newTaskTemplate}
+        </section >`
+    return output
 }
 
-function generateButton(text = "button", htmlClass = "", onclickFunction) {
-    let output = document.createElement("button")
-    if (htmlClass) {
-        output.classList.add(htmlClass)
-    }
-    output.innerText = text
-    output.onclick = onclickFunction
-    return output;
+function addTask(element) {
+    element.insertAdjacentHTML("beforeBegin", taskTemplate)
+    save()
 }
 
-class HtmlElement {
-    elementType = "div"
-    elementClass = ""
-    childContainer
-    constructor(title = "", description = "") {
-        this.title = title
-        this.description = description
-    }
-
-    construct() {
-        let output = document.createElement(this.elementType)
-        if (this.elementClass) {
-            output.classList.add(this.elementClass)
-        }
-        output.insertAdjacentHTML(
-            "afterbegin",
-            /*html*/`
-                <h3>${this.title}</h3>
-                <p>${this.description}</p>
-        `)
-        childContainer = document.createElement("div")
-        output.appendChild(childContainer)
-        return output
-    }
-
-    addChild(newChild) {
-        this.childContainer.insertAdjacentElement
-    }
+function addProject(element) {
+    element.insertAdjacentHTML("beforeBegin", generateProject())
+    save()
 }
 
-class Task extends HtmlElement {
-    elementType = "article"
-    elementClass = "task"
+function removeParent(element, container) {
+    toggleParentStyle(element, container, "removed")
+    setTimeout(function () { element.closest(container).remove() }, 1000)
+    save()
 }
 
-class Project extends HtmlElement {
-    elementType = "section"
-    elementClass = "project"
-    update() {
-        let output = document.createElement(this.elementType)
-        if (this.elementClass) {
-            output.classList.add(this.elementClass)
-        }
-        output.insertAdjacentHTML("afterbegin", /*html*/`
-            <h2>${this.title}</h3>
-            <p>${this.description}</p>
-        `)
-        output.appendChild(this.listChildren())
-        this.dom = output
-    }
-    addChild() {
-        const newChild = new Task("New Task", "Description")
-        this.children.push(newChild)
-        newChild.update()
-        this.dom.appendChild(newChild.dom)
-    }
-    buttonAdd() {
-        const that = this
-        const addThing = () => {
-            that.addChild()
-        }
-        let output = generateButton(
-            "add new task",
-            "addButton",
-            addThing
-        )
-        return output
-    }
-    listChildren() {
-        let output = document.createElement("div");
-        output.classList.add(this.elementClass + "_childList");
-        this.children.forEach(element => {
-            output.appendChild(element.dom)
-        })
-        output.appendChild(this.buttonAdd())
-        return output;
+function toggleParentStyle(element, container, style) {
+    element.closest(container).classList.toggle(style)
+    save()
+}
+
+const main = document.getElementById("main")
+
+if (localStorage.getItem("state")) {
+    main.innerHTML = localStorage.getItem("state")
+    const removed = document.getElementsByClassName("removed")
+    for (item of removed) {
+        item.remove()
     }
 }
 
-class App extends Project {
-    elementType = "main"
-    elementClass = "main"
-    addChild() {
-        const newChild = new Project("New Task", "Description")
-        this.children.push(newChild)
-        newChild.update()
-        this.dom.appendChild(newChild.dom)
-    }
-    buttonAdd() {
-        const that = this
-        let output = generateButton("+", "addButton", () => { that.addChild() });
-        return output
-    }
-    render() {
-        body.appendChild(this.dom)
-    }
+function save() {
+    localStorage.setItem("state", main.innerHTML)
 }
-
-const body = document.getElementById("body")
-const myApp = new App("To-do list")
-myApp.addChild()
-myApp.addChild()
-myApp.children[0].addChild()
-myApp.children[0].addChild()
-myApp.children[0].addChild()
-myApp.children[1].addChild()
-console.log(myApp.children)
-body.appendChild(generateButton())

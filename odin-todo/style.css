@@ -1,5 +1,9 @@
 html {
     font-family: sans-serif;
+--clr-1: #053B50;
+    --clr-2: #176B87;
+    --clr-3: #64CCC5;
+    --clr-4: #EEEEEE;
 }
 
 html * {
@@ -12,15 +16,11 @@ body {
     height: 100vh;
     margin: 0;
     padding: 1rem;
+    background-color: var(--clr-1);
+        color: white;
 }
 
 main {
-    display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    
-    .main_childList {
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -29,38 +29,61 @@ main {
     padding: 1rem;
     gap: 1rem;
     overflow-x: auto;
+    border-radius: 1rem;
+        background-color: var(--clr-3);
 }
 
-.vertical {
-    writing-mode: vertical-rl;
+button {
+    border-radius: 1rem;
+    padding: 0.5rem;
+    background-color: var(--clr-2);
+    color: var(--clr-4);
+    border: none;
+}
+
+h3 {
+    margin: 0;
 }
 
 .project {
-    border: 1px solid black;
     padding: 1rem;
     flex: 1;
     max-width: 70ch;
     min-width: 30ch;
     overflow-y: auto;
-}
-
-.project--expanded {
-    max-width: none;
-}
-
-.project_childList {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.project--expanded>.project_childList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        flex-direction: column;
+        transition: 0.5s;
+        border-radius: 1rem;
+        background-color: var(--clr-4);
+        color: black;
+        gap: 0.5rem;
 }
 
 .task {
-    border: 1px solid black;
     padding: 1rem;
     width: 100%;
+    transition: 0.5s;
+    border-radius: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    }
+    
+    .done {
+        color: grey;
+        background-color: var(--clr-1);
+        text-decoration: line-through;
+}
+
+.important {
+    border-left: 1rem orangered solid;
+    transition: 0.5s;
+}
+
+.removed {
+    transform: scale(0, 0);
+    transition: 1s ease-in-out;
 }
