@@ -1,8 +1,8 @@
-export {Home}
+export { Home };
 
-const Home = document.createElement("div")
+const Home = document.createElement("div");
 
-Home.innerHTML = /*html*/`
+Home.innerHTML = /*html*/ `
   <p>Welcome to the Four Seasons cafe. We serve only seasonal foods from local sources. Our ingredients are freshly delivered on a daily basis, are all vegan and gluten free, and 100% organically grown.</p>
   <p>We serve foods such as:
   <ul>
@@ -11,5 +11,4 @@ Home.innerHTML = /*html*/`
     <li>??food not found??</li>
   </ul>
   </p>
-`
-;
+`;

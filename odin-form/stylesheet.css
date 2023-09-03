@@ -1,130 +1,129 @@
-body{
-    margin: 0px;
+body {
+  margin: 0px;
 
-    display:flex;
+  display: flex;
 
-    height: 100vh;
+  height: 100vh;
 
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
-main{
-    flex: 1;
+main {
+  flex: 1;
 }
 
-ul{
-    list-style: none;
-    margin-block: 0;
-    padding-inline: 0;
+ul {
+  list-style: none;
+  margin-block: 0;
+  padding-inline: 0;
 }
 
-.signUpForm{
-    padding-right: 10%;
-    padding-top: 2em;
-    padding-bottom: 2em;
+.signUpForm {
+  padding-right: 10%;
+  padding-top: 2em;
+  padding-bottom: 2em;
 
-    background-color: white;
-    box-shadow: 0.5rem 0.5rem 0.5rem gray;
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0.5rem gray;
 }
 
-.signUpForm-heading{
-    font-size: 1.25rem;
+.signUpForm-heading {
+  font-size: 1.25rem;
 }
 
-.signUpForm-field{
-    display: flex;
-    flex-direction: column;
-    
-    max-width: auto;
+.signUpForm-field {
+  display: flex;
+  flex-direction: column;
 
-    padding: 0.5rem;
-    padding-right: 3rem;
+  max-width: auto;
+
+  padding: 0.5rem;
+  padding-right: 3rem;
 }
 
-.signUpForm-fieldList{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.signUpForm-fieldList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.signUpForm-label{
-    margin-right: 1rem;
-    font-size: 0.75rem;
+.signUpForm-label {
+  margin-right: 1rem;
+  font-size: 0.75rem;
 }
 
-.signUpForm-input:focus{
-    outline-color: blue;
-    box-shadow: 0rem 0.25rem 0.125rem lightblue;
+.signUpForm-input:focus {
+  outline-color: blue;
+  box-shadow: 0rem 0.25rem 0.125rem lightblue;
 }
 
-.signUpForm-input:invalid{
-    outline-color: red;
+.signUpForm-input:invalid {
+  outline-color: red;
 }
 
-.signUpForm-registerButton{
-    padding: 1rem;
-    background-color: #596D48;
-    border: none;
-    border-radius: 0.5rem;
-    color: white;
+.signUpForm-registerButton {
+  padding: 1rem;
+  background-color: #596d48;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
 }
 
-.signUpForm-loginButton{
-    color:#596D48;
+.signUpForm-loginButton {
+  color: #596d48;
 }
 
 @font-face {
-    font-family: "norse-bold";
-    src: url(Norse-Bold.otf);
+  font-family: "norse-bold";
+  src: url(Norse-Bold.otf);
 }
 
-.hero{
-    background-image:url(foilage.avif);
-    max-width: 680px;
-    flex: 1;
+.hero {
+  background-image: url(foilage.avif);
+  max-width: 680px;
+  flex: 1;
 }
 
-.hero-ribbon{
-    font-size: 8rem;
-    
-    font-family: 'norse-bold', sans-serif;
-    color: white;
-    background-color: hsla(0, 50%, 10%, 0.5);
-    height: min-content;
+.hero-ribbon {
+  font-size: 8rem;
 
-    display:flex;
-    align-items:center;
-    justify-content: center;
+  font-family: "norse-bold", sans-serif;
+  color: white;
+  background-color: hsla(0, 50%, 10%, 0.5);
+  height: min-content;
 
-    margin: 0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 100%;
+  margin: 0px auto;
 
-    position: relative;
-    top: 15%
+  width: 100%;
+
+  position: relative;
+  top: 15%;
 }
 
-.hero-branding{
-    padding: 2rem;
-    margin: 2rem auto;
+.hero-branding {
+  padding: 2rem;
+  margin: 2rem auto;
 
-    white-spacE:nowrap;
+  white-space: nowrap;
 }
 
-.hero-logo{
-    height: 1em;
+.hero-logo {
+  height: 1em;
 }
 
-.primary{
-    padding-top: 10%;
-    padding-bottom: 10%;
-    background-color: hsl(0, 0%, 90%);
-
+.primary {
+  padding-top: 10%;
+  padding-bottom: 10%;
+  background-color: hsl(0, 0%, 90%);
 }
 
-.primary > *{
-    padding-left: 4rem;
+.primary > * {
+  padding-left: 4rem;
 }
 
-.callToAction{
-    font-size: 1.5rem;
+.callToAction {
+  font-size: 1.5rem;
 }

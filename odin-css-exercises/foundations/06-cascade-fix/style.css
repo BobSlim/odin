@@ -1,5 +1,5 @@
-body{
-  font-family:Arial, Helvetica, sans-serif
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 div.text {
@@ -33,11 +33,10 @@ div.text {
   background: green;
   color: white;
   font-weight: bold;
-} 
+}
 
 div.child {
   color: rgb(0, 0, 0);
   font-weight: 800;
   font-size: 14px;
 }
-

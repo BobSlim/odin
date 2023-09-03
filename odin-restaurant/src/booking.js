@@ -1,7 +1,7 @@
 const Booking = document.createElement("div");
 
-Booking.innerHTML = /**html*/`
+Booking.innerHTML = /**html*/ `
 3
-`
+`;
 
-export {Booking}
+export { Booking };

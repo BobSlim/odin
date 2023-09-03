@@ -18,11 +18,15 @@ button {
   font-size: 18px;
   padding: 16px 24px;
   text-align: center;
-  transition: width 2s, height 2s;
+  transition:
+    width 2s,
+    height 2s;
 }
 
 button:hover {
   width: 500px;
   height: 300px;
-  transition: width 2s, height 2s;
+  transition:
+    width 2s,
+    height 2s;
 }

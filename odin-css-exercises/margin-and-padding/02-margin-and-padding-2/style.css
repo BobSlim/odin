@@ -4,7 +4,7 @@ body {
 }
 
 div {
-  padding: 8px
+  padding: 8px;
 }
 
 .card {
@@ -25,7 +25,7 @@ div {
 }
 
 .button-container {
-  margin:8px 0px;
+  margin: 8px 0px;
   padding: 8px;
   text-align: center;
   background: #e3f4ff;
@@ -36,5 +36,5 @@ button {
   border: 1px solid #eee;
   padding: 8px 24px;
   display: block;
-  margin:auto;
+  margin: auto;
 }

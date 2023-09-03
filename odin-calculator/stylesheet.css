@@ -1,98 +1,97 @@
-@font-face{
-    font-family:'digital-clock-font';
-    src: url('Technology.ttf')
+@font-face {
+  font-family: "digital-clock-font";
+  src: url("Technology.ttf");
 }
 
-body{
-    height: 100VH;
-    width: 100VW;
-    font-size: 32px;
-    margin: 0px;
+body {
+  height: 100vh;
+  width: 100vw;
+  font-size: 32px;
+  margin: 0px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button{
-    border-width: 8px;
-    font-size: 16px;
-    
-    min-width:3em;
-    min-height:3em;
+button {
+  border-width: 8px;
+  font-size: 16px;
+
+  min-width: 3em;
+  min-height: 3em;
 }
 
-.numPad{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+.numPad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 
-    gap: 8px;
-    padding: 32px;
-    border-width: 8px;
-    border-color: black;
-    border-style: solid;
-    background-color: lightgoldenrodyellow;
+  gap: 8px;
+  padding: 32px;
+  border-width: 8px;
+  border-color: black;
+  border-style: solid;
+  background-color: lightgoldenrodyellow;
 
-    resize: both;
+  resize: both;
 
-    min-width: min-content;
-    min-height: min-content;
+  min-width: min-content;
+  min-height: min-content;
 }
 
-.number{
-    background-color: white;
+.number {
+  background-color: white;
 }
 
-.operator{
-    background-color: orange;
+.operator {
+  background-color: orange;
 }
 
-#btn_operate{
-    background-color: red;
-    grid-row: 5 / 7;
-    grid-column: 4 / 5;
+#btn_operate {
+  background-color: red;
+  grid-row: 5 / 7;
+  grid-column: 4 / 5;
 }
 
-#btn_0{
-    grid-column: 1 / 3;
+#btn_0 {
+  grid-column: 1 / 3;
 }
 
-#operation{
-    font-size: 48px;
+#operation {
+  font-size: 48px;
 }
 
-#firstTerm{
-    font-size: 24px;
-    width:100%
+#firstTerm {
+  font-size: 24px;
+  width: 100%;
 }
 
-#secondTerm{
-    font-size: 48px;
-    width:100%;
+#secondTerm {
+  font-size: 48px;
+  width: 100%;
 }
 
-#ui{
-    font-size: 48px;
-    padding: 8px;
-    
-    height: 72px;
+#ui {
+  font-size: 48px;
+  padding: 8px;
 
-    grid-column: 1/5;
-    background-color: white;
+  height: 72px;
 
-    border-style: solid;
-    border-width: 8px;
-    border-color: black;
+  grid-column: 1/5;
+  background-color: white;
 
-    font-family:'digital-clock-font';
+  border-style: solid;
+  border-width: 8px;
+  border-color: black;
 
-    overflow: hidden;
+  font-family: "digital-clock-font";
 
-    display: flex;
-    flex-direction:row;
-   
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
 }
 
-.ui-numberLine{
-    width: 100%
+.ui-numberLine {
+  width: 100%;
 }

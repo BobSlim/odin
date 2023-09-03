@@ -8,7 +8,7 @@ body {
   justify-content: center;
   align-items: center;
   display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: khaki;
 }
 
@@ -22,7 +22,7 @@ main {
 }
 
 h1 {
-  margin-top: 0
+  margin-top: 0;
 }
 
 ul {
@@ -55,19 +55,19 @@ li {
   flex-direction: column;
 }
 
-.playerpanel_name{
+.playerpanel_name {
   font-size: 2rem;
   font-weight: 500;
   width: 100%;
 }
 
-.playerpanel_symbol{
+.playerpanel_symbol {
   font-size: 2rem;
   font-weight: 500;
 }
 
-.currentTurn{
-  background-color: darkkhaki
+.currentTurn {
+  background-color: darkkhaki;
 }
 
 .gameboard {
@@ -82,11 +82,11 @@ li {
   padding: var(--tictactoe_gapsize);
 }
 
-.gameboard_newGameButton{
+.gameboard_newGameButton {
   width: fit-content;
   height: fit-content;
   padding: 2rem;
-  
+
   position: absolute;
   left: 0;
   right: 0;
@@ -105,11 +105,11 @@ li {
   justify-content: center;
 }
 
-.gamecell:disabled{
+.gamecell:disabled {
   color: inherit;
 }
 
-.winStroke{
+.winStroke {
   left: 0px;
   top: 0px;
   position: absolute;
@@ -118,7 +118,7 @@ li {
   pointer-events: none;
 }
 
-.winStroke>line{
+.winStroke > line {
   /* https://css-tricks.com/svg-line-animation-works/ */
   stroke-dasharray: 500;
   stroke-dashoffset: 500;

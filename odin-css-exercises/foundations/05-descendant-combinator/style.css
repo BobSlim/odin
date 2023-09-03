@@ -1,7 +1,7 @@
 /* yellow background, red text, a font size of 20px, and center aligned. */
-div p{
-    background-color: yellow;
-    color: red;
-    font-size: 20px;
-    text-align: center;
+div p {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
 }

@@ -1,89 +1,89 @@
 html {
-    font-family: sans-serif;
---clr-1: #053B50;
-    --clr-2: #176B87;
-    --clr-3: #64CCC5;
-    --clr-4: #EEEEEE;
+  font-family: sans-serif;
+  --clr-1: #053b50;
+  --clr-2: #176b87;
+  --clr-3: #64ccc5;
+  --clr-4: #eeeeee;
 }
 
 html * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    padding: 1rem;
-    background-color: var(--clr-1);
-        color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--clr-1);
+  color: white;
 }
 
 main {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    border: 1px black solid;
-    padding: 1rem;
-    gap: 1rem;
-    overflow-x: auto;
-    border-radius: 1rem;
-        background-color: var(--clr-3);
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: 1px black solid;
+  padding: 1rem;
+  gap: 1rem;
+  overflow-x: auto;
+  border-radius: 1rem;
+  background-color: var(--clr-3);
 }
 
 button {
-    border-radius: 1rem;
-    padding: 0.5rem;
-    background-color: var(--clr-2);
-    color: var(--clr-4);
-    border: none;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: var(--clr-2);
+  color: var(--clr-4);
+  border: none;
 }
 
 h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .project {
-    padding: 1rem;
-    flex: 1;
-    max-width: 70ch;
-    min-width: 30ch;
-    overflow-y: auto;
-    display: flex;
-        flex-direction: column;
-        transition: 0.5s;
-        border-radius: 1rem;
-        background-color: var(--clr-4);
-        color: black;
-        gap: 0.5rem;
+  padding: 1rem;
+  flex: 1;
+  max-width: 70ch;
+  min-width: 30ch;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s;
+  border-radius: 1rem;
+  background-color: var(--clr-4);
+  color: black;
+  gap: 0.5rem;
 }
 
 .task {
-    padding: 1rem;
-    width: 100%;
-    transition: 0.5s;
-    border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+  transition: 0.5s;
+  border-radius: 1rem;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    }
-    
-    .done {
-        color: grey;
-        background-color: var(--clr-1);
-        text-decoration: line-through;
+  display: flex;
+  justify-content: space-between;
+}
+
+.done {
+  color: grey;
+  background-color: var(--clr-1);
+  text-decoration: line-through;
 }
 
 .important {
-    border-left: 1rem orangered solid;
-    transition: 0.5s;
+  border-left: 1rem orangered solid;
+  transition: 0.5s;
 }
 
 .removed {
-    transform: scale(0, 0);
-    transition: 1s ease-in-out;
+  transform: scale(0, 0);
+  transition: 1s ease-in-out;
 }
