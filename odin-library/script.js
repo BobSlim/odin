@@ -1,5 +1,5 @@
 const addBookForm = document.querySelector("#addBook");
-const addBookButton = addBookForm.querySelector("button");
+const addBookButton = document.querySelector("#addBookButton");
 
 class Book {
   constructor(formObject) {
@@ -75,6 +75,11 @@ class Library {
 }
 
 function addBook(event) {
+  event.preventDefault()
+  if(!addBookForm.checkValidity()) {
+    addBookForm.reportValidity()
+    return
+  }
   const bookForm = new FormData(addBookForm);
   const bookObject = Object.fromEntries(bookForm.entries());
   library.addBook(new Book(bookObject));
@@ -84,4 +89,4 @@ function addBook(event) {
 const library = new Library(document.querySelector("#library"));
 
 // addBookButton.addEventListener('onclick', (event) => {addBook()});
-addBookButton.onclick = addBook;
+addBookButton.addEventListener("click", (event) => {addBook(event)});
