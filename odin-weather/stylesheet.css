@@ -1,0 +1,56 @@
+html {
+    --clr-1: #012E4A;
+    --clr-2: #036280;
+    --clr-3: #378BA4;
+    --clr-4: #81BECE;
+    --clr-5: #E8EDE7;
+
+    font-family: system-ui;
+}
+
+html * {
+    box-sizing: border-box;
+}
+
+body {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin: 0;
+    height: 100vh;
+}
+
+main {
+    flex: 1;
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border-radius: 2rem;
+}
+
+.daybanner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border-radius: 2rem;
+}
+
+.temperature {
+    font-size: 3rem;
+}
+
+.location {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.degree {
+    vertical-align: super;
+}
