@@ -91,6 +91,27 @@ class Tree {
       if(node.right){output = output.concat(this.inOrder(funct, node.right))}
       return output
     }
+
+    preOrder(funct = (node) => {}, node = this.root){
+      if(!node.children().length){funct(node); return [node]}
+      let output = []
+      funct(node)
+      output.push(node)
+      if(node.left){output = output.concat(this.preOrder(funct, node.left))}
+      if(node.right){output = output.concat(this.preOrder(funct, node.right))}
+      return output
+    }
+
+    postOrder(funct = (node) => {}, node = this.root){
+      if(!node.children().length){funct(node); return [node]}
+      let output = []
+      if(node.left){output = output.concat(this.postOrder(funct, node.left))}
+      if(node.right){output = output.concat(this.postOrder(funct, node.right))}
+      funct(node)
+      output.push(node)
+      return output
+    }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -120,8 +141,10 @@ const randomsArray = (length, maxNumber) => {
 }
 
 const array = randomsArray(16, 100)
-const setArray = [1,2,3,4,5,6]
-const tree = new Tree(array)
+const setArray = [1,2,3,4,5,6,7]
+const tree = new Tree(setArray)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
 console.log(tree.inOrder())
+console.log(tree.preOrder())
+console.log(tree.postOrder())
