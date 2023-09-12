@@ -4,7 +4,7 @@ class Node {
     constructor(data){
       this.data = data
     }
-    children(){
+    get children(){
       const output = []
       if(this.left){output.push(this.left)}; 
       if(this.right){output.push(this.right)};
@@ -19,6 +19,9 @@ class Path {
   }
   get next(){
     return this.node[this.direction]
+  }
+  set next(node){
+    this.node[this.direction] = node
   }
 }
 
@@ -38,40 +41,36 @@ class Tree {
     
     //default behaviour returns a null node and its parent. leafStop mode returns a leaf node and its parent.
     search(value, node = this.root){
-      const path = new Path(node, value > node.data ? 'right' : 'left')
-      if(node.data == null || node.data == value){
-        path.direction = 'stop';
-        return [path]
-      }
+      const path = new Path(node, 'stop')
+      if(node == null || node.data == value){return [path]}
+      path.direction = value > node.data ? 'right' : 'left'
       return [...this.search(value, path.next), path]
     }
     
     insert(value){
-      const nodeToInsert = this.search(value)
-      if(nodeToInsert.node){return false}
-      nodeToInsert.parent[nodeToInsert.direction] = new Node(value)
-      return nodeToInsert
+      const insertPath = this.search(value)
+      if(insertPath[0].node){return false}
+      const newNode = new Node(value)
+      insertPath[1].next = newNode
+      return newNode
     }
 
     delete(value){
-      const nodeToDelete = this.search(value)
-      console.log(nodeToDelete)
-      if(!nodeToDelete.node){return false}
-      
-      const children = nodeToDelete.node.children()
-      console.log(children)
+      const deletePath = this.search(value)
+      if(!deletePath[0].node){return false}      
+      const children = deletePath[0].node.children
       switch (children.length){
         case 0:
-          nodeToDelete.parent[nodeToDelete.direction] = null
+          deletePath[1].next = null
           return true
         case 1:
-          nodeToDelete.parent[nodeToDelete.direction] = children[0]
+          deletePath[1].next = children[0]
           return true
         case 2:
-          const successor = this.search(-Infinity, children[1], true)
+          const successor = this.search(-Infinity, children[1])
           //swaps data with close number, deletes useless leaf node.
-          nodeToDelete.node.data = successor.node.data
-          successor.parent[successor.direction] = null
+          deletePath[0].node.data = successor[1].node.data
+          successor[2].next = null
           return true
       }
     }
@@ -80,7 +79,7 @@ class Tree {
       if(!Array.isArray(nodes)){nodes = [nodes]}
       if(!nodes.length){return []}
       const node = nodes.shift()
-      nodes = nodes.concat(node.children())
+      nodes = nodes.concat(node.children)
       funct(node)
       return [node ,...this.levelOrder(funct, nodes)]
 
@@ -94,7 +93,7 @@ class Tree {
     }
 
     inOrder(funct = (node) => {}, node = this.root){
-      if(!node.children().length){funct(node); return [node]}
+      if(!node.children.length){funct(node); return [node]}
       let output = []
       if(node.left){output = output.concat(this.inOrder(funct, node.left))}
       funct(node)
@@ -104,7 +103,7 @@ class Tree {
     }
 
     preOrder(funct = (node) => {}, node = this.root){
-      if(!node.children().length){funct(node); return [node]}
+      if(!node.children.length){funct(node); return [node]}
       let output = []
       funct(node)
       output.push(node)
@@ -114,7 +113,7 @@ class Tree {
     }
 
     postOrder(funct = (node) => {}, node = this.root){
-      if(!node.children().length){funct(node); return [node]}
+      if(!node.children.length){funct(node); return [node]}
       let output = []
       if(node.left){output = output.concat(this.postOrder(funct, node.left))}
       if(node.right){output = output.concat(this.postOrder(funct, node.right))}
@@ -153,10 +152,11 @@ const randomsArray = (length, maxNumber) => {
 
 const array = randomsArray(16, 100)
 const setArray = [1,2,3,4,5,6,7]
-const tree = new Tree(setArray)
+const tree = new Tree(array)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
-console.log(tree.inOrder())
-console.log(tree.preOrder())
-console.log(tree.postOrder())
 console.log(tree.search(5))
+tree.insert(9)
+prettyPrint(tree.root)
+tree.delete(4)
+prettyPrint(tree.root)
