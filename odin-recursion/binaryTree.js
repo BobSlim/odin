@@ -65,7 +65,7 @@ class Tree {
       }
     }
     
-    levelOrder(funct, nodes = this.root){
+    levelOrder(funct = (node) => {}, nodes = this.root){
       if(!Array.isArray(nodes)){nodes = [nodes]}
       if(!nodes.length){return []}
       const node = nodes.shift()
@@ -82,13 +82,14 @@ class Tree {
       // this.levelOrder(funct, nodes)
     }
 
-    inOrder(funct = (node) => {}, nodes = this.root){
-      if(!Array.isArray(nodes)){nodes = [nodes]}
-      if(!nodes.length){return []}
-      const node = nodes.pop()
-      nodes = nodes.concat(node.children())
+    inOrder(funct = (node) => {}, node = this.root){
+      if(!node.children().length){funct(node); return [node]}
+      let output = []
+      if(node.left){output = output.concat(this.inOrder(funct, node.left))}
       funct(node)
-      return [node ,...this.levelOrder(funct, nodes)]
+      output.push(node)
+      if(node.right){output = output.concat(this.inOrder(funct, node.right))}
+      return output
     }
 }
 
@@ -119,17 +120,8 @@ const randomsArray = (length, maxNumber) => {
 }
 
 const array = randomsArray(16, 100)
+const setArray = [1,2,3,4,5,6]
 const tree = new Tree(array)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
-console.log(tree.search(23))
-console.log(tree.search(50))
-console.log(tree.search(70))
-console.log(tree.insert(20))
-prettyPrint(tree.root)
-console.log(tree.delete(20))
-console.log(tree.delete(40))
-console.log(tree.delete(60))
-prettyPrint(tree.root)
-console.log(tree.levelOrder(console.log))
-console.log(tree.levelOrder())
+console.log(tree.inOrder())
