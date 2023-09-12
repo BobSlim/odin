@@ -12,6 +12,16 @@ class Node {
     }
 }
 
+class Path {
+  constructor(node, direction){
+    this.node = node;
+    this.direction = direction;
+  }
+  get next(){
+    return this.node[this.direction]
+  }
+}
+
 class Tree {
     constructor(array){
         this.data = array
@@ -27,12 +37,13 @@ class Tree {
     }
     
     //default behaviour returns a null node and its parent. leafStop mode returns a leaf node and its parent.
-    search(value, node = this.root, leafStop = false){
-      const direction = value > node.data ? 'right' : 'left';
-      const nextNode = node[direction];
-      const stopCon = leafStop ? !nextNode.children().length : !nextNode
-      if(stopCon || nextNode.data == value){return {parent: node, node: nextNode, direction}}
-      return this.search(value, nextNode)
+    search(value, node = this.root){
+      const path = new Path(node, value > node.data ? 'right' : 'left')
+      if(node.data == null || node.data == value){
+        path.direction = 'stop';
+        return [path]
+      }
+      return [...this.search(value, path.next), path]
     }
     
     insert(value){
@@ -148,3 +159,4 @@ prettyPrint(tree.root)
 console.log(tree.inOrder())
 console.log(tree.preOrder())
 console.log(tree.postOrder())
+console.log(tree.search(5))
