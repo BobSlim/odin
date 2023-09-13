@@ -126,7 +126,7 @@ class Tree {
       const node = nodes.shift()
       nodes = nodes.concat(node.children)
       if(funct){funct(node)}      
-      return [node ,...this.levelOrder(funct, nodes)]
+      return [node ,...this.levelOrder(nodes, funct)]
 
       // This is technically the behaviour the spec asks for, but I'm not gonna use it. This prevents a return value if a callback is provided.
       // if(funct){
@@ -205,14 +205,28 @@ const randomsArray = (length, maxNumber) => {
 }
 
 const array = randomsArray(16, 100)
-const setArray = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
-tree.insert(8)
-tree.insert(9)
-tree.insert(10)
-tree.insert(11)
+console.log({balanced: tree.isBalanced()})
+console.log({
+  level: tree.levelOrder(),
+  pre: tree.preOrder(),
+  in: tree.inOrder(),
+  post: tree.postOrder(),
+})
+tree.insert(100)
+tree.insert(101)
+tree.insert(102)
+tree.insert(103)
 prettyPrint(tree.root)
+console.log({balanced: tree.isBalanced()})
 tree.checkBalance()
+console.log({balanced: tree.isBalanced()})
+console.log({
+  level: tree.levelOrder(),
+  pre: tree.preOrder(),
+  in: tree.inOrder(),
+  post: tree.postOrder(),
+})
 prettyPrint(tree.root)
