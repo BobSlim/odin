@@ -75,6 +75,19 @@ class Tree {
       }
     }
     
+    height(node = this.root){
+      if(!node || !node.children.length){return 0}
+      return Math.max(this.height(node.left), this.height(node.right)) + 1
+    }
+
+    depth(node){
+      return this.search(node.data).length - 1
+    }
+
+    isBalanced(node){
+      
+    }
+
     levelOrder(funct = (node) => {}, nodes = this.root){
       if(!Array.isArray(nodes)){nodes = [nodes]}
       if(!nodes.length){return []}
@@ -160,3 +173,4 @@ tree.insert(9)
 prettyPrint(tree.root)
 tree.delete(4)
 prettyPrint(tree.root)
+console.log(tree.depth(tree.search(9)[0].node))
