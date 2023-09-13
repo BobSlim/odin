@@ -84,8 +84,13 @@ class Tree {
       return this.search(node.data).length - 1
     }
 
-    isBalanced(node){
-      
+    isBalanced(node = this.root){
+      if(!node || !node.children.length){return true}
+      for(let i of node.children){
+        if(!this.isBalanced(i)){return false}
+      }
+      if(Math.abs(this.height(node.left) - this.height(node.right))>= 2){return false}
+      return true
     }
 
     levelOrder(funct = (node) => {}, nodes = this.root){
@@ -168,9 +173,7 @@ const setArray = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
-console.log(tree.search(5))
 tree.insert(9)
+tree.insert(10)
+tree.insert(11)
 prettyPrint(tree.root)
-tree.delete(4)
-prettyPrint(tree.root)
-console.log(tree.depth(tree.search(9)[0].node))
