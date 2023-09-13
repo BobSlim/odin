@@ -30,10 +30,11 @@ class Tree {
         this.data = array
         this.root
     }
+
     buildTree(array, start=0, end=-1){
         if(start > end){return null}
         const mid = Math.floor((start + end) / 2)
-        const newNode = new Node(this.data[mid])
+        const newNode = new Node(array[mid])
         newNode.left = this.buildTree(array, start, mid-1)
         newNode.right = this.buildTree(array, mid+1, end)
         return newNode
@@ -47,6 +48,12 @@ class Tree {
       return [...this.search(value, path.next), path]
     }
     
+    parent(node){
+      const searchResult = this.search(node.data)
+      if(searchResult.length == 1){return searchResult[0]}
+      return searchResult[1]
+    }
+
     insert(value){
       const insertPath = this.search(value)
       if(insertPath[0].node){return false}
@@ -93,12 +100,32 @@ class Tree {
       return true
     }
 
-    levelOrder(funct = (node) => {}, nodes = this.root){
+    rebalance(node = this.root){
+      if(!node || !node.children.length){return true}
+      const nodeArray = this.inOrder(node)
+      const array = nodeArray.map(x => x.data)
+      console.log(array)
+      const newTree = this.buildTree(array, 0, array.length-1)
+      console.log(newTree)
+      const path = this.parent(node)
+      if(path.direction == 'stop'){
+        this.root = newTree
+      }else{
+        path.next = newTree
+      }
+      return true
+    }
+
+    checkBalance(node = this.root){
+      if(!this.isBalanced(node)){this.rebalance(node)}
+    }
+
+    levelOrder(nodes = this.root, funct = false){
       if(!Array.isArray(nodes)){nodes = [nodes]}
       if(!nodes.length){return []}
       const node = nodes.shift()
       nodes = nodes.concat(node.children)
-      funct(node)
+      if(funct){funct(node)}      
       return [node ,...this.levelOrder(funct, nodes)]
 
       // This is technically the behaviour the spec asks for, but I'm not gonna use it. This prevents a return value if a callback is provided.
@@ -110,32 +137,41 @@ class Tree {
       // this.levelOrder(funct, nodes)
     }
 
-    inOrder(funct = (node) => {}, node = this.root){
-      if(!node.children.length){funct(node); return [node]}
+    inOrder(node = this.root, funct = false){
+      if(!node.children.length){
+        if(funct){funct(node)}; 
+        return [node]
+        }
       let output = []
-      if(node.left){output = output.concat(this.inOrder(funct, node.left))}
-      funct(node)
+      if(node.left){output = output.concat(this.inOrder(node.left, funct))}
+      if(funct){funct(node)}      
       output.push(node)
-      if(node.right){output = output.concat(this.inOrder(funct, node.right))}
+      if(node.right){output = output.concat(this.inOrder(node.right, funct))}
       return output
     }
 
-    preOrder(funct = (node) => {}, node = this.root){
-      if(!node.children.length){funct(node); return [node]}
+    preOrder(node = this.root, funct = false){
+      if(!node.children.length){
+        if(funct){funct(node)}; 
+        return [node]
+        }
       let output = []
-      funct(node)
+      if(funct){funct(node)}      
       output.push(node)
-      if(node.left){output = output.concat(this.preOrder(funct, node.left))}
-      if(node.right){output = output.concat(this.preOrder(funct, node.right))}
+      if(node.left){output = output.concat(this.preOrder(node.left, funct))}
+      if(node.right){output = output.concat(this.preOrder(node.right, funct))}
       return output
     }
 
-    postOrder(funct = (node) => {}, node = this.root){
-      if(!node.children.length){funct(node); return [node]}
+    postOrder(node = this.root, funct = false){
+      if(!node.children.length){
+        if(funct){funct(node)}; 
+        return [node]
+        }
       let output = []
-      if(node.left){output = output.concat(this.postOrder(funct, node.left))}
-      if(node.right){output = output.concat(this.postOrder(funct, node.right))}
-      funct(node)
+      if(node.left){output = output.concat(this.postOrder(node.left, funct))}
+      if(node.right){output = output.concat(this.postOrder(node.right, funct))}
+      if(funct){funct(node)}      
       output.push(node)
       return output
     }
@@ -173,7 +209,10 @@ const setArray = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 tree.root = tree.buildTree(tree.data, 0, tree.data.length-1)
 prettyPrint(tree.root)
+tree.insert(8)
 tree.insert(9)
 tree.insert(10)
 tree.insert(11)
+prettyPrint(tree.root)
+tree.checkBalance()
 prettyPrint(tree.root)
