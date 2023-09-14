@@ -5,10 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+    
+        #knight {
+            position: absolute;
+            height: 64px;
+            width: 64px;
+        }
+    
+        #board {
+            height: 512px;
+            width: 512px;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="binaryTree.js"></script>
+    <script src="knightsTrevails.js" defer></script>
+    <img id="board" src="board.png" alt="">
+    <img id="knight" src="knight.png" alt="">
+    <button onclick="stepPath()">next step</button>
 </body>
 
 </html>
