@@ -21,14 +21,14 @@ describe("vectorutil", () => {
     test("get between points", () => {
         expect(Vector.getPointsBetween([3,5], [3,7])).toEqual([[3,5], [3,6], [3,7]])
     });
-
 })
 
-const ship = Ship(2)
+const ship = Ship(2, 0)
 
 describe("ship", () => {
     test("creates ship", () => {
         expect(ship).toBeTruthy()
+        expect(ship.name).toBe("Patrol Boat")
     });
 
     test("hit, survives", () => {
