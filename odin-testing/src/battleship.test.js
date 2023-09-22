@@ -23,25 +23,18 @@ describe("vectorutil", () => {
     });
 })
 
-const ship = Ship(2, 0)
+let ship
 
 describe("ship", () => {
-    test("creates ship", () => {
-        expect(ship).toBeTruthy()
-        expect(ship.name).toBe("Patrol Boat")
-    });
-
-    test("hit, survives", () => {
+    test("hit twice and sunk", () => {
+        const ship = Ship(2)
+        expect(ship.isSunk()).toBe(false)
         expect(ship.hit()).toBeFalsy()
-    });
-
-    test("hit, sunk", () => {
+        expect(ship.isSunk()).toBe(false)
         expect(ship.hit()).toBeTruthy()
+        expect(ship.isSunk()).toBe(true)
     });
 
-    test("stays sunken", ()=>{
-        expect(ship.isSunk()).toBe(true)
-    })
 })
 
 const board = Gameboard()

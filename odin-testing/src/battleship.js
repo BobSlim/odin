@@ -38,17 +38,10 @@ const VectorUtils = () => {
 
 const Vector = VectorUtils()
 
-const Ship = (length, count = 0) => {
-    const nameDict = {
-        5: ["Carrier"],
-        4: ["Battleship"],
-        3: ["Destroyer", "Submarine"],
-        2: ["Patrol Boat"]
-    }
-
+const Ship = (length, name = "") => {
     let hitCount = 0
-    const name = nameDict[length][count ? 1 : 0]
-    
+    let isPlaced = false
+
     const getLength = () => {
         return length
     }
@@ -60,7 +53,7 @@ const Ship = (length, count = 0) => {
         if(isSunk()){return true}
         return false
     }
-    return { name, getLength, isSunk, hit }
+    return { name, isPlaced, getLength, isSunk, hit }
 }
 
 const Gameboard = () => {
@@ -72,7 +65,13 @@ const Gameboard = () => {
     }
 
     let board = []
-    let ships = []
+    let ships = [
+        Ship(5, "Carrier"),
+        Ship(4, "Battleship"),
+        Ship(3, "Destroyer"),
+        Ship(3, "Submarine"),
+        Ship(2, "Patrol Boat")
+    ]
 
     for (let x = 0; x < 10; x++) {
         let row = []
@@ -96,14 +95,16 @@ const Gameboard = () => {
             throw new Error("cannot overlap ships")
         }
 
+        const newShip = ships.find((x) => !x.isPlaced && x.getLength() == newShipLength)
 
-        const count = ships.filter(x => x.getLength() == newShipLength).length
-        const newShip = Ship(newShipLength, count) 
-        ships.push(newShip)
+        if(newShip == undefined){
+            throw new Error("no ship that fits those coordinates found.")
+        }
 
         for(let cell of boardCells){
             cell.shipRef = newShip
         }
+        newShip.isPlaced = true
         return true
     }
 
@@ -111,6 +112,9 @@ const Gameboard = () => {
         const cell = board[coords[0]][coords[1]]
         if(cell.hit){throw new Error("cell already hit")}
         cell.hit = true
+        if(cell.shipRef){
+            cell.shipRef.hit()
+        }
         return !!cell.shipRef
     }
     const isAllSunk = () => {
