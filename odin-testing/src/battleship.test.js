@@ -9,6 +9,12 @@ describe("vectorutil", () => {
     test("subtracts", () => {
         expect(Vector.subtract([0,2], [3,2])).toEqual([-3,0])
     });
+    test("multiplies", () => {
+        expect(Vector.multiply([0,2], [0,3])).toEqual([0,6])
+    })
+    test("scalar", () => {
+        expect(Vector.scale([0,2], 3)).toEqual([0,6])
+    })
     test("length", () => {
         expect(Vector.length([3,4])).toBe(5)
     });
@@ -23,8 +29,6 @@ describe("vectorutil", () => {
     });
 })
 
-let ship
-
 describe("ship", () => {
     test("hit twice and sunk", () => {
         const ship = Ship(2)
@@ -38,16 +42,16 @@ describe("ship", () => {
 })
 
 const board = Gameboard()
-board.addShip([0,0], [1,0])
+board.placeShip([0,0])
 
 describe("gameboard", () => {
     test("hit shot", () => {
         expect(board.receiveAttack([0,0])).toBe(true)
     });
     test("miss shot", () => {
-        expect(board.receiveAttack([0,1])).toBe(false)
+        expect(board.receiveAttack([1,0])).toBe(false)
     })
     test("sink ship", () => {
-        expect(board.receiveAttack([1,0])).toBe(true)
+        expect(board.receiveAttack([0,1])).toBe(true)
     })
 })

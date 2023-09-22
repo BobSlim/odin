@@ -10,6 +10,14 @@ const VectorUtils = () => {
         return vector1.map((x, i) => x - vector2[i])
     }
 
+    const multiply = (vector1, vector2) => {
+        return vector1.map((x, i) => x * vector2[i])
+    }
+
+    const scale = (vector1, scalar) => {
+        return vector1.map(x => x * scalar)
+    }
+
     const length = (vector) => {
         return Math.hypot(vector[0], vector[1])
     }
@@ -20,6 +28,13 @@ const VectorUtils = () => {
 
     const normalize = (vector) => {
         return vector.map((x) => x == 0 ? 0 : x / Math.abs(x))
+    }
+
+    const direction = {
+        NORTH: [0, 1],
+        EAST: [1, 0],
+        SOUTH: [0, -1],
+        WEST: [-1, 0]
     }
 
     const getPointsBetween = (vector1, vector2) => {
@@ -33,7 +48,7 @@ const VectorUtils = () => {
         }
         return output
     }
-    return {add, subtract, length, compare, normalize, getPointsBetween}
+    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, direction}
 }
 
 const Vector = VectorUtils()
@@ -53,7 +68,7 @@ const Ship = (length, name = "") => {
         if(isSunk()){return true}
         return false
     }
-    return { name, isPlaced, getLength, isSunk, hit }
+    return { name, length, isPlaced, isSunk, hit }
 }
 
 const Gameboard = () => {
@@ -72,6 +87,7 @@ const Gameboard = () => {
         Ship(3, "Submarine"),
         Ship(2, "Patrol Boat")
     ]
+    ships = new Map(ships.map(x => [x.name, x]))
 
     for (let x = 0; x < 10; x++) {
         let row = []
@@ -81,21 +97,17 @@ const Gameboard = () => {
         board.push(row)
     }
 
-    const addShip = (startCoord, endCoord) => {
-        const comparison = Vector.compare(startCoord, endCoord)
-        if(comparison.every(x => x == false)){
-            throw new Error("cannot place ships diagonally")
-        }
-
-        const shipCoords = Vector.getPointsBetween(startCoord, endCoord)
+    const placeShip = (startCoord, direction = Vector.direction.NORTH, shipName = "Patrol Boat") => {
+        const newShip = ships.get(shipName)
+        const shipCoords = [...Array(newShip.length).keys()].map(x => 
+            Vector.add(startCoord, Vector.scale(direction, x))
+        )
         const boardCells = shipCoords.map(e => board[e[0]][e[1]])
-        const newShipLength = boardCells.length
 
         if(boardCells.some(x => x.shipRef)){
             throw new Error("cannot overlap ships")
         }
 
-        const newShip = ships.find((x) => !x.isPlaced && x.getLength() == newShipLength)
 
         if(newShip == undefined){
             throw new Error("no ship that fits those coordinates found.")
@@ -120,5 +132,5 @@ const Gameboard = () => {
     const isAllSunk = () => {
         return false
     }
-    return { addShip, receiveAttack, isAllSunk }
+    return { placeShip, receiveAttack, isAllSunk }
 }
