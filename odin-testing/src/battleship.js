@@ -57,18 +57,23 @@ const Ship = (length, name = "") => {
     let hitCount = 0
     let isPlaced = false
 
-    const getLength = () => {
-        return length
-    }
     const isSunk = () => {
         return hitCount >= length
     }
+
     const hit = () => {
         hitCount++
         if(isSunk()){return true}
         return false
     }
-    return { name, length, isPlaced, isSunk, hit }
+
+    return { 
+        length,
+        name, 
+        isPlaced, 
+        hit, 
+        get isSunk(){return isSunk()}, 
+    }
 }
 
 const Gameboard = () => {
@@ -87,7 +92,6 @@ const Gameboard = () => {
         Ship(3, "Submarine"),
         Ship(2, "Patrol Boat")
     ]
-    ships = new Map(ships.map(x => [x.name, x]))
 
     for (let x = 0; x < 10; x++) {
         let row = []
@@ -98,7 +102,16 @@ const Gameboard = () => {
     }
 
     const placeShip = (startCoord, direction = Vector.direction.NORTH, shipName = "Patrol Boat") => {
-        const newShip = ships.get(shipName)
+        const newShip = ships.find(x => x.name == shipName)
+
+        if(newShip == undefined){
+            throw new Error("no ship with that name found.")
+        }
+
+        if(newShip.isPlaced){
+            throw new Error("ship already been placed, remove first.")
+        }
+
         const shipCoords = [...Array(newShip.length).keys()].map(x => 
             Vector.add(startCoord, Vector.scale(direction, x))
         )
@@ -106,11 +119,6 @@ const Gameboard = () => {
 
         if(boardCells.some(x => x.shipRef)){
             throw new Error("cannot overlap ships")
-        }
-
-
-        if(newShip == undefined){
-            throw new Error("no ship that fits those coordinates found.")
         }
 
         for(let cell of boardCells){
@@ -129,8 +137,10 @@ const Gameboard = () => {
         }
         return !!cell.shipRef
     }
-    const isAllSunk = () => {
-        return false
+    return { 
+        placeShip, 
+        receiveAttack, 
+        get isAllSunk(){return ships.every(x => x.sunk)}, 
+        get isAllPlaced(){return ships.every(x => x.placed)} 
     }
-    return { placeShip, receiveAttack, isAllSunk }
 }
