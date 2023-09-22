@@ -38,7 +38,6 @@ describe("ship", () => {
         expect(ship.hit()).toBe(true)
         expect(ship.isSunk).toBe(true)
     });
-
 })
 
 const board = Gameboard()

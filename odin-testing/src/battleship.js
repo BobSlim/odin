@@ -30,13 +30,6 @@ const VectorUtils = () => {
         return vector.map((x) => x == 0 ? 0 : x / Math.abs(x))
     }
 
-    const direction = {
-        DOWN: [0, 1],
-        RIGHT: [1, 0],
-        UP: [0, -1],
-        LEFT: [-1, 0]
-    }
-
     const getPointsBetween = (vector1, vector2) => {
         const step = normalize(subtract(vector2, vector1))
         const output = [vector1]
@@ -48,7 +41,7 @@ const VectorUtils = () => {
         }
         return output
     }
-    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, direction}
+    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween}
 }
 
 const Vector = VectorUtils()
@@ -109,31 +102,49 @@ const Gameboard = () => {
         return ship 
     }
 
+    const getCell = (coords) => {
+        const cell = board[coords[0]][coords[1]]
+        if(cell == undefined){
+            throw new Error("requested cell out of bounds")
+        }
+        return cell
+    }
+
+    const getShipCells = (ship) => {
+        board.flat().filter(x => x.shipRef == ship)
+    }
+
+    const getDirection = (directionKey) => {
+        const direction = {
+            DOWN: [0, 1],
+            RIGHT: [1, 0],
+            UP: [0, -1],
+            LEFT: [-1, 0]
+        }
+        const vect = direction[directionKey.toUpperCase()]
+        if (vect == undefined){
+            throw new Error("invalid direction key")
+        }
+        return vect 
+    }
+
     const removeShip = (shipName) => {
         return true
     }
 
-    const placeShip = (startCoord, direction = "down", shipName = "Patrol Boat") => {
+    const placeShip = (startCoord, direction = "DOWN", shipName = "Patrol Boat") => {
 
-        const directionVector = Vector.direction[direction.toUpperCase()]
         const newShip = getShip(shipName)
 
         if(newShip.isPlaced){
             throw new Error("ship already been placed, remove first.")
         }
-
-        if (directionVector == undefined){
-            throw new Error("invalid direction key")
-        }
-
+        
+        const directionVector = getDirection(direction)
         const shipCoords = [...Array(newShip.length).keys()].map(x => 
             Vector.add(startCoord, Vector.scale(directionVector, x))
         )
-        const boardCells = shipCoords.map(e => board[e[0]][e[1]])
-
-        if(boardCells.some(x => x == undefined)){
-            throw new Error("requested board out of bounds")
-        }
+        const boardCells = shipCoords.map(e => getCell(e))
 
         if(boardCells.some(x => x.shipRef)){
             throw new Error("cannot overlap ships")
