@@ -101,9 +101,13 @@ const Gameboard = () => {
         board.push(row)
     }
 
+    const getShip = (shipName) => {
+        return ships.find(x => x.name == shipName)
+    }
+
     const placeShip = (startCoord, direction = "down", shipName = "Patrol Boat") => {
 
-        const newShip = ships.find(x => x.name == shipName)
+        const newShip = getShip(shipName)
         const directionVector = Vector.direction[direction.toUpperCase()]
 
         if(newShip == undefined){
