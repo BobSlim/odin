@@ -102,17 +102,21 @@ const Gameboard = () => {
     }
 
     const getShip = (shipName) => {
-        return ships.find(x => x.name == shipName)
+        const ship = ships.find(x => x.name == shipName)
+        if(ship == undefined){
+            throw new Error("no ship with that name found.")
+        }
+        return ship 
+    }
+
+    const removeShip = (shipName) => {
+        return true
     }
 
     const placeShip = (startCoord, direction = "down", shipName = "Patrol Boat") => {
 
-        const newShip = getShip(shipName)
         const directionVector = Vector.direction[direction.toUpperCase()]
-
-        if(newShip == undefined){
-            throw new Error("no ship with that name found.")
-        }
+        const newShip = getShip(shipName)
 
         if(newShip.isPlaced){
             throw new Error("ship already been placed, remove first.")
