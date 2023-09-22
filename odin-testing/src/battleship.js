@@ -121,6 +121,10 @@ const Gameboard = () => {
             throw new Error("cannot overlap ships")
         }
 
+        if(boardCells.some(x => x.hit)){
+            throw new Error("cells have been hit; will result in softlock")
+        }
+
         for(let cell of boardCells){
             cell.shipRef = newShip
         }
