@@ -31,10 +31,10 @@ const VectorUtils = () => {
     }
 
     const direction = {
-        NORTH: [0, 1],
-        EAST: [1, 0],
-        SOUTH: [0, -1],
-        WEST: [-1, 0]
+        DOWN: [0, 1],
+        RIGHT: [1, 0],
+        UP: [0, -1],
+        LEFT: [-1, 0]
     }
 
     const getPointsBetween = (vector1, vector2) => {
@@ -101,8 +101,10 @@ const Gameboard = () => {
         board.push(row)
     }
 
-    const placeShip = (startCoord, direction = Vector.direction.NORTH, shipName = "Patrol Boat") => {
+    const placeShip = (startCoord, direction = "down", shipName = "Patrol Boat") => {
+
         const newShip = ships.find(x => x.name == shipName)
+        const directionVector = Vector.direction[direction.toUpperCase()]
 
         if(newShip == undefined){
             throw new Error("no ship with that name found.")
@@ -112,8 +114,12 @@ const Gameboard = () => {
             throw new Error("ship already been placed, remove first.")
         }
 
+        if (directionVector == undefined){
+            throw new Error("invalid direction key")
+        }
+
         const shipCoords = [...Array(newShip.length).keys()].map(x => 
-            Vector.add(startCoord, Vector.scale(direction, x))
+            Vector.add(startCoord, Vector.scale(directionVector, x))
         )
         const boardCells = shipCoords.map(e => board[e[0]][e[1]])
 
