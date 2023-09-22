@@ -102,7 +102,7 @@ const Gameboard = () => {
     }
 
     const getShip = (shipName) => {
-        const ship = ships.find(x => x.name == shipName)
+        const ship = ships.find(x => x.name.toLowerCase() == shipName.toLowerCase())
         if(ship == undefined){
             throw new Error("no ship with that name found.")
         }
@@ -130,6 +130,10 @@ const Gameboard = () => {
             Vector.add(startCoord, Vector.scale(directionVector, x))
         )
         const boardCells = shipCoords.map(e => board[e[0]][e[1]])
+
+        if(boardCells.some(x => x == undefined)){
+            throw new Error("requested board out of bounds")
+        }
 
         if(boardCells.some(x => x.shipRef)){
             throw new Error("cannot overlap ships")

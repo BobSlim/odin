@@ -45,6 +45,9 @@ const board = Gameboard()
 board.placeShip([0,0])
 
 describe("gameboard", () => {
+    test("refuses out of bounds", () => {
+        expect(() => board.placeShip([9,9], "down", "Battleship")).toThrow()
+    })
     test("hit shot", () => {
         expect(board.receiveAttack([0,0])).toBe(true)
     });
