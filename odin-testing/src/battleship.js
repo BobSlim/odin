@@ -140,7 +140,7 @@ const Gameboard = () => {
     return { 
         placeShip, 
         receiveAttack, 
-        get isAllSunk(){return ships.every(x => x.sunk)}, 
-        get isAllPlaced(){return ships.every(x => x.placed)} 
+        get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
+        get isAllPlaced(){return ships.every(x => x.isPlaced)} 
     }
 }

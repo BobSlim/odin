@@ -51,7 +51,13 @@ describe("gameboard", () => {
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)
     })
+    test("all ships sunk", () => {
+        expect(board.isAllSunk).toBe(false)
+    })
     test("sink ship", () => {
         expect(board.receiveAttack([0,1])).toBe(true)
+    })
+    test("all ships sunk", () => {
+        expect(board.isAllSunk).toBe(true)
     })
 })
