@@ -24,6 +24,7 @@ describe("gameboard", () => {
     })
     test("refuses out of bounds", () => {
         expect(board.placeShip([9,9], Vector.getDirection("down"), "Battleship")).toBeInstanceOf(Error)
+        expect(board.placeShip([0,0], Vector.getDirection("left"))).toBeInstanceOf(Error)
     })
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)

@@ -11,7 +11,7 @@ export const Player = () => {
     let enemy
     const placeRemainingShips = () => {
         const remainingShips = board.ships.filter(x => !x.isPlaced)
-        while(remainingShips.length >= 1){
+        while(remainingShips.length > 0){
             const ship = remainingShips.shift()
             while (!ship.isPlaced){
                 const randomDirection = Vector.directionArray[randomInt(3)]

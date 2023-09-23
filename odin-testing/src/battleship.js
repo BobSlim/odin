@@ -61,10 +61,12 @@ export const Gameboard = () => {
     }
 
     const getCell = (coords) => {
-        const cell = board[coords[0]][coords[1]]
-        if(cell == undefined){
+        const x = coords[0]
+        const y = coords[1]
+        if(x < 0 | x > 9 | y < 0 | y > 9){
             return new Error("requested cell out of bounds")
         }
+        const cell = board[coords[0]][coords[1]]
         return cell
     }
 
@@ -74,6 +76,18 @@ export const Gameboard = () => {
             throw new Error("ship cells could not be found")
         }
         return cells 
+    }
+
+    const print = () => {
+        const symbol = (cell) => {
+            let output = 
+                cell.hit ? "x" : 
+                cell.shipRef ? cell.shipRef.name.slice(0,1) : 
+                "."
+            return output
+        }
+        const string = board.map(x => x.map(y => symbol(y)).join(" ")).join("\n")
+        return string
     }
 
     const removeShip = (shipName) => {
@@ -135,6 +149,7 @@ export const Gameboard = () => {
         getCell,
         ships,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
-        get isAllPlaced(){return ships.every(x => x.isPlaced)} 
+        get isAllPlaced(){return ships.every(x => x.isPlaced)},
+        print
     }
 }
