@@ -16,7 +16,9 @@ export const Player = () => {
             while (!ship.isPlaced){
                 const randomDirection = Vector.directionArray[randomInt(3)]
                 const randomCoords = [randomInt(9), randomInt(9)]
-                board.placeShip(randomCoords, randomDirection, ship.name)
+                if(board.checkShipPlace(randomCoords, randomDirection, ship.name)){
+                    board.placeShip(randomCoords, randomDirection, ship.name)
+                }
             }
         }
     }
