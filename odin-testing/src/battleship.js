@@ -76,20 +76,6 @@ export const Gameboard = () => {
         return cells 
     }
 
-    const getDirection = (directionKey) => {
-        const direction = {
-            DOWN: [0, 1],
-            RIGHT: [1, 0],
-            UP: [0, -1],
-            LEFT: [-1, 0]
-        }
-        const vect = direction[directionKey.toUpperCase()]
-        if (vect == undefined){
-            throw new Error("invalid direction key")
-        }
-        return vect 
-    }
-
     const removeShip = (shipName) => {
         const ship = getShip(shipName)
         if(!ship.isPlaced){
@@ -100,7 +86,7 @@ export const Gameboard = () => {
         return true
     }
 
-    const placeShip = (startCoord, direction = "DOWN", shipName = "Patrol Boat") => {
+    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
 
         const newShip = getShip(shipName)
 
@@ -108,9 +94,8 @@ export const Gameboard = () => {
             throw new Error("ship already been placed, remove first.")
         }
         
-        const directionVector = getDirection(direction)
         const shipCoords = [...Array(newShip.length).keys()].map(x => 
-            Vector.add(startCoord, Vector.scale(directionVector, x))
+            Vector.add(startCoord, Vector.scale(direction, x))
         )
         const boardCells = shipCoords.map(e => getCell(e))
 

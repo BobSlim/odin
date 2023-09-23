@@ -38,5 +38,22 @@ export default VectorUtils = () => {
         }
         return output
     }
-    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween}
+    
+    const directionArray = [[0,1],[1,0],[0,-1],[-1,0]]
+
+    const getDirection = (directionKey) => {
+        const direction = {
+            DOWN: 0,
+            RIGHT: 1,
+            UP: 2,
+            LEFT: 3
+        }
+        const vect = directionArray[direction[directionKey.toUpperCase()]]
+        if (vect == undefined){
+            throw new Error("invalid direction key")
+        }
+        return vect 
+    }
+
+    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, getDirection, directionArray}
 }
