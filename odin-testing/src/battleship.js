@@ -100,22 +100,17 @@ export const Gameboard = () => {
         return true
     }
 
-    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
-
-        const newShip = getShip(shipName)
-
-        if(newShip.isPlaced){
-            throw new Error("ship already been placed, remove first.")
-        }
-        
-        const shipCoords = [...Array(newShip.length).keys()].map(x => 
+    const getPlaceCells = (startCoord, direction, length) => {
+        const shipCoords = [...Array(length).keys()].map(x => 
             Vector.add(startCoord, Vector.scale(direction, x))
         )
-
         const boardCells = shipCoords.map(e => getCell(e))
+        return boardCells
+    }
 
+    const validateCells = (boardCells) => {
         if(boardCells.some(x => x instanceof Error)){
-            return new Error("failed to capture cell")
+            return new Error("some cells could not be acquired.")
         }
 
         if(boardCells.some(x => x.shipRef)){
@@ -125,7 +120,19 @@ export const Gameboard = () => {
         if(boardCells.some(x => x.hit)){
             return new Error("cells have been hit; will result in softlock")
         }
+        return true
+    }
 
+    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
+        const newShip = getShip(shipName)
+        const boardCells = getPlaceCells(startCoord, direction, newShip.length)
+        const cellValid = validateCells(boardCells)
+        if(cellValid instanceof Error){
+            return cellValid
+        }
+        if(newShip.isPlaced){
+            throw new Error("ship already been placed, remove first.")
+        }
         for(let cell of boardCells){
             cell.shipRef = newShip
         }
