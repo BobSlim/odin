@@ -29,10 +29,10 @@ export const Ship = (length, name = "") => {
 
 export const Gameboard = () => {
 
-    const Gamecell = () => {
+    const Gamecell = (coords) => {
         let shipRef = null
         let hit = false
-        return {shipRef, hit}
+        return {coords, shipRef, hit}
     }
 
     let board = []
@@ -47,7 +47,7 @@ export const Gameboard = () => {
     for (let x = 0; x < 10; x++) {
         let row = []
         for (let y = 0; y < 10; y++) {
-            row.push(Gamecell())
+            row.push(Gamecell([x, y]))
         }
         board.push(row)
     }
