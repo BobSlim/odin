@@ -1,4 +1,5 @@
-import { Gameboard, Ship, VectorUtils } from "./battleship.js"
+import { Gameboard, Ship } from "./battleship.js"
+import VectorUtils from "./vector.js";
 
 const Vector = VectorUtils()
 

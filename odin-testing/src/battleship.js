@@ -1,52 +1,10 @@
-export { Gameboard, Ship, VectorUtils }
+import VectorUtils from "./vector.js"
 
 //a vector is an array of [x, y].
-const VectorUtils = () => {
-    const add = (vector1, vector2) => {
-        return vector1.map((x, i) => x + vector2[i])
-    }
-
-    const subtract = (vector1, vector2) => {
-        return vector1.map((x, i) => x - vector2[i])
-    }
-
-    const multiply = (vector1, vector2) => {
-        return vector1.map((x, i) => x * vector2[i])
-    }
-
-    const scale = (vector1, scalar) => {
-        return vector1.map(x => x * scalar)
-    }
-
-    const length = (vector) => {
-        return Math.hypot(vector[0], vector[1])
-    }
-
-    const compare = (vector1, vector2) => {
-        return vector1.map((x, i) => x == vector2[i])
-    }
-
-    const normalize = (vector) => {
-        return vector.map((x) => x == 0 ? 0 : x / Math.abs(x))
-    }
-
-    const getPointsBetween = (vector1, vector2) => {
-        const step = normalize(subtract(vector2, vector1))
-        const output = [vector1]
-        let count = 0
-        while(!(compare(output[output.length-1], vector2).every(x => x == true)) && count <= 1000){
-            const nextStep = add(output[output.length-1], step)
-            output.push(nextStep)
-            count++
-        }
-        return output
-    }
-    return {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween}
-}
 
 const Vector = VectorUtils()
 
-const Ship = (length, name = "") => {
+export const Ship = (length, name = "") => {
     let hitCount = 0
     let isPlaced = false
 
@@ -69,7 +27,7 @@ const Ship = (length, name = "") => {
     }
 }
 
-const Gameboard = () => {
+export const Gameboard = () => {
 
     const Gamecell = () => {
         let shipRef = null
@@ -157,11 +115,11 @@ const Gameboard = () => {
         const boardCells = shipCoords.map(e => getCell(e))
 
         if(boardCells.some(x => x.shipRef)){
-            throw new Error("cannot overlap ships")
+            return new Error("cannot overlap ships")
         }
 
         if(boardCells.some(x => x.hit)){
-            throw new Error("cells have been hit; will result in softlock")
+            return new Error("cells have been hit; will result in softlock")
         }
 
         for(let cell of boardCells){
@@ -185,6 +143,7 @@ const Gameboard = () => {
         removeShip, 
         receiveAttack, 
         getCell,
+        ships,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
         get isAllPlaced(){return ships.every(x => x.isPlaced)} 
     }
