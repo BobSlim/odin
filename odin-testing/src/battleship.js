@@ -100,15 +100,23 @@ export const Gameboard = () => {
         return true
     }
 
-    const getPlaceCells = (startCoord, direction, length) => {
+    const checkShipPlace = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
+        const ship = getShip(shipName)
+        const cells = shipCells(startCoord, direction, ship.length)
+        return !(cells instanceof Error)
+    }
+
+    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
+        const ship = getShip(shipName)
+        const cells = shipCells(startCoord, direction, ship.length)
+        return commitShip(cells, ship)
+    }
+
+    const shipCells = (startCoord, direction, length) => {
         const shipCoords = [...Array(length).keys()].map(x => 
             Vector.add(startCoord, Vector.scale(direction, x))
         )
         const boardCells = shipCoords.map(e => getCell(e))
-        return boardCells
-    }
-
-    const validateCells = (boardCells) => {
         if(boardCells.some(x => x instanceof Error)){
             return new Error("some cells could not be acquired.")
         }
@@ -120,23 +128,20 @@ export const Gameboard = () => {
         if(boardCells.some(x => x.hit)){
             return new Error("cells have been hit; will result in softlock")
         }
-        return true
-    }
+        return boardCells
 
-    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
-        const newShip = getShip(shipName)
-        const boardCells = getPlaceCells(startCoord, direction, newShip.length)
-        const cellValid = validateCells(boardCells)
-        if(cellValid instanceof Error){
-            return cellValid
+    }
+    const commitShip = (cells, ship) => {
+        if(cells instanceof Error){
+            return cells
         }
-        if(newShip.isPlaced){
+        if(ship.isPlaced){
             throw new Error("ship already been placed, remove first.")
         }
-        for(let cell of boardCells){
-            cell.shipRef = newShip
+        for(let cell of cells){
+            cell.shipRef = ship
         }
-        newShip.isPlaced = true
+        ship.isPlaced = true
         return true
     }
 
@@ -151,6 +156,7 @@ export const Gameboard = () => {
     }
     return { 
         placeShip,
+        checkShipPlace,
         removeShip, 
         receiveAttack, 
         getCell,
