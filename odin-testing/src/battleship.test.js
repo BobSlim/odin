@@ -40,26 +40,35 @@ describe("ship", () => {
     });
 })
 
-const board = Gameboard()
-board.placeShip([0,0])
 
 describe("gameboard", () => {
+    let board
+    beforeEach(() => {
+        board = Gameboard()
+    })
+    afterEach(() => {
+        board = null
+    })
     test("refuses out of bounds", () => {
         expect(() => board.placeShip([9,9], "down", "Battleship")).toThrow()
     })
-    test("hit shot", () => {
-        expect(board.receiveAttack([0,0])).toBe(true)
-    });
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)
     })
-    test("all ships sunk", () => {
-        expect(board.isAllSunk).toBe(false)
-    })
+    test("hit shot", () => {
+        board.placeShip([0,0], "down")
+        expect(board.receiveAttack([0,0])).toBe(true)
+    });
     test("sink ship", () => {
+        board.placeShip([0,0], "down")
+        board.receiveAttack([0,0])
         expect(board.receiveAttack([0,1])).toBe(true)
     })
     test("all ships sunk", () => {
+        board.placeShip([0,0], "down")
+        board.receiveAttack([0,0])
+        expect(board.isAllSunk).toBe(false)
+        board.receiveAttack([0,1])
         expect(board.isAllSunk).toBe(true)
     })
     test("removes ship properly", () => {
