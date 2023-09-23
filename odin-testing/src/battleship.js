@@ -113,7 +113,7 @@ const Gameboard = () => {
     const getShipCells = (ship) => {
         const cells = board.flat().filter(x => x.shipRef == ship)
         if(!cells){
-            return Error("ship cells could not be found")
+            throw new Error("ship cells could not be found")
         }
         return cells 
     }
@@ -135,7 +135,7 @@ const Gameboard = () => {
     const removeShip = (shipName) => {
         const ship = getShip(shipName)
         if(!ship.isPlaced){
-            return Error("ship is not placed")
+            throw new Error("ship is not placed")
         }
         getShipCells(ship).forEach(x => x.shipRef = null)
         ship.isPlaced = false
@@ -172,7 +172,7 @@ const Gameboard = () => {
     }
 
     const receiveAttack = (coords) => {
-        const cell = board[coords[0]][coords[1]]
+        const cell = getCell(coords)
         if(cell.hit){throw new Error("cell already hit")}
         cell.hit = true
         if(cell.shipRef){
