@@ -63,7 +63,7 @@ export const Gameboard = () => {
     const getCell = (coords) => {
         const cell = board[coords[0]][coords[1]]
         if(cell == undefined){
-            throw new Error("requested cell out of bounds")
+            return new Error("requested cell out of bounds")
         }
         return cell
     }
@@ -97,7 +97,12 @@ export const Gameboard = () => {
         const shipCoords = [...Array(newShip.length).keys()].map(x => 
             Vector.add(startCoord, Vector.scale(direction, x))
         )
+
         const boardCells = shipCoords.map(e => getCell(e))
+
+        if(boardCells.some(x => x instanceof Error)){
+            return new Error("failed to capture cell")
+        }
 
         if(boardCells.some(x => x.shipRef)){
             return new Error("cannot overlap ships")

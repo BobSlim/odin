@@ -23,7 +23,7 @@ describe("gameboard", () => {
         board = null
     })
     test("refuses out of bounds", () => {
-        expect(() => board.placeShip([9,9], Vector.getDirection("down"), "Battleship")).toThrow()
+        expect(board.placeShip([9,9], Vector.getDirection("down"), "Battleship")).toBeInstanceOf(Error)
     })
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)
