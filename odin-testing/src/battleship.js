@@ -181,8 +181,10 @@ const Gameboard = () => {
         return !!cell.shipRef
     }
     return { 
-        placeShip, 
+        placeShip,
+        removeShip, 
         receiveAttack, 
+        getCell,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
         get isAllPlaced(){return ships.every(x => x.isPlaced)} 
     }

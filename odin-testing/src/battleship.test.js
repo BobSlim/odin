@@ -62,4 +62,11 @@ describe("gameboard", () => {
     test("all ships sunk", () => {
         expect(board.isAllSunk).toBe(true)
     })
+    test("removes ship properly", () => {
+        let newBoard = Gameboard()
+        newBoard.placeShip([0,0], "down", "Patrol Boat")
+        expect(newBoard.getCell([0,0]).shipRef).toBeTruthy
+        newBoard.removeShip("Patrol Boat")
+        expect(newBoard.getCell([0,0]).shipRef).toBeFalsy
+    })
 })
