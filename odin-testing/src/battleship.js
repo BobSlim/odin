@@ -111,7 +111,11 @@ const Gameboard = () => {
     }
 
     const getShipCells = (ship) => {
-        board.flat().filter(x => x.shipRef == ship)
+        const cells = board.flat().filter(x => x.shipRef == ship)
+        if(!cells){
+            return Error("ship cells could not be found")
+        }
+        return cells 
     }
 
     const getDirection = (directionKey) => {
@@ -129,6 +133,12 @@ const Gameboard = () => {
     }
 
     const removeShip = (shipName) => {
+        const ship = getShip(shipName)
+        if(!ship.isPlaced){
+            return Error("ship is not placed")
+        }
+        getShipCells(ship).forEach(x => x.shipRef = null)
+        ship.isPlaced = false
         return true
     }
 
