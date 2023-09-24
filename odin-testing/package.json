@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/jest": "^29.5.5",
     "eslint": "^8.48.0"
   },
   "devDependencies": {

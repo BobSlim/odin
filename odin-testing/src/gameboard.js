@@ -59,7 +59,7 @@ export default Gameboard = () => {
     }
 
     const print = () => {
-        const string = board.map(x => x.map(y => y.symbol()).join(" ")).join("\n")
+        const string = board.map(x => x.map(y => y.symbol).join(" ")).join("\n")
         return string
     }
 

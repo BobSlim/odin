@@ -42,3 +42,22 @@ describe("gameboard", () => {
         expect(newBoard.getCell([0,0]).shipRef).toBeFalsy
     })
 })
+
+describe("print", () => {
+    test("with two hits", () => {
+        const board = Gameboard()
+        board.receiveAttack([0,0])
+        board.receiveAttack([0,1])
+        expect(board.print()).toBe(
+        `x x . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .
+. . . . . . . . . .`)
+    })
+})

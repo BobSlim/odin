@@ -1,9 +1,10 @@
-export default Gamecell = (coords) => {
+export default Gamecell = (coords = [0,0]) => {
     let shipRef = null;
     let hit = false;
-    const symbol = () => hit ? "x" :
+    const symbol = () => 
+        hit ? "x" :
         shipRef ? shipRef.name.slice(0, 1) :
-            ".";
+        ".";
 
     return {
         coords,
