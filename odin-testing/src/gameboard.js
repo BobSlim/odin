@@ -1,3 +1,4 @@
+import Gamecell from "./gamecell"
 import Ship from "./ship"
 import VectorUtils from "./vector"
 
@@ -6,18 +7,6 @@ import VectorUtils from "./vector"
 const Vector = VectorUtils()
 
 export default Gameboard = () => {
-    const Gamecell = (coords) => {
-        let shipRef = null
-        let hit = false
-        return {
-            coords, 
-            get shipRef(){return shipRef}, 
-            set shipRef(newShip){shipRef = newShip},
-            get hit(){return hit},
-            set hit(newHit){hit = newHit},
-            }
-    }
-
     let board = []
     let ships = [
         Ship(5, "Carrier"),
@@ -70,14 +59,7 @@ export default Gameboard = () => {
     }
 
     const print = () => {
-        const symbol = (cell) => {
-            let output = 
-                cell.hit ? "x" : 
-                cell.shipRef ? cell.shipRef.name.slice(0,1) : 
-                "."
-            return output
-        }
-        const string = board.map(x => x.map(y => symbol(y)).join(" ")).join("\n")
+        const string = board.map(x => x.map(y => y.symbol()).join(" ")).join("\n")
         return string
     }
 
