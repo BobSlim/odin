@@ -20,12 +20,16 @@ export const Player = () => {
         const remainingShips = board.ships.filter(x => !x.isPlaced)
         while(remainingShips.length > 0){
             const ship = remainingShips.shift()
-            while (!ship.isPlaced){
-                const coords = randomCoords()
-                const randomDirection = Vector.directionArray[randomInt(3)]
-                if(board.checkShipPlace(coords, randomDirection, ship.name)){
-                    board.placeShip(coords, randomDirection, ship.name)
-                }
+            placeShipRandomly(ship)
+        }
+    }
+
+    const placeShipRandomly = (ship) => {
+        while (!ship.isPlaced){
+            const coords = randomCoords()
+            const randomDirection = Vector.directionArray[randomInt(3)]
+            if(board.checkShipPlace(coords, randomDirection, ship.name)){
+                board.placeShip(coords, randomDirection, ship.name)
             }
         }
     }
