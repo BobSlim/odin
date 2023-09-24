@@ -9,15 +9,19 @@ const randomInt = (max) => {
 export const Player = () => {
     const board = Gameboard()
     let enemy
+    const randomCoords = () => {
+        return [randomInt(9), randomInt(9)]
+    }
+
     const placeRemainingShips = () => {
         const remainingShips = board.ships.filter(x => !x.isPlaced)
         while(remainingShips.length > 0){
             const ship = remainingShips.shift()
             while (!ship.isPlaced){
+                const coords = randomCoords()
                 const randomDirection = Vector.directionArray[randomInt(3)]
-                const randomCoords = [randomInt(9), randomInt(9)]
-                if(board.checkShipPlace(randomCoords, randomDirection, ship.name)){
-                    board.placeShip(randomCoords, randomDirection, ship.name)
+                if(board.checkShipPlace(coords, randomDirection, ship.name)){
+                    board.placeShip(coords, randomDirection, ship.name)
                 }
             }
         }
