@@ -31,4 +31,15 @@ describe("player", () => {
         }
         expect(player2.board.getHitCount()).toBe(50)
     })
+    test("randomly fires at 100 squares", () => {
+        const player1 = Player()
+        const player2 = Player()
+        player1.setEnemy(player2) 
+        player2.setEnemy(player1)
+        for (let index = 0; index < 100; index++) {
+            player1.attackEnemy();
+        }
+        expect(player2.board.getHitCount()).toBe(100)
+    })
+
 })
