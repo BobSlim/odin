@@ -8,6 +8,9 @@ const randomInt = (max) => {
 
 export const Player = () => {
     const board = Gameboard()
+    /**
+     * @type Player
+     */
     let enemy
     const randomCoords = () => {
         return [randomInt(9), randomInt(9)]
@@ -26,8 +29,26 @@ export const Player = () => {
             }
         }
     }
+
+    const setEnemy = (enemyRef) => {
+        enemy = enemyRef
+        return enemy
+    }
+
+    const attackEnemy = (coords) => {
+        if(!coords){coords = getRandomShot()}
+        enemy.board.receiveAttack(coords)
+    }
+
+    const getRandomShot = () => {
+        const openCells = enemy.board.getBoard().flat().filter(x => !x.hit)
+        return openCells[randomInt(openCells.length - 1)].coords
+    }
+
     return {
         board,
         placeRemainingShips,
+        setEnemy,
+        attackEnemy,
         }
 }

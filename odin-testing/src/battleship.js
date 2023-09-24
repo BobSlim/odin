@@ -32,7 +32,13 @@ export const Gameboard = () => {
     const Gamecell = (coords) => {
         let shipRef = null
         let hit = false
-        return {coords, shipRef, hit}
+        return {
+            coords, 
+            get shipRef(){return shipRef}, 
+            set shipRef(newShip){shipRef = newShip},
+            get hit(){return hit},
+            set hit(newHit){hit = newHit},
+            }
     }
 
     let board = []
@@ -68,6 +74,14 @@ export const Gameboard = () => {
         }
         const cell = board[coords[0]][coords[1]]
         return cell
+    }
+
+    const getBoard = () => {
+        return board
+    }
+
+    const getHitCount = () => {
+        return board.flat().filter(x => x.hit).length
     }
 
     const getShipCells = (ship) => {
@@ -160,6 +174,8 @@ export const Gameboard = () => {
         removeShip, 
         receiveAttack, 
         getCell,
+        getBoard,
+        getHitCount,
         ships,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
         get isAllPlaced(){return ships.every(x => x.isPlaced)},
