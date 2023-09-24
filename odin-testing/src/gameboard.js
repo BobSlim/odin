@@ -1,34 +1,11 @@
-import VectorUtils from "./vector.js"
+import Ship from "./ship"
+import VectorUtils from "./vector"
 
 //a vector is an array of [x, y].
 
 const Vector = VectorUtils()
 
-export const Ship = (length, name = "") => {
-    let hitCount = 0
-    let isPlaced = false
-
-    const isSunk = () => {
-        return hitCount >= length
-    }
-
-    const hit = () => {
-        hitCount++
-        if(isSunk()){return true}
-        return false
-    }
-
-    return { 
-        length,
-        name, 
-        isPlaced, 
-        hit, 
-        get isSunk(){return isSunk()}, 
-    }
-}
-
-export const Gameboard = () => {
-
+export default Gameboard = () => {
     const Gamecell = (coords) => {
         let shipRef = null
         let hit = false

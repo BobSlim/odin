@@ -1,4 +1,4 @@
-import VectorUtils from "./vector.js";
+import VectorUtils from "../vector.js";
 
 const Vector = VectorUtils();
 describe("vectorutil", () => {
