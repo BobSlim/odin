@@ -1,8 +1,6 @@
 
 import { Gameboard } from "#src/gameboard";
-import { VectorUtils } from "#src/vector";
-
-const Vector = VectorUtils()
+import { getDirection } from "#src/vector";
 
 describe("gameboard", () => {
     let board
@@ -13,23 +11,23 @@ describe("gameboard", () => {
         board = null
     })
     test("refuses out of bounds", () => {
-        expect(board.placeShip([9,9], Vector.getDirection("down"), "Battleship")).toBeInstanceOf(Error)
-        expect(board.placeShip([0,0], Vector.getDirection("left"))).toBeInstanceOf(Error)
+        expect(board.placeShip([9,9], getDirection("down"), "Battleship")).toBeInstanceOf(Error)
+        expect(board.placeShip([0,0], getDirection("left"))).toBeInstanceOf(Error)
     })
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)
     })
     test("hit shot", () => {
-        board.placeShip([0,0], Vector.getDirection("down"))
+        board.placeShip([0,0], getDirection("down"))
         expect(board.receiveAttack([0,0])).toBe(true)
     });
     test("sink ship", () => {
-        board.placeShip([0,0], Vector.getDirection("down"))
+        board.placeShip([0,0], getDirection("down"))
         board.receiveAttack([0,0])
         expect(board.receiveAttack([0,1])).toBe(true)
     })
     test("all ships sunk", () => {
-        board.placeShip([0,0], Vector.getDirection("down"))
+        board.placeShip([0,0], getDirection("down"))
         board.receiveAttack([0,0])
         expect(board.isAllSunk).toBe(false)
         board.receiveAttack([0,1])
@@ -37,7 +35,7 @@ describe("gameboard", () => {
     })
     test("removes ship properly", () => {
         let newBoard = Gameboard()
-        newBoard.placeShip([0,0], Vector.getDirection("down"), "Patrol Boat")
+        newBoard.placeShip([0,0], getDirection("down"), "Patrol Boat")
         expect(newBoard.getCell([0,0]).shipRef).toBeTruthy
         newBoard.removeShip("Patrol Boat")
         expect(newBoard.getCell([0,0]).shipRef).toBeFalsy

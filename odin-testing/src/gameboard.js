@@ -1,10 +1,8 @@
 import { Gamecell } from "./gamecell"
 import { Ship } from "./ship"
-import { VectorUtils } from "./vector"
+import { add, scale } from "./vector"
 
 //a vector is an array of [x, y].
-
-const Vector = VectorUtils()
 
 export const Gameboard = () => {
     let board = []
@@ -87,7 +85,7 @@ export const Gameboard = () => {
 
     const shipCells = (startCoord, direction, length) => {
         const shipCoords = [...Array(length).keys()].map(x => 
-            Vector.add(startCoord, Vector.scale(direction, x))
+            add(startCoord, scale(direction, x))
         )
         const boardCells = shipCoords.map(e => getCell(e))
         if(boardCells.some(x => x instanceof Error)){

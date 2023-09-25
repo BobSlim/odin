@@ -1,7 +1,5 @@
 import { Gameboard } from "./gameboard";
-import { VectorUtils } from "./vector";
-
-const Vector = VectorUtils()
+import { directionArray } from "./vector";
 
 const randomInt = (max) => {
     return Math.floor(Math.random()*max)
@@ -28,7 +26,7 @@ export const Player = () => {
     const placeShipRandomly = (ship) => {
         while (!ship.isPlaced) {
             const coords = randomCoords();
-            const randomDirection = Vector.directionArray[randomInt(3)];
+            const randomDirection = directionArray[randomInt(3)];
             if (board.checkShipPlace(coords, randomDirection, ship.name)) {
                 board.placeShip(coords, randomDirection, ship.name);
             }
