@@ -1,4 +1,4 @@
-export default Gamecell = (coords = [0,0]) => {
+export const Gamecell = (coords = [0,0]) => {
     let shipRef = null;
     let hit = false;
     const symbol = () => 

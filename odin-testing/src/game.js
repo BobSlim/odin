@@ -1,6 +1,7 @@
-import Player from "./player";
+import { Player } from "./player";
+import { renderer } from "./renderer";
 
-export default Game = () => {
+export const Game = () => {
     const player1 = Player()
     const player2 = Player()
     const players = [player1, player2]
@@ -9,6 +10,8 @@ export default Game = () => {
     const startGame = () => {
         for(let player of players){
             player.placeRemainingShips()
+            document.getElementById("main").appendChild(renderer(player.board))
         }
     }
+    return {startGame}
 }

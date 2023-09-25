@@ -1,4 +1,4 @@
-export default VectorUtils = () => {
+export const VectorUtils = () => {
     const add = (vector1, vector2) => {
         return vector1.map((x, i) => x + vector2[i])
     }

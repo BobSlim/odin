@@ -1,12 +1,12 @@
-import Gamecell from "./gamecell"
-import Ship from "./ship"
-import VectorUtils from "./vector"
+import { Gamecell } from "./gamecell"
+import { Ship } from "./ship"
+import { VectorUtils } from "./vector"
 
 //a vector is an array of [x, y].
 
 const Vector = VectorUtils()
 
-export default Gameboard = () => {
+export const Gameboard = () => {
     let board = []
     let ships = [
         Ship(5, "Carrier"),

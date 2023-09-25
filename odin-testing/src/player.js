@@ -1,13 +1,13 @@
-import Gameboard from "./gameboard";
-import vector from "./vector";
+import { Gameboard } from "./gameboard";
+import { VectorUtils } from "./vector";
 
-const Vector = vector()
+const Vector = VectorUtils()
 
 const randomInt = (max) => {
     return Math.floor(Math.random()*max)
 }
 
-export default Player = () => {
+export const Player = () => {
     const board = Gameboard();
     /**
      * @type Player
