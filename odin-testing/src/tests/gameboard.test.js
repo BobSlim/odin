@@ -1,7 +1,8 @@
-import Gameboard from "../gameboard.js"
-import vector from "../vector.js";
 
-const Vector = vector()
+import { Gameboard } from "#src/gameboard";
+import { VectorUtils } from "#src/vector";
+
+const Vector = VectorUtils()
 
 describe("gameboard", () => {
     let board

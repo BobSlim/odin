@@ -1,4 +1,4 @@
-export const Ship = (length, name = "") => {
+export const Ship = (length = 1, name = "") => {
     let hitCount = 0;
     let isPlaced = false;
 

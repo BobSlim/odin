@@ -1,4 +1,4 @@
-import Player from "../player";
+import { Player } from "#src/player";
 
 describe("player", () => {
     test("places all ships", () => {
