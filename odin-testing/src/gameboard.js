@@ -119,11 +119,7 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
         }
 
         if (boardCells.some(x => x.shipRef)) {
-            return new Error("cannot overlap ships")
-        }
-
-        if (boardCells.some(x => x.hit)) {
-            return new Error("cells have been hit; will result in softlock")
+            return new Error("attempting to overlap ships")
         }
         return boardCells
 
@@ -133,7 +129,7 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
             return cells
         }
         if (ship.isPlaced) {
-            throw new Error("ship already been placed, remove first.")
+            throw new Error("ship already placed")
         }
         for (let cell of cells) {
             cell.shipRef = ship
