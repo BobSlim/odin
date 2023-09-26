@@ -61,60 +61,7 @@ export const Gameboard = () => {
         return string
     }
 
-    const removeShip = (shipName) => {
-        const ship = getShip(shipName)
-        if(!ship.isPlaced){
-            throw new Error("ship is not placed")
-        }
-        getShipCells(ship).forEach(x => x.shipRef = null)
-        ship.isPlaced = false
-        return true
-    }
-
-    const checkShipPlace = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
-        const ship = getShip(shipName)
-        const cells = shipCells(startCoord, direction, ship.length)
-        return !(cells instanceof Error)
-    }
-
-    const placeShip = (startCoord, direction = [0,1], shipName = "Patrol Boat") => {
-        const ship = getShip(shipName)
-        const cells = shipCells(startCoord, direction, ship.length)
-        return commitShip(cells, ship)
-    }
-
-    const shipCells = (startCoord, direction, length) => {
-        const shipCoords = [...Array(length).keys()].map(x => 
-            add(startCoord, scale(direction, x))
-        )
-        const boardCells = shipCoords.map(e => getCell(e))
-        if(boardCells.some(x => x instanceof Error)){
-            return new Error("some cells could not be acquired.")
-        }
-
-        if(boardCells.some(x => x.shipRef)){
-            return new Error("cannot overlap ships")
-        }
-
-        if(boardCells.some(x => x.hit)){
-            return new Error("cells have been hit; will result in softlock")
-        }
-        return boardCells
-
-    }
-    const commitShip = (cells, ship) => {
-        if(cells instanceof Error){
-            return cells
-        }
-        if(ship.isPlaced){
-            throw new Error("ship already been placed, remove first.")
-        }
-        for(let cell of cells){
-            cell.shipRef = ship
-        }
-        ship.isPlaced = true
-        return true
-    }
+    const { placeShip, checkShipPlace, removeShip } = shipPlacer(getShip, getShipCells, getCell)
 
     const receiveAttack = (coords) => {
         const cell = getCell(coords)
@@ -138,4 +85,61 @@ export const Gameboard = () => {
         get isAllPlaced(){return ships.every(x => x.isPlaced)},
         print
     }
+}
+
+const shipPlacer = (getShip, getShipCells, getCell) => {
+    const removeShip = (shipName) => {
+        const ship = getShip(shipName)
+        if (!ship.isPlaced) {
+            throw new Error("ship is not placed")
+        }
+        getShipCells(ship).forEach(x => x.shipRef = null)
+        ship.isPlaced = false
+        return true
+    }
+
+    const checkShipPlace = (startCoord, direction = [0, 1], shipName = "Patrol Boat") => {
+        const ship = getShip(shipName)
+        const cells = shipCells(startCoord, direction, ship.length)
+        return !(cells instanceof Error)
+    }
+
+    const placeShip = (startCoord, direction = [0, 1], shipName = "Patrol Boat") => {
+        const ship = getShip(shipName)
+        const cells = shipCells(startCoord, direction, ship.length)
+        return commitShip(cells, ship)
+    }
+
+    const shipCells = (startCoord, direction, length) => {
+        const shipCoords = [...Array(length).keys()].map(x => add(startCoord, scale(direction, x))
+        )
+        const boardCells = shipCoords.map(e => getCell(e))
+        if (boardCells.some(x => x instanceof Error)) {
+            return new Error("some cells could not be acquired.")
+        }
+
+        if (boardCells.some(x => x.shipRef)) {
+            return new Error("cannot overlap ships")
+        }
+
+        if (boardCells.some(x => x.hit)) {
+            return new Error("cells have been hit; will result in softlock")
+        }
+        return boardCells
+
+    }
+    const commitShip = (cells, ship) => {
+        if (cells instanceof Error) {
+            return cells
+        }
+        if (ship.isPlaced) {
+            throw new Error("ship already been placed, remove first.")
+        }
+        for (let cell of cells) {
+            cell.shipRef = ship
+        }
+        ship.isPlaced = true
+        return true
+    }
+    return { placeShip, checkShipPlace, removeShip }
 }
