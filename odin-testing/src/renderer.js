@@ -1,20 +1,14 @@
-export const renderer = (board) => {
+export const renderer = (board, handleClick) => {
     const makeCellElement = (cell) => {
         const element = document.createElement("div")
         element.classList.add("gamecell")
-        if(cell.hit && cell.shipRef){
-            element.classList.add("gamecell--hit")
-        }else if(cell.hit){
-            element.classList.add("gamecell--miss")
+        const validClick = () => {
+            element.classList.add(cell.shipRef ? "gamecell--hit" : "gamecell--miss")
+            element.removeEventListener("click", handleClick)
+            return board.receiveAttack(cell.coords)
         }
-        if(cell.shipRef){
-            element.innerText = cell.symbol
-        }
-        element.addEventListener("click", () => {
-            board.receiveAttack(cell.coords)
-            element.replaceWith(makeCellElement(cell)) 
-            })
-        console.log(element)
+        element.addEventListener("click", (event) => {handleClick(event, validClick, board)})
+        element.innerText = cell.shipRef ? cell.symbol : ""
         return element
     }
     const boardElement = document.createElement("div")
