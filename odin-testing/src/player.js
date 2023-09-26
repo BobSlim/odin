@@ -5,7 +5,7 @@ const randomInt = (max) => {
     return Math.floor(Math.random()*max)
 }
 
-export const Player = () => {
+export const Player = (isComputer = true) => {
     const board = Gameboard();
     /**
      * @type Player
@@ -48,10 +48,17 @@ export const Player = () => {
         return openCells[randomInt(openCells.length - 1)].coords;
     };
 
+    const turn = () => {
+        if(isComputer){
+            attackEnemy()
+        }
+    }
+
     return {
         board,
         placeRemainingShips,
         setEnemy,
         attackEnemy,
+        turn,
     };
 };

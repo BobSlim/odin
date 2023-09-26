@@ -2,17 +2,18 @@ import { Player } from "./player";
 import { renderer } from "./renderer";
 
 export const Game = () => {
-    const players = [Player(), Player()]
+    const players = [Player(false), Player(true)]
     players[0].setEnemy(players[1])
     players[1].setEnemy(players[0])
-    let currentPlayer = 0
-    const isCurrentTurn = (board) => board == players[currentPlayer].board
+    let currentPlayerIndex = 0
+    const isCurrentTurn = (player) => player == players[currentPlayerIndex]
     const swapTurn = () => {
-        currentPlayer = (currentPlayer + 1) % 2
-        currentPlayer.turn()
+        console.log("turn swapped!")
+        currentPlayerIndex = (currentPlayerIndex + 1) % 2
+        players[currentPlayerIndex].turn()
     }
-    const handleClick = (event, acceptFunct, board) => {
-        if(!isCurrentTurn(board)){return}
+    const handleClick = (event, acceptFunct, player) => {
+        if(!isCurrentTurn(player)){return}
         const outcome = acceptFunct()
         switch(outcome){
             case "hit":
@@ -25,7 +26,7 @@ export const Game = () => {
     const startGame = () => {
         for(let player of players){
             player.placeRemainingShips()
-            document.getElementById("main").appendChild(renderer(player.board, handleClick))
+            document.getElementById("main").appendChild(renderer(player, handleClick))
         }
     }
     return {startGame}
