@@ -1,6 +1,6 @@
 import { Gamecell } from "./gamecell"
 import { Ship } from "./ship"
-import { add, scale } from "./vector"
+import { add, randomInt, scale } from "./vector"
 
 //a vector is an array of [x, y].
 
@@ -26,10 +26,7 @@ export const defaultShips = () => [
 
 export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips()) => {
     const getShip = (shipName) => {
-        const ship = ships.find(x => x.name.toLowerCase() == shipName.toLowerCase())
-        if(ship == undefined){
-            throw new Error("no ship with that name found.")
-        }
+        const ship = ships.find(x => x.name == shipName)
         return ship 
     }
 
@@ -39,32 +36,32 @@ export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips(
         if(x < 0 | x > 9 | y < 0 | y > 9){
             return new Error("requested cell out of bounds")
         }
-        const cell = board[coords[0]][coords[1]]
-        return cell
+        return board[coords[0]][coords[1]]
     }
 
-    const getBoard = () => {
-        return board
-    }
-
-    const getHitCount = () => {
-        return board.flat().filter(x => x.hit).length
-    }
+    const getCells = () => board.flat()
 
     const getShipCells = (ship) => {
-        const cells = board.flat().filter(x => x.shipRef == ship)
+        const cells = getCells().filter(x => x.shipRef == ship)
         if(!cells){
             throw new Error("ship cells could not be found")
         }
         return cells 
     }
 
+    const getHitCount = () => {
+        return getCells().filter(x => x.hit).length
+    }
+
+    const getRandomShot = () => {
+        const openCells = getCells().filter(x => !x.hit);
+        return openCells[randomInt(openCells.length - 1)].coords;
+    };
+
     const print = () => {
         const string = board.map(x => x.map(y => y.symbol).join(" ")).join("\n")
         return string
     }
-
-    const { placeShip, checkShipPlace, removeShip } = shipPlacer(getShip, getShipCells, getCell)
 
     const receiveAttack = (coords) => {
         const cell = getCell(coords)
@@ -75,14 +72,17 @@ export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips(
         }
         return !!cell.shipRef
     }
+
+    const { placeShip, checkShipPlace, removeShip } = shipPlacer(getShip, getShipCells, getCell)
+
     return { 
         placeShip,
         checkShipPlace,
         removeShip, 
         receiveAttack, 
         getCell,
-        getBoard,
         getHitCount,
+        getRandomShot,
         ships,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
         get isAllPlaced(){return ships.every(x => x.isPlaced)},

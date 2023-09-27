@@ -1,4 +1,4 @@
-export {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, getDirection, directionArray}
+export {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, getDirection, directionArray, randomInt}
 
 const add = (vector1, vector2) => {
     return vector1.map((x, i) => x + vector2[i])
@@ -56,3 +56,6 @@ const getDirection = (directionKey) => {
     return vect 
 }
 
+const randomInt = (max) => {
+    return Math.floor(Math.random()*max)
+}

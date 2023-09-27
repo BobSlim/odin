@@ -1,10 +1,6 @@
 import { Gameboard } from "./gameboard";
 import { directionArray } from "./vector";
 
-const randomInt = (max) => {
-    return Math.floor(Math.random()*max)
-}
-
 export const Player = (isComputer = true) => {
     const board = Gameboard();
     /**
@@ -39,14 +35,11 @@ export const Player = (isComputer = true) => {
     };
 
     const attackEnemy = (coords) => {
-        if (!coords) { coords = getRandomShot(); }
+        if (!coords) { coords = randomShot(); }
         enemy.board.receiveAttack(coords);
     };
 
-    const getRandomShot = () => {
-        const openCells = enemy.board.getBoard().flat().filter(x => !x.hit);
-        return openCells[randomInt(openCells.length - 1)].coords;
-    };
+    const randomShot = () => enemy.board.getRandomShot();
 
     const turn = () => {
         if(isComputer){

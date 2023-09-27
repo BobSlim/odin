@@ -35,9 +35,9 @@ describe("gameboard", () => {
     })
     test("removes ship properly", () => {
         let newBoard = Gameboard()
-        newBoard.placeShip([0,0], getDirection("down"), "Patrol Boat")
+        newBoard.placeShip([0,0], getDirection("down"), "Destroyer")
         expect(newBoard.getCell([0,0]).shipRef).toBeTruthy
-        newBoard.removeShip("Patrol Boat")
+        newBoard.removeShip("Destroyer")
         expect(newBoard.getCell([0,0]).shipRef).toBeFalsy
     })
 })

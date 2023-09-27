@@ -12,13 +12,13 @@ describe("symbol", () => {
     })
     test("patrol boat => P", () => {
         const cell = Gamecell()
-        cell.shipRef = {name: "Patrol Boat"}
-        expect(cell.symbol).toBe("P")
+        cell.shipRef = {name: "Destroyer"}
+        expect(cell.symbol).toBe("D")
     })
     test("prefers hit over object", () => {
         const cell = Gamecell()
         cell.hit = true
-        cell.shipRef = {name: "Patrol Boat"}
+        cell.shipRef = {name: "Destroyer"}
         expect(cell.symbol).toBe("x")
     })
 })
