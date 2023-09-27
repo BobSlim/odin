@@ -1,5 +1,5 @@
 import { Gameboard } from "./gameboard";
-import { directionArray } from "./vector";
+import { directionArray, randomInt } from "./vector";
 
 export const Player = (isComputer = true) => {
     const board = Gameboard();
