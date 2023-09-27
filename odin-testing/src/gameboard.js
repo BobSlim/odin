@@ -4,24 +4,27 @@ import { add, scale } from "./vector"
 
 //a vector is an array of [x, y].
 
-export const Gameboard = () => {
-    let board = []
-    let ships = [
-        Ship(5, "Carrier"),
-        Ship(4, "Battleship"),
-        Ship(3, "Destroyer"),
-        Ship(3, "Submarine"),
-        Ship(2, "Patrol Boat")
-    ]
-
-    for (let x = 0; x < 10; x++) {
+export const initializeBoard = (width, height) => {
+    const board = []
+    for (let x = 0; x < width; x++) {
         let row = []
-        for (let y = 0; y < 10; y++) {
+        for (let y = 0; y < height; y++) {
             row.push(Gamecell([x, y]))
         }
         board.push(row)
     }
+    return board
+}
 
+export const defaultShips = () => [
+    Ship(5, "Carrier"),
+    Ship(4, "Battleship"),
+    Ship(3, "Cruiser"),
+    Ship(3, "Submarine"),
+    Ship(2, "Destroyer")
+]
+
+export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips()) => {
     const getShip = (shipName) => {
         const ship = ships.find(x => x.name.toLowerCase() == shipName.toLowerCase())
         if(ship == undefined){
@@ -98,13 +101,13 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
         return true
     }
 
-    const checkShipPlace = (startCoord, direction = [0, 1], shipName = "Patrol Boat") => {
+    const checkShipPlace = (startCoord, direction = [0, 1], shipName = "Destroyer") => {
         const ship = getShip(shipName)
         const cells = shipCells(startCoord, direction, ship.length)
         return !(cells instanceof Error)
     }
 
-    const placeShip = (startCoord, direction = [0, 1], shipName = "Patrol Boat") => {
+    const placeShip = (startCoord, direction = [0, 1], shipName = "Destroyer") => {
         const ship = getShip(shipName)
         const cells = shipCells(startCoord, direction, ship.length)
         return commitShip(cells, ship)
