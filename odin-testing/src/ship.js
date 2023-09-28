@@ -5,8 +5,7 @@ export const Ship = (length = 1, name = "") => {
     const isSunk = () => hitCount >= length;
     const hit = () => {
         hitCount++;
-        if (isSunk()) { return true; }
-        return false;
+        return isSunk();
     };
 
     return {

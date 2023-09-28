@@ -19,12 +19,12 @@ describe("gameboard", () => {
     })
     test("hit shot", () => {
         board.placeShip([0,0], getDirection("down"))
-        expect(board.receiveAttack([0,0])).toBe(true)
+        expect(board.receiveAttack([0,0])).toBeTruthy()
     });
     test("sink ship", () => {
         board.placeShip([0,0], getDirection("down"))
         board.receiveAttack([0,0])
-        expect(board.receiveAttack([0,1])).toBe(true)
+        expect(board.receiveAttack([0,1]).sunk).toBe(true)
     })
     test("all ships sunk", () => {
         board.placeShip([0,0], getDirection("down"))

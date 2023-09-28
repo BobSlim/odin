@@ -1,7 +1,7 @@
 import { Gameboard } from "./gameboard";
 import { directionArray, randomInt } from "./vector";
 
-export const Player = (isComputer = true) => {
+export const Player = (turnAction) => {
     const board = Gameboard();
     /**
      * @type Player
@@ -36,7 +36,7 @@ export const Player = (isComputer = true) => {
 
     const attackEnemy = (coords) => {
         if (!coords) { coords = randomShot(); }
-        enemy.board.receiveAttack(coords);
+        return enemy.board.receiveAttack(coords);
     };
 
     const randomShot = () => enemy.board.getRandomShot();

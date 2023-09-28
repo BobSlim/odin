@@ -25,52 +25,26 @@ export const defaultShips = () => [
 ]
 
 export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips()) => {
-    const getShip = (shipName) => {
-        const ship = ships.find(x => x.name == shipName)
-        return ship 
-    }
-
     const getCell = (coords) => {
-        const x = coords[0]
-        const y = coords[1]
-        if(x < 0 | x > 9 | y < 0 | y > 9){
-            return new Error("requested cell out of bounds")
+        if(coords.some(x => x < 0 | x > board.length - 1)){
+            return new Error("out of bounds")
         }
         return board[coords[0]][coords[1]]
     }
-
+    const getShip = (shipName) => ships.find(x => x.name == shipName)
     const getCells = () => board.flat()
-
-    const getShipCells = (ship) => {
-        const cells = getCells().filter(x => x.shipRef == ship)
-        if(!cells){
-            throw new Error("ship cells could not be found")
-        }
-        return cells 
-    }
-
-    const getHitCount = () => {
-        return getCells().filter(x => x.hit).length
-    }
-
+    const getShipCells = (ship) => getCells().filter(x => x.shipRef == ship)
+    const getHitCount = () => getCells().filter(x => x.isHit).length
+    const getOpenCells = () => getCells().filter(x => !x.isHit)
     const getRandomShot = () => {
-        const openCells = getCells().filter(x => !x.hit);
+        const openCells = getOpenCells();
         return openCells[randomInt(openCells.length - 1)].coords;
     };
-
-    const print = () => {
-        const string = board.map(x => x.map(y => y.symbol).join(" ")).join("\n")
-        return string
-    }
-
+    const print = () => board.map(x => x.map(y => y.symbol).join(" ")).join("\n")
     const receiveAttack = (coords) => {
         const cell = getCell(coords)
-        if(cell.hit){throw new Error("cell already hit")}
-        cell.hit = true
-        if(cell.shipRef){
-            cell.shipRef.hit()
-        }
-        return !!cell.shipRef
+        if(cell.isHit){throw new Error("cell already hit")}
+        return cell.hit()
     }
 
     const { placeShip, checkShipPlace, removeShip } = shipPlacer(getShip, getShipCells, getCell)
@@ -114,16 +88,10 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
     }
 
     const shipCells = (startCoord, direction, length) => {
-        const shipCoords = [...Array(length).keys()].map(x => add(startCoord, scale(direction, x))
-        )
+        const shipCoords = [...Array(length).keys()].map(x => add(startCoord, scale(direction, x)))
         const boardCells = shipCoords.map(e => getCell(e))
-        if (boardCells.some(x => x instanceof Error)) {
-            return new Error("some cells could not be acquired.")
-        }
-
-        if (boardCells.some(x => x.shipRef)) {
-            return new Error("attempting to overlap ships")
-        }
+        if (boardCells.some(x => x instanceof Error)) return new Error("cells not acquired")
+        if (boardCells.some(x => x.shipRef)) return new Error("attempting to overlap ships")
         return boardCells
 
     }

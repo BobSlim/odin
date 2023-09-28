@@ -18,8 +18,7 @@ describe("player", () => {
         const player2 = Player()
         player1.setEnemy(player2) 
         player2.setEnemy(player1)
-        player1.attackEnemy([0,0])          
-        expect(player2.board.getCell([0,0]).hit).toBe(true)
+        expect(player1.attackEnemy([0,0])).toBe(false)
     })
     test("randomly fires at 50 squares", () => {
         const player1 = Player()

@@ -1,8 +1,15 @@
 export const Gamecell = (coords = [0,0]) => {
     let shipRef = null;
-    let hit = false;
+    let isHit = false;
+    const hit = () => {
+        isHit = true;
+        if(shipRef){
+            return {sunk: shipRef.hit()}
+        }
+        return false
+    }
     const symbol = () => 
-        hit ? "x" :
+        isHit ? "x" :
         shipRef ? shipRef.name.slice(0, 1) :
         ".";
 
@@ -10,8 +17,8 @@ export const Gamecell = (coords = [0,0]) => {
         coords,
         get shipRef() { return shipRef; },
         set shipRef(newShip) { shipRef = newShip; },
-        get hit() { return hit; },
-        set hit(newHit) { hit = newHit; },
+        get isHit() { return isHit; },
+        hit,
         get symbol() { return symbol(); }
     };
 };
