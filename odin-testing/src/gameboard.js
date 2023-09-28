@@ -1,6 +1,6 @@
 import { Gamecell } from "./gamecell"
 import { Ship } from "./ship"
-import { add, randomInt, scale } from "./vector"
+import { add, chooseRandomElement, randomInt, scale, directionArray } from "./vector"
 
 //a vector is an array of [x, y].
 
@@ -36,10 +36,8 @@ export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips(
     const getShipCells = (ship) => getCells().filter(x => x.shipRef == ship)
     const getHitCount = () => getCells().filter(x => x.isHit).length
     const getOpenCells = () => getCells().filter(x => !x.isHit)
-    const getRandomShot = () => {
-        const openCells = getOpenCells();
-        return openCells[randomInt(openCells.length - 1)].coords;
-    };
+    const getRandomShot = () => chooseRandomElement(getOpenCells()).coords
+    const getRandomCoords = () => chooseRandomElement(getCells()).coords
     const print = () => board.map(x => x.map(y => y.symbol).join(" ")).join("\n")
     const receiveAttack = (coords) => {
         const cell = getCell(coords)
@@ -47,16 +45,17 @@ export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips(
         return cell.hit()
     }
 
-    const { placeShip, checkShipPlace, removeShip } = shipPlacer(getShip, getShipCells, getCell)
+    const { placeShip, removeShip, placeRemainingShips } = shipPlacer(getShip, getShipCells, getCell, ships, getRandomCoords)
 
     return { 
         placeShip,
-        checkShipPlace,
         removeShip, 
+        placeRemainingShips,
         receiveAttack, 
         getCell,
         getHitCount,
         getRandomShot,
+        getRandomCoords,
         ships,
         get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
         get isAllPlaced(){return ships.every(x => x.isPlaced)},
@@ -64,7 +63,23 @@ export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips(
     }
 }
 
-const shipPlacer = (getShip, getShipCells, getCell) => {
+const shipPlacer = (getShip, getShipCells, getCell, ships, getRandomCoords) => {
+    const placeRemainingShips = () => {
+        const remainingShips = ships.filter(x => !x.isPlaced);
+        while (remainingShips.length > 0) {
+            const ship = remainingShips.shift();
+            placeShipRandomly(ship);
+        }
+    };
+
+    const placeShipRandomly = (ship) => {
+        while (!ship.isPlaced) {
+            const coords = getRandomCoords();
+            const randomDirection = chooseRandomElement(directionArray);
+            placeShip(coords, randomDirection, ship.name, false);
+        }
+    };
+
     const removeShip = (shipName) => {
         const ship = getShip(shipName)
         if (!ship.isPlaced) {
@@ -75,15 +90,10 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
         return true
     }
 
-    const checkShipPlace = (startCoord, direction = [0, 1], shipName = "Destroyer") => {
+    const placeShip = (startCoord, direction = [0, 1], shipName = "Destroyer", justCheck = false) => {
         const ship = getShip(shipName)
         const cells = shipCells(startCoord, direction, ship.length)
-        return !(cells instanceof Error)
-    }
-
-    const placeShip = (startCoord, direction = [0, 1], shipName = "Destroyer") => {
-        const ship = getShip(shipName)
-        const cells = shipCells(startCoord, direction, ship.length)
+        if(justCheck){return !(cells instanceof Error)} //valid ship place
         return commitShip(cells, ship)
     }
 
@@ -108,5 +118,5 @@ const shipPlacer = (getShip, getShipCells, getCell) => {
         ship.isPlaced = true
         return true
     }
-    return { placeShip, checkShipPlace, removeShip }
+    return { placeShip, removeShip, placeRemainingShips }
 }
