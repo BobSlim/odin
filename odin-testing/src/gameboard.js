@@ -1,5 +1,5 @@
 import { Gamecell } from "./gamecell"
-import { Ship } from "./ship"
+import { Ship, defaultShips } from "./ship"
 import { add, chooseRandomElement, randomInt, scale, directionArray } from "./vector"
 
 //a vector is an array of [x, y].
@@ -15,14 +15,6 @@ export const initializeBoard = (width, height) => {
     }
     return board
 }
-
-export const defaultShips = () => [
-    Ship(5, "Carrier"),
-    Ship(4, "Battleship"),
-    Ship(3, "Cruiser"),
-    Ship(3, "Submarine"),
-    Ship(2, "Destroyer")
-]
 
 export const Gameboard = (board = initializeBoard(10, 10), ships = defaultShips()) => {
     const getCell = (coords) => {
