@@ -1,4 +1,4 @@
-export {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, getDirection, directionArray, randomInt, chooseRandomElement}
+export {add, subtract, multiply, scale, length, compare, normalize, getPointsBetween, getDirection, directionArray, randomInt, chooseRandomElement, isPointValid}
 
 const add = (vector1, vector2) => {
     return vector1.map((x, i) => x + vector2[i])
@@ -61,3 +61,6 @@ const randomInt = (max) => {
 }
 
 const chooseRandomElement = (array) => array[randomInt(array.length -1)]
+
+const isPointValid = (coords, boardSize) =>
+    coords.some(x => x < 0 | x > boardSize - 1)

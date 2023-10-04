@@ -2,7 +2,7 @@ import { Player } from "./player";
 import { renderer } from "./renderer";
 
 export const Game = () => {
-    const players = [Player(false), Player(true)]
+    const players = [Player(), Player()]
     players[0].setEnemy(players[1])
     players[1].setEnemy(players[0])
     let currentPlayerIndex = 0

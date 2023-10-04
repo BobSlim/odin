@@ -7,7 +7,7 @@ export const Player = (board = Gameboard(), turnAction) => {
     let enemy;
 
     const placeRemainingShips = () => {
-        board.placeRemainingShips()
+        return
     };
 
     const setEnemy = (enemyRef) => {
