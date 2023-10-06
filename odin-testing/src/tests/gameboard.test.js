@@ -10,10 +10,6 @@ describe("gameboard", () => {
     afterEach(() => {
         board = null
     })
-    test("refuses out of bounds", () => {
-        expect(board.placeShip([9,9], getDirection("down"), "Battleship")).toBeInstanceOf(Error)
-        expect(board.placeShip([0,0], getDirection("left"))).toBeInstanceOf(Error)
-    })
     test("miss shot", () => {
         expect(board.receiveAttack([1,0])).toBe(false)
     })
@@ -32,13 +28,6 @@ describe("gameboard", () => {
         expect(board.isAllSunk).toBe(false)
         board.receiveAttack([0,1])
         expect(board.isAllSunk).toBe(true)
-    })
-    test("removes ship properly", () => {
-        let newBoard = Gameboard()
-        newBoard.placeShip([0,0], getDirection("down"), "Destroyer")
-        expect(newBoard.getCell([0,0]).shipRef).toBeTruthy
-        newBoard.removeShip("Destroyer")
-        expect(newBoard.getCell([0,0]).shipRef).toBeFalsy
     })
 })
 

@@ -1,56 +1,60 @@
-import { add, scale } from "./vector";
+import { add, isPointValid, scale } from "./vector";
 
-const shipDict = {
-    "Carrier": 5,
-    "Battleship": 4,
-    "Cruiser": 3,
-    "Submarine": 3,
-    "Destroyer": 2,
-}
+export const defaultShips = () => [
+    Ship("Carrier", 5),
+    Ship("Battleship", 4),
+    Ship("Cruiser", 3),
+    Ship("Submarine", 3),
+    Ship("Destroyer", 2),
+]
 
-export const defaultShips = (dict = shipDict) => 
-    Object.keys(dict).map(x => Ship(x, dict))
-
-export const Ship = (name = "", dict = shipDict) => {
+export const Ship = (name = "", length = 1) => {
     let hitCount = 0;
-    let location;
-    let direction;
-    const length = () => dict[name]
-    const isSunk = () => hitCount >= length();
+    const isSunk = () => hitCount >= length;
     const hit = () => {
         hitCount++;
         return isSunk();
     };
 
-    const place = (newLocation = undefined, newDirection = undefined) => {
-        location = newLocation;
-        direction = newDirection;
-        return shipCoords({location, direction, length: length()})
-    }
-
     return {
-        get length(){ return length(); },
         name,
-        location,
-        direction,
-        get isPlaced() {return !!location},
+        length,
+        isSunk,
         hit,
-        get isSunk() { return isSunk(); },
     };
 };
 
-export const shipCoords = ({location, direction, length}) =>
+export const shipCoords = (length, location, direction) =>
     (!location | !direction) ? 
         [] : 
         [...Array(length).keys()].map(x => add(location, scale(direction, x)))
 
-export const Fleet = () => {
-    let ships = []
-    const map = () => {
-        ships.map(ship => [shipCoords(ship)])
+export const getKeys = array => array.map(([key, value]) => key)
+const getValues = array => array.map(([key, value]) => value)
+const excludeValue = (array, excludedValue) => array.filter(([key, value]) => value != excludedValue)
+export const isOccupied = (map, coord) => new Set(getKeys(map).map(x => x.toString())).has(coord.toString())
+
+export const Fleet = (boardSize = 10) => {
+    let shipCoordinates = []
+    const fleetIsOccupied = (coord) => isOccupied(shipCoordinates, coord)
+
+    const place = (ship, location, direction) => {
+        const locations = shipCoords(ship.length, location, direction)
+        if(locations.some(coord => fleetIsOccupied(coord) | !isPointValid(coord, boardSize))){return false}
+        shipCoordinates = shipCoordinates.concat(locations.map(x => [x, ship]))
+        return shipCoordinates
     }
-    const isPointOccupied = (coords) =>
-        !!ships.flatmap(ship => shipCoords(ship)).find(coords)
+
+    const remove = (ship) => {
+        shipCoordinates = excludeValue(shipCoordinates, ship)
+        return shipCoordinates
+    }
+
+    return {
+        get shipCoordinates(){return shipCoordinates},
+        place,
+        remove,
+    }
 }
 
 const placeRemainingShips = () => {
@@ -68,10 +72,3 @@ const placeShipRandomly = (ship) => {
         placeShip(coords, randomDirection, ship.name, false);
     }
 };
-
-const placeShip = (startCoord, direction = [0, 1], shipName = "Destroyer", justCheck = false) => {
-    const ship = getShip(shipName)
-    const cells = shipCells(startCoord, direction, ship.length)
-    if(justCheck){return !(cells instanceof Error)} //valid ship place
-    return commitShip(cells, ship)
-}

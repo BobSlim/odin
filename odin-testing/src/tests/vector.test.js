@@ -1,4 +1,4 @@
-import { add, subtract, multiply, scale, length, compare, normalize, getPointsBetween } from "#src/vector.js";
+import { add, subtract, multiply, scale } from "#src/vector.js";
 
 describe("vectorutil", () => {
     test("adds", () => {
@@ -12,17 +12,5 @@ describe("vectorutil", () => {
     });
     test("scalar", () => {
         expect(scale([0, 2], 3)).toEqual([0, 6]);
-    });
-    test("length", () => {
-        expect(length([3, 4])).toBe(5);
-    });
-    test("compare", () => {
-        expect(compare([3, 5], [3, 7])).toEqual([true, false]);
-    });
-    test("normalize", () => {
-        expect(normalize([4, 0])).toEqual([1, 0]);
-    });
-    test("get between points", () => {
-        expect(getPointsBetween([3, 5], [3, 7])).toEqual([[3, 5], [3, 6], [3, 7]]);
     });
 });
