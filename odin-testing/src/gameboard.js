@@ -1,8 +1,32 @@
-import { Gamecell } from "./gamecell"
 import { Ship, defaultShips, shipCoords } from "./ship"
 import { add, chooseRandomElement, randomInt, scale, directionArray } from "./vector"
 
 //a vector is an array of [x, y].
+
+export const Gamecell = (coords = [0,0]) => {
+    let shipRef = null;
+    let isHit = false;
+    const hit = () => {
+        isHit = true;
+        if(shipRef){
+            return {sunk: shipRef.hit()}
+        }
+        return false
+    }
+    const symbol = () => 
+        isHit ? "x" :
+        shipRef ? shipRef.name.slice(0, 1) :
+        ".";
+
+    return {
+        coords,
+        get shipRef() { return shipRef; },
+        set shipRef(newShip) { shipRef = newShip; },
+        get isHit() { return isHit; },
+        hit,
+        get symbol() { return symbol(); }
+    };
+};
 
 export const initializeBoard = (width, height) => {
     const board = []
@@ -16,13 +40,16 @@ export const initializeBoard = (width, height) => {
     return board
 }
 
-export const Gameboard = (board = initializeBoard(10, 10), fleet = defaultShips()) => {
+export const Gameboard = (board = initializeBoard(10, 10), fleet) => {
     const getCell = (coords) => {
         if(coords.some(x => x < 0 | x > board.length - 1)){
             return new Error("out of bounds")
         }
         return board[coords[0]][coords[1]]
     }
+
+    fleet.shipCoordinates.forEach(([coord, ship]) => getCell(coord).shipRef = ship)
+
     const getShip = (shipName) => ships.find(x => x.name == shipName)
     const getCells = () => board.flat()
     const getShipCells = (ship) => getCells().filter(x => x.shipRef == ship)
