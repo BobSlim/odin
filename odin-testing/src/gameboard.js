@@ -44,11 +44,11 @@ export const initializeBoard = (width, height) => {
 }
 
 export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
-    const getCell = (coords) => {
+    const getCell = ([x, y]) => {
         if(coords.some(x => x < 0 | x > board.length - 1)){
             return new Error("out of bounds")
         }
-        return board[coords[0]][coords[1]]
+        return board[x][y]
     }
 
     fleet.shipCoordinates.forEach(([coord, ship]) => getCell(coord).shipRef = ship)
