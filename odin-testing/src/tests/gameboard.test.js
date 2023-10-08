@@ -1,8 +1,6 @@
 
-import { Gameboard } from "#src/gameboard";
-import { getDirection } from "#src/vector";
-
-import { Gamecell } from "#src/gamecell";
+import { Gameboard, Gamecell } from "#src/gameboard";
+import { Fleet, Ship } from "../ship";
 
 describe("symbol", () => {
     test("empty => .", () => {
@@ -30,35 +28,26 @@ describe("symbol", () => {
 describe("gameboard", () => {
     let board
     beforeEach(() => {
-        board = Gameboard()
-    })
-    afterEach(() => {
-        board = null
+        const ship = Ship("Destroyer", 2)
+        const fleet = Fleet([ship])
+        fleet.place(ship, [0,0], [0,1])
+        board = Gameboard(fleet)
     })
     test("miss shot", () => {
-        expect(board.receiveAttack([1,0])).toBe(false)
+        expect(board.receiveAttack([1,0]).hit).toBe(false)
     })
     test("hit shot", () => {
-        board.placeShip([0,0], getDirection("down"))
-        expect(board.receiveAttack([0,0])).toBeTruthy()
+        expect(board.receiveAttack([0,0]).hit).toBe(true)
     });
     test("sink ship", () => {
-        board.placeShip([0,0], getDirection("down"))
         board.receiveAttack([0,0])
         expect(board.receiveAttack([0,1]).sunk).toBe(true)
     })
     test("all ships sunk", () => {
-        board.placeShip([0,0], getDirection("down"))
         board.receiveAttack([0,0])
-        expect(board.isAllSunk).toBe(false)
-        board.receiveAttack([0,1])
-        expect(board.isAllSunk).toBe(true)
+        expect(board.receiveAttack([0,1]).allSunk).toBe(true)
     })
-})
-
-describe("print", () => {
     test("with two hits", () => {
-        const board = Gameboard()
         board.receiveAttack([0,0])
         board.receiveAttack([0,1])
         expect(board.print()).toBe(
@@ -73,4 +62,5 @@ describe("print", () => {
 . . . . . . . . . .
 . . . . . . . . . .`)
     })
+
 })

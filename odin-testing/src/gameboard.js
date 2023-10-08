@@ -8,11 +8,14 @@ export const Gamecell = (coords = [0,0]) => {
     let isHit = false;
     const hit = () => {
         isHit = true;
+        const output = {hit: false, sunk: false}
         if(shipRef){
-            return {sunk: shipRef.hit()}
+            output.hit = true
+            output.sunk = shipRef.hit()
+            }
+        return output
         }
-        return false
-    }
+
     const symbol = () => 
         isHit ? "x" :
         shipRef ? shipRef.name.slice(0, 1) :
@@ -40,7 +43,7 @@ export const initializeBoard = (width, height) => {
     return board
 }
 
-export const Gameboard = (board = initializeBoard(10, 10), fleet) => {
+export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
     const getCell = (coords) => {
         if(coords.some(x => x < 0 | x > board.length - 1)){
             return new Error("out of bounds")
@@ -50,9 +53,7 @@ export const Gameboard = (board = initializeBoard(10, 10), fleet) => {
 
     fleet.shipCoordinates.forEach(([coord, ship]) => getCell(coord).shipRef = ship)
 
-    const getShip = (shipName) => ships.find(x => x.name == shipName)
     const getCells = () => board.flat()
-    const getShipCells = (ship) => getCells().filter(x => x.shipRef == ship)
     const getHitCount = () => getCells().filter(x => x.isHit).length
     const getOpenCells = () => getCells().filter(x => !x.isHit)
     const getRandomShot = () => chooseRandomElement(getOpenCells()).coords
@@ -63,7 +64,9 @@ export const Gameboard = (board = initializeBoard(10, 10), fleet) => {
     const receiveAttack = (coords) => {
         const cell = getCell(coords)
         if(cell.isHit){throw new Error("cell already hit")}
-        return cell.hit()
+        const hitReport = cell.hit()
+        hitReport.allSunk = fleet.ships.every(x => x.isSunk)
+        return hitReport
     }
 
     return { 
@@ -72,8 +75,6 @@ export const Gameboard = (board = initializeBoard(10, 10), fleet) => {
         getHitCount,
         getRandomShot,
         getRandomCoords,
-        get isAllSunk(){return ships.filter(x => x.isPlaced).every(x => x.isSunk)}, 
-        get isAllPlaced(){return ships.every(x => x.isPlaced)},
         print,
         getBoard,
     }
