@@ -34,7 +34,7 @@ const getValues = array => array.map(([key, value]) => value)
 const excludeValue = (array, excludedValue) => array.filter(([key, value]) => value != excludedValue)
 export const isOccupied = (map, coord) => new Set(getKeys(map).map(x => x.toString())).has(coord.toString())
 
-export const Fleet = (ships, boardSize = 10) => {
+export const Fleet = (boardSize = 10) => {
     let shipCoordinates = []
     const fleetIsOccupied = (coord) => isOccupied(shipCoordinates, coord)
 
@@ -50,9 +50,15 @@ export const Fleet = (ships, boardSize = 10) => {
         return shipCoordinates
     }
 
+    const ships = () => 
+        [...new Set(getValues(shipCoordinates))]
+
+    const isAllSunk = () => 
+        ships().every(x => x.isSunk())
+
     return {
         get shipCoordinates(){return shipCoordinates},
-        ships,
+        isAllSunk,
         place,
         remove,
     }

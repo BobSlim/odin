@@ -27,33 +27,35 @@ describe("symbol", () => {
 
 describe("gameboard", () => {
     let board
-    let ship
+    let ships = [Ship("Destroyer", 2), Ship("Patrol Boat")]
+    let [ship1, ship2] = ships
+    let fleet
     beforeEach(() => {
-        ship = Ship("Destroyer", 2)
-        const fleet = Fleet([ship])
-        fleet.place(ship, [0,0], [0,1])
+        fleet = Fleet()
+        fleet.place(ship1, [0,0], [0,1])
+        fleet.place(ship2, [1,0], [0,1])
         board = Gameboard(fleet)
     })
     test("miss shot", () => {
-        expect(board.receiveAttack([1,0]).hit).toBe(false)
+        expect(board.receiveAttack([2,0]).hit).toBe(false)
     })
     test("hit shot", () => {
         expect(board.receiveAttack([0,0]).hit).toBe(true)
     });
     test("sink ship", () => {
         board.receiveAttack([0,0])
-        expect(board.receiveAttack([0,1]).sunk).toBe(ship.name)
+        expect(board.receiveAttack([0,1]).sunk).toBe(ship1.name)
     })
     test("all ships sunk", () => {
         board.receiveAttack([0,0])
-        expect(board.receiveAttack([0,1]).allSunk).toBe(true)
+        expect(board.receiveAttack([0,1]).allSunk).toBe(false)
+        expect(board.receiveAttack([1,0]).allSunk).toBe(true)
     })
-    test("with two hits", () => {
+    test("with one hit", () => {
         board.receiveAttack([0,0])
-        board.receiveAttack([0,1])
         expect(board.print()).toBe(
-        `x x . . . . . . . .
-. . . . . . . . . .
+        `x D . . . . . . . .
+P . . . . . . . . .
 . . . . . . . . . .
 . . . . . . . . . .
 . . . . . . . . . .

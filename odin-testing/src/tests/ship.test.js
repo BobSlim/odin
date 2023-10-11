@@ -31,27 +31,34 @@ describe("ship", () => {
 });
 
 describe("fleet", () => {
+    let ships = [Ship("Destroyer"), Ship("Patrol Boat")]
+    let [ship1, ship2] = ships
+    let fleet
+    beforeEach(() => {
+        fleet = Fleet()
+    })
     test("shipCoords", () => {
         expect(shipCoords(1, [0,0], [1,0])).toEqual([[0,0]])
     })
     test("places ship", () => {
-        const fleet = Fleet();
-        const ship = {length: 1}
-        expect(fleet.place(ship, [0,0], [0,1])).toEqual([[[0,0], ship]])
+        expect(fleet.place(ship1, [0,0], [0,1])).toEqual([[[0,0], ship1]])
     });
     test("attempts to overlap ship", () => {
-        const fleet = Fleet();
-        const ship = {length: 1}
-        const ship2 = {length: 2}
-        fleet.place(ship, [0,0], [0,1])
+        fleet.place(ship1, [0,0], [0,1])
         expect(fleet.place(ship2, [0,0], [0,1])).toEqual(false)
-        expect(fleet.shipCoordinates).toEqual([[[0,0], ship]])
+        expect(fleet.shipCoordinates).toEqual([[[0,0], ship1]])
     });
     test("removes ship", () => {
-        const fleet = Fleet();
-        const ship = {length: 1};
-        fleet.place(ship, [0,0], [0,1])
-        expect(fleet.remove(ship)).toEqual([])
+        fleet.place(ship1, [0,0], [0,1])
+        expect(fleet.remove(ship1)).toEqual([])
+    });
+    test("returns allSunk correctly", () => {
+        fleet.place(ship1, [0,0], [0,1])
+        fleet.place(ship2, [1,0], [0,1])
+        expect(fleet.isAllSunk()).toBe(false)
+        ship1.hit()
+        ship2.hit()
+        expect(fleet.isAllSunk()).toBe(true)
     });
 });
 
