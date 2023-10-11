@@ -8,7 +8,7 @@ export const Gamecell = (coords = [0,0]) => {
     let isHit = false;
     const hit = () => {
         isHit = true;
-        const output = {hit: false, sunk: false}
+        const output = {hit: false, sunk: ""}
         if(shipRef){
             output.hit = true
             output.sunk = shipRef.hit()
@@ -21,13 +21,16 @@ export const Gamecell = (coords = [0,0]) => {
         shipRef ? shipRef.name.slice(0, 1) :
         ".";
 
+    const data = () => ({shipRef, isHit, coords})
+
     return {
         coords,
         get shipRef() { return shipRef; },
         set shipRef(newShip) { shipRef = newShip; },
         get isHit() { return isHit; },
+        get symbol() { return symbol(); },
         hit,
-        get symbol() { return symbol(); }
+        data,
     };
 };
 
@@ -44,10 +47,12 @@ export const initializeBoard = (width, height) => {
 }
 
 export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
-    const getCell = ([x, y]) => {
+    const data = () => board.map(cell => cell.data())
+    const getCell = (coords) => {
         if(coords.some(x => x < 0 | x > board.length - 1)){
             return new Error("out of bounds")
         }
+        const [x, y] = coords
         return board[x][y]
     }
 
@@ -77,5 +82,6 @@ export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
         getRandomCoords,
         print,
         getBoard,
+        data,
     }
 }

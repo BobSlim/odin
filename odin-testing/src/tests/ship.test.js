@@ -16,12 +16,12 @@ describe("utils", () => {
 describe("ship", () => {
     test("hit and sunk", () => {
         const ship = Ship("Destroyer");
-        expect(ship.hit()).toBe(true);
+        expect(ship.hit()).toBe(ship.name);
     });
     test("hit and not sunk", () => {
         const ship = Ship("Destroyer", 2);
-        expect(ship.hit()).toBe(false);
-        expect(ship.hit()).toBe(true);
+        expect(ship.hit()).toBe("");
+        expect(ship.hit()).toBe(ship.name);
     });
 
     test("correct length", () => {

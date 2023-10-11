@@ -27,8 +27,9 @@ describe("symbol", () => {
 
 describe("gameboard", () => {
     let board
+    let ship
     beforeEach(() => {
-        const ship = Ship("Destroyer", 2)
+        ship = Ship("Destroyer", 2)
         const fleet = Fleet([ship])
         fleet.place(ship, [0,0], [0,1])
         board = Gameboard(fleet)
@@ -41,7 +42,7 @@ describe("gameboard", () => {
     });
     test("sink ship", () => {
         board.receiveAttack([0,0])
-        expect(board.receiveAttack([0,1]).sunk).toBe(true)
+        expect(board.receiveAttack([0,1]).sunk).toBe(ship.name)
     })
     test("all ships sunk", () => {
         board.receiveAttack([0,0])
