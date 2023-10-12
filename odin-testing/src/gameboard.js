@@ -77,6 +77,7 @@ export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
     return { 
         receiveAttack, 
         getCell,
+        getCells,
         getHitCount,
         getRandomShot,
         getRandomCoords,

@@ -1,4 +1,4 @@
-import { add, isPointValid, scale } from "./vector";
+import { add, isPointValid, scale, getRandomCoords, getRandomDirection } from "./vector";
 
 export const defaultShips = () => [
     Ship("Carrier", 5),
@@ -40,16 +40,32 @@ export const Fleet = (boardSize = 10) => {
 
     const place = (ship, location, direction) => {
         const locations = shipCoords(ship.length, location, direction)
-        if(locations.some(coord => fleetIsOccupied(coord) | !isPointValid(coord, boardSize))){return false}
+        if(invalidPlace(locations)){return false}
         shipCoordinates = shipCoordinates.concat(locations.map(x => [x, ship]))
         return shipCoordinates
     }
+
+    const invalidPlace = (locations) => locations.some(coord => fleetIsOccupied(coord) | !isPointValid(coord, boardSize))
 
     const remove = (ship) => {
         shipCoordinates = excludeValue(shipCoordinates, ship)
         return shipCoordinates
     }
 
+    const generateRandomPlacement = () => ({
+        coords: getRandomCoords(boardSize), 
+        direction: getRandomDirection(),
+    })
+
+    const placeShips = (ships, positionGenerator = generateRandomPlacement) => {
+        ships.forEach(ship => {
+            let success = false
+            while (!success) {
+                const gen = positionGenerator()
+                success = !!place(ship, gen.coords, gen.direction);
+            }
+        })
+    };
     const ships = () => 
         [...new Set(getValues(shipCoordinates))]
 
@@ -60,22 +76,7 @@ export const Fleet = (boardSize = 10) => {
         get shipCoordinates(){return shipCoordinates},
         isAllSunk,
         place,
+        placeShips,
         remove,
     }
 }
-
-const placeRemainingShips = () => {
-    const remainingShips = ships.filter(x => !x.isPlaced);
-    while (remainingShips.length > 0) {
-        const ship = remainingShips.shift();
-        placeShipRandomly(ship);
-    }
-};
-
-const placeShipRandomly = (ship) => {
-    while (!ship.isPlaced) {
-        const coords = getRandomCoords();
-        const randomDirection = chooseRandomElement(directionArray);
-        placeShip(coords, randomDirection, ship.name, false);
-    }
-};

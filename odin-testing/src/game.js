@@ -1,33 +1,44 @@
-import { Player } from "./player";
-import { renderer } from "./renderer";
+export const Game = (playerBoard, computerBoard) => {
+    const step = (coords) => {
+        computerBoard.receiveAttack(coords)
+        playerBoard.receiveAttack(playerBoard.getRandomShot())
+        return data()
+    }
 
-export const Game = () => {
-    const players = [Player(), Player()]
-    players[0].setEnemy(players[1])
-    players[1].setEnemy(players[0])
-    let currentPlayerIndex = 0
-    const isCurrentTurn = (player) => player == players[currentPlayerIndex]
-    const swapTurn = () => {
-        console.log("turn swapped!")
-        currentPlayerIndex = (currentPlayerIndex + 1) % 2
-        players[currentPlayerIndex].turn()
+    return {
+        step,
+        player: playerBoard,
+        computer: computerBoard,
     }
-    const handleClick = (event, acceptFunct, player) => {
-        if(!isCurrentTurn(player)){return}
-        const outcome = acceptFunct()
-        switch(outcome){
-            case "hit":
-                break;
-            case "miss":
-                break;
+}
+
+export const Renderer = (gameObject) => {
+    const renderCell = (cell) => {
+        const cellDOM = document.createElement("div")
+        cellDOM.classList.add("gamecell")
+        const validClick = () => {
+            cellDOM.classList.add(cell.shipRef ? "gamecell--hit" : "gamecell--miss")
+            cellDOM.removeEventListener("click", handleClick)
+            return player.board.receiveAttack(cell.coords)
         }
-        swapTurn()
+        cellDOM.addEventListener("click", (event) => {gameObject.step(cell.data().coords)})
+        cellDOM.innerText = cell.shipRef ? cell.symbol : ""
+        return cellDOM
     }
-    const startGame = () => {
-        for(let player of players){
-            player.placeRemainingShips()
-            document.getElementById("main").appendChild(renderer(player, handleClick))
+    const renderBoard = (board) => {
+        const boardDOM = document.createElement("div")
+        boardDOM.classList.add("gameboard")
+
+        const cells = board.getCells().map( x => renderCell(x))
+        for(let e of cells){
+            boardDOM.appendChild(e)
         }
+        return boardDOM
     }
-    return {startGame}
+    const render = (game) => {
+        const gameDOM = document.getElementById("main")
+        gameDOM.appendChild(renderBoard(game.player))
+        gameDOM.appendChild(renderBoard(game.computer))
+    }
+    return {render}
 }
