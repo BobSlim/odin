@@ -36,6 +36,9 @@ describe("gameboard", () => {
         fleet.place(ship2, [1,0], [0,1])
         board = Gameboard(fleet)
     })
+    test("getCell", () => {
+        expect(board.getCell([-1, -1]) instanceof Error).toBe(true)
+    })
     test("miss shot", () => {
         expect(board.receiveAttack([2,0]).hit).toBe(false)
     })
@@ -64,6 +67,18 @@ P . . . . . . . . .
 . . . . . . . . . .
 . . . . . . . . . .
 . . . . . . . . . .`)
+    })
+    test("randomly fires at 50 squares", () => {
+        for (let index = 0; index < 50; index++) {
+            board.receiveAttack(board.getRandomShot());
+        }
+        expect(board.getHitCount()).toBe(50)
+    })
+    test("randomly fires at 100 squares", () => {
+        for (let index = 0; index < 100; index++) {
+            board.receiveAttack(board.getRandomShot());
+        }
+        expect(board.getHitCount()).toBe(100)
     })
 
 })
