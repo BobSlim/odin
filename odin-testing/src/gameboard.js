@@ -21,8 +21,6 @@ export const Gamecell = (coords = [0,0]) => {
         shipRef ? shipRef.name.slice(0, 1) :
         ".";
 
-    const data = () => ({shipRef, isHit, coords})
-
     return {
         coords,
         get shipRef() { return shipRef; },
@@ -30,7 +28,6 @@ export const Gamecell = (coords = [0,0]) => {
         get isHit() { return isHit; },
         get symbol() { return symbol(); },
         hit,
-        data,
     };
 };
 

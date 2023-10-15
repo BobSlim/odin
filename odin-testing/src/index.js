@@ -6,6 +6,6 @@ const fleets = [Fleet(), Fleet()]
 fleets.forEach(fleet => {
     fleet.placeShips(defaultShips())
 })
-const game = Game(Gameboard(Fleet()), Gameboard(Fleet()))
-const renderer = Renderer(game, document.getElementById("main"), document.createElement)
+const game = Game(Gameboard(fleets[0]), Gameboard(fleets[1]))
+const renderer = Renderer(game, document.getElementById("main"), document)
 renderer.render(game)
