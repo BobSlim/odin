@@ -64,7 +64,7 @@ export const Renderer = (frame, doc, fnClick) => {
     const log = (message) => {
         const newMessage = doc.createElement("p")
         newMessage.innerText = message
-        logRef.insertBefore(newMessage, logRef.firstChild)
+        logRef.prepend(newMessage)
     }
     return {render, init, log}
 }
