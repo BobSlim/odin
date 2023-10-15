@@ -68,6 +68,7 @@ export const Gameboard = (fleet, board = initializeBoard(10, 10), ) => {
         if(cell.isHit){throw new Error("cell already hit")}
         const hitReport = cell.hit()
         hitReport.allSunk = fleet.isAllSunk()
+        hitReport.coords = coords
         return hitReport
     }
 

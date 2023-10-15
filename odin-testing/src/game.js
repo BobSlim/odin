@@ -1,8 +1,10 @@
 export const Game = (playerBoard, computerBoard) => {
     const step = (coords) => {
-        computerBoard.receiveAttack(coords)
-        playerBoard.receiveAttack(playerBoard.getRandomShot())
-        return {player: playerBoard, computer: computerBoard}
+        const computerEvent = computerBoard.receiveAttack(coords)
+        computerEvent.playerName = "You"
+        const playerEvent = playerBoard.receiveAttack(playerBoard.getRandomShot())
+        playerEvent.playerName = "Computer"
+        return [computerEvent, playerEvent]
     }
 
     return {
@@ -12,20 +14,21 @@ export const Game = (playerBoard, computerBoard) => {
     }
 }
 
-export const Renderer = (gameObject, frame, doc) => {
+export const Renderer = (frame, doc, fnClick) => {
+    let playerBoardRef
+    let computerBoardRef
+    let logRef
     const renderCell = (cell, isPlayer) => {
         const cellDOM = doc.createElement("button")
         cellDOM.classList.add("gamecell")
-        const validClick = (event) => {
+        if(cell.isHit){
             cellDOM.classList.add(cell.shipRef ? "gamecell--hit" : "gamecell--miss")
-            cellDOM.removeEventListener("click", validClick)
-            gameObject.step(cell.coords)
-            return gameObject.player.receiveAttack(cell.coords)
         }
         if(isPlayer){
             cellDOM.innerText = cell.shipRef ? cell.symbol : ""
-        }else{
-            cellDOM.addEventListener("click", (event) => {validClick(event)})
+        }
+        if(!isPlayer && !cell.isHit){
+            cellDOM.addEventListener("click", (event) => {fnClick(cell.coords)})
         }
         return cellDOM
     }
@@ -39,9 +42,29 @@ export const Renderer = (gameObject, frame, doc) => {
         }
         return boardDOM
     }
-    const render = (game) => {
-        frame.appendChild(renderBoard(game.player, true))
-        frame.appendChild(renderBoard(game.computer))
+    const init = (game) => {
+        const playerBoard = renderBoard(game.player, true)
+        const computerBoard = renderBoard(game.computer)
+        logRef = doc.createElement("div")
+        playerBoardRef = playerBoard
+        computerBoardRef = computerBoard
+        frame.appendChild(playerBoard)
+        frame.appendChild(logRef)
+        frame.appendChild(computerBoard)
+
     }
-    return {render}
+    const render = (game) => {
+        const playerBoard = renderBoard(game.player, true)
+        playerBoardRef.replaceWith(playerBoard)
+        playerBoardRef = playerBoard
+        const computerBoard = renderBoard(game.computer)
+        computerBoardRef.replaceWith(computerBoard)
+        computerBoardRef = computerBoard
+    }
+    const log = (message) => {
+        const newMessage = doc.createElement("p")
+        newMessage.innerText = message
+        logRef.insertBefore(newMessage, logRef.firstChild)
+    }
+    return {render, init, log}
 }
