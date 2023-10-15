@@ -13,6 +13,12 @@ describe("utils", () => {
     })
 })
 
+describe("utils", () => {
+    test("shipCoords", () => {
+        expect(shipCoords(2, [0,0], [1,0])).toEqual([[0,0],[1,0]]);
+    });
+});
+
 describe("ship", () => {
     test("hit and sunk", () => {
         const ship = Ship("Destroyer");
@@ -60,5 +66,16 @@ describe("fleet", () => {
         ship2.hit()
         expect(fleet.isAllSunk()).toBe(true)
     });
+    test("places all ships", () => {
+        const mockGenerator = jest.fn();
+        mockGenerator
+            .mockReturnValueOnce({coords: [0,0], direction: [0,1]})
+            .mockReturnValueOnce({coords: [0,0], direction: [0,1]})
+            .mockReturnValueOnce({coords: [1,0], direction: [0,1]})
+        fleet.placeShips(ships, mockGenerator)
+        expect(mockGenerator.mock.calls.length).toBe(3)
+        expect(fleet.shipCoordinates.length).toBe(ships.length)
+        expect(fleet.ships()).toEqual(ships)
+    })
 });
 

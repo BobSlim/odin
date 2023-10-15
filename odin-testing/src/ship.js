@@ -74,6 +74,7 @@ export const Fleet = (boardSize = 10) => {
 
     return {
         get shipCoordinates(){return shipCoordinates},
+        ships,
         isAllSunk,
         place,
         placeShips,

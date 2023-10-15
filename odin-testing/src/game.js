@@ -2,7 +2,7 @@ export const Game = (playerBoard, computerBoard) => {
     const step = (coords) => {
         computerBoard.receiveAttack(coords)
         playerBoard.receiveAttack(playerBoard.getRandomShot())
-        return data()
+        return {player: playerBoard, computer: computerBoard}
     }
 
     return {
@@ -12,17 +12,18 @@ export const Game = (playerBoard, computerBoard) => {
     }
 }
 
-export const Renderer = (gameObject) => {
+export const Renderer = (gameObject, frame, fnCreateElement) => {
     const renderCell = (cell) => {
-        const cellDOM = document.createElement("div")
+        const cellDOM = document.createElement("button")
         cellDOM.classList.add("gamecell")
-        const validClick = () => {
+        const validClick = (event) => {
             cellDOM.classList.add(cell.shipRef ? "gamecell--hit" : "gamecell--miss")
-            cellDOM.removeEventListener("click", handleClick)
-            return player.board.receiveAttack(cell.coords)
+            cellDOM.removeEventListener("click", validClick)
+            gameObject.step(cell.coords)
+            return gameObject.player.receiveAttack(cell.coords)
         }
-        cellDOM.addEventListener("click", (event) => {gameObject.step(cell.data().coords)})
-        cellDOM.innerText = cell.shipRef ? cell.symbol : ""
+        cellDOM.addEventListener("click", (event) => {validClick(event)})
+        cellDOM.innerText = cell.shipRef ? cell.symbol() : ""
         return cellDOM
     }
     const renderBoard = (board) => {
@@ -36,9 +37,8 @@ export const Renderer = (gameObject) => {
         return boardDOM
     }
     const render = (game) => {
-        const gameDOM = document.getElementById("main")
-        gameDOM.appendChild(renderBoard(game.player))
-        gameDOM.appendChild(renderBoard(game.computer))
+        frame.appendChild(renderBoard(game.player))
+        frame.appendChild(renderBoard(game.computer))
     }
     return {render}
 }
