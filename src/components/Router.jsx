@@ -5,17 +5,17 @@ import { Cv } from './Cv';
 
 export const paths = createBrowserRouter([
     {
-        path: "/",
+        path: "",
         element: <App />,
         title: "Home"
     },
     {
-        path: "/careers",
+        path: "careers",
         element: <Cv />,
         title: "Careers",
     },
     {
-        path: "/game",
+        path: "game",
         element: <MemoryCardGame />,
         title: "Game",
     }
