@@ -2,9 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { MemoryCardGame } from './components/MemoryCardPage.jsx'
+import { MemoryCardGame } from './components/MemoryCardGame.jsx'
 import { App } from './components/App';
-import { Cv } from './components/Cv';
+import { Careers } from './components/Careers';
+import { Shop } from './components/Shop';
+import { Home } from './components/Home';
 
 const paths = createBrowserRouter([
   {
@@ -12,8 +14,12 @@ const paths = createBrowserRouter([
     element: <App />,
     children: [
       {
+        index: true,
+        element: <Home />
+      },
+      {
         path: "careers",
-        element: <Cv />,
+        element: <Careers />,
       },
       {
         path: "game",
@@ -21,8 +27,8 @@ const paths = createBrowserRouter([
       },
       {
         path: "shop",
-        element: <Cv />,
-      }
+        element: <Shop />,
+      },
     ]
   },
 ])

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../styles/Cv.css'
 
-export function Cv() {
+export function Careers() {
   const [count, setCount] = useState(0)
 
   return (
