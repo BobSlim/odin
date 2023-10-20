@@ -15,9 +15,10 @@ export function MemoryCardGame() {
     const [clicked, setClicked] = useState(new Set([1]))
 
     const getData = async () => {
-        const resp = await fetch('https://api.sampleapis.com/coffee/hot');
+        const resp = await fetch('https://fakestoreapi.com/products');
         const json = await resp.json();
-        setCardDetails(json);
+        const filtered = json.slice(0, 12);
+        setCardDetails(filtered);
     }
 
     const handleClick = key => e => {
@@ -28,6 +29,8 @@ export function MemoryCardGame() {
             newSet.add(key)
         }
         setClicked(newSet)
+        const shuffled = shuffleArray(cardDetails)
+        setCardDetails(shuffled)
     }
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export function MemoryCardGame() {
             <p>Click a card if you haven't clicked it before. Mistakes reset your score.</p>
             <p>Score: {clicked.size}</p>
             <section className="cards">
-                {shuffleArray(cardDetails).map(cardDetail => <Card {...cardDetail} key={cardDetail.id} handleClick={handleClick(cardDetail.id)}></Card>)}
+                {cardDetails.map(cardDetail => <Card {...cardDetail} key={cardDetail.id} handleClick={handleClick(cardDetail.id)}></Card>)}
             </section>
         </main>
     )
