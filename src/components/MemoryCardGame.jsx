@@ -1,24 +1,14 @@
 import { useState, useEffect } from 'react'
+import { getData, shuffleArray } from './App'
 import '../styles/MemoryCardPage.css'
-
-function shuffleArray(source) {
-    let array = source.slice(0)
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array
-}
 
 export function MemoryCardGame() {
     const [cardDetails, setCardDetails] = useState([])
     const [clicked, setClicked] = useState(new Set([1]))
 
-    const getData = async () => {
-        const resp = await fetch('https://fakestoreapi.com/products');
-        const json = await resp.json();
-        const filtered = json.slice(0, 12);
-        setCardDetails(filtered);
+    const loadData = async () => {
+        const data = await getData('https://fakestoreapi.com/products', 12)
+        setCardDetails(data)
     }
 
     const handleClick = key => e => {
@@ -34,7 +24,7 @@ export function MemoryCardGame() {
     }
 
     useEffect(() => {
-        getData()
+        loadData()
     }, [])
 
     return (

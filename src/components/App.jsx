@@ -16,6 +16,22 @@ const CartButton = ({ items = 0 }) =>
         {items}
     </button>
 
+export const getData = async (url, max = 0) => {
+    const resp = await fetch(url);
+    const json = await resp.json();
+    const filtered = max ? json.slice(0, max) : json;
+    return filtered;
+}
+
+export function shuffleArray(source) {
+    let array = source.slice(0)
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
+}
+
 export const App = () => {
     return (
         <>
