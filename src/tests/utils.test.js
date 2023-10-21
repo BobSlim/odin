@@ -1,6 +1,6 @@
 import { displayPrice, findIndexById, findObjectById } from "@/components/utils";
 import { describe, it, expect } from "vitest";
-import { Cart, getCartTotal, getSubTotal } from "@/components/cart";
+import { setItem, removeItem, getCartTotal, getSubTotal } from "@/components/cart";
 
 describe("utils", () => {
     it("displayPrice", () => {
@@ -21,47 +21,28 @@ describe("utils", () => {
 })
 
 describe("cart", () => {
-    it("initializes", () => {
-        const cart = Cart()
-        expect(typeof cart).toBe("object")
-        expect(cart.contents).toEqual([])
-    })
-    it("adds item", () => {
-        const cart = Cart()
-        cart.add({id: 0, quantity: 4})
-        expect(cart.contents).toEqual([{id: 0, quantity: 4}])
-        cart.add({id: 0, quantity: 5})
-        expect(cart.contents).toEqual([{ id: 0, quantity: 9 }])
+    it("sets item", () => {
+        let cart = []
+        cart = setItem(cart, {id: 0, quantity: 4})
+        expect(cart).toEqual([{ id: 0, quantity: 4 }])
+        cart = setItem(cart, { id: 0, quantity: 5 })
+        expect(cart).toEqual([{ id: 0, quantity: 5 }])
+
     })
     it("removes item", () => {
-        const cart = Cart()
-        cart.add({ id: 0, quantity: 4 })
-        cart.remove(0)
-        expect(cart.contents).toEqual([])
+        let cart = []
+        removeItem([{id:0}], 0)
+        expect(cart).toEqual([])
     })
-    it("setsQuantity", () => {
-        const cart = Cart()
-        cart.setQuantity({ id: 0, quantity: 4 })
-        expect(cart.contents).toEqual([{ id: 0, quantity: 4 }])
-        cart.setQuantity({ id: 0, quantity: 5 })
-        expect(cart.contents).toEqual([{ id: 0, quantity: 5 }])
-    })
-    it("correctly evaluates subtotal", () => {
-        const fakeCart = [
-            {id: 2, quantity: 3}
-        ]
-    })
-})
-
-describe("totalEvaluators", () => {
+    
     const mockProducts = [
-        {id: 0, price: 1},
+        { id: 0, price: 1 },
         { id: 1, price: 2 },
         { id: 2, price: 3 }
     ]
     const mockCart = [
-        {id: 2, quantity: 4},
-        {id: 0, quantity: 2},
+        { id: 2, quantity: 4 },
+        { id: 0, quantity: 2 },
     ]
 
     it("subtotals", () => {

@@ -1,36 +1,17 @@
 import { findIndexById, findObjectById } from "./utils"
 
-export const Cart = (contents = []) => {
-    const add = ({id, quantity}) => {
-        const itemIndex = findIndexById(contents, id)
-        if(itemIndex == -1){
-            contents.push({ id, quantity })
-            return
-        }
-        contents[itemIndex].quantity += quantity
+export const setItem = (cart, { id, quantity }) => {
+    const itemIndex = findIndexById(cart, id)
+    if (itemIndex == -1) {
+        return [...cart, { id, quantity }]
     }
-
-    const setQuantity = ({ id, quantity }) => {
-        const itemIndex = findIndexById(contents, id)
-        if (itemIndex == -1) {
-            contents.push({ id, quantity })
-            return
-        }
-        contents[itemIndex].quantity = quantity
-    }
-
-    const remove = (id) => {
-        contents.splice(findIndexById(contents, id), 1)
-    }
-
-
-    return {
-        contents,
-        add,
-        remove,
-        setQuantity
-    }
+    const newCart = [...cart]
+    newCart[itemIndex].quantity = quantity
+    return newCart
 }
+
+export const removeItem = (cart, id) =>
+    [...cart.splice(findIndexById(cart, id), 1)]
 
 export const getSubTotal = (products) => (cart, id) =>
     findObjectById(cart, id).quantity * findObjectById(products, id).price
