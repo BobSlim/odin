@@ -1,0 +1,26 @@
+.shopCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60ch, 1fr));
+    gap: 2rem;
+}
+
+.card_shop {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "main description"
+        "title title";
+}
+
+.card_shop .card_shop_header {
+    grid-area: title;
+}
+
+.card_shop .card_main {
+    grid-area: main;
+}
+
+.card_shop .card_description {
+    grid-area: description;
+}

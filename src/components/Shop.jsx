@@ -16,21 +16,25 @@ export const Shop = () => {
 
     return (
         <main>
-            Shop!!
-            <section className="cards">
-                {products.map(product => <ItemDetails {...product} />)}
+            <h2>Shop!</h2>
+            <section className="shopCards">
+                {products.map(product => <ItemDetails {...product} key={product.id} />)}
             </section>
         </main>
     )
 }
 
 const ItemDetails = ({ title = "NOTITLE", price = 0, image = "", description = "" }) =>
-    <article className="card">
-        <img src={image} alt="" />
-        <p>{price}</p>
-        <AddToCartForm />
-        <h3>{title}</h3>
-        <p>{description}</p>
+    <article className="card card_shop">
+        <h3 className="card_shop_header">{title}</h3>
+        <div className="card_shop_main">
+            <img src={image} alt="" />
+            <p>{price}</p>
+            <AddToCartForm />
+        </div>
+        <div className="card_shop_description">
+            <p>{description}</p>
+        </div>
     </article>
 
 const AddToCartForm = () =>

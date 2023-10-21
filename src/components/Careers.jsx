@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import '../styles/Cv.css'
+import styles from './Careers.module.css'
 
 export function Careers() {
   const [count, setCount] = useState(0)
@@ -28,7 +28,7 @@ function SectionGeneral() {
 
   function DetailDisplay({ fullName, email, tel }) {
     return (
-      <ul className='hiddenEmpty'>
+      <ul className={styles.cards}>
         {fullName && <li>Name: {fullName}</li>}
         {email && <li>Email: {email}</li>}
         {tel && <li>Phone: {tel}</li>}

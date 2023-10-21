@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getData, shuffleArray } from './App'
-import '../styles/MemoryCardPage.css'
+import styles from './MemoryCardPage.module.css'
 
 export function MemoryCardGame() {
     const [cardDetails, setCardDetails] = useState([])
