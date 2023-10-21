@@ -25,3 +25,9 @@ export const shuffleArray = (source) => {
     }
     return array
 }
+
+export const findIndexById = (array, id) =>
+    array.map(item => item.id).indexOf(id)
+
+export const findObjectById = (array, id) =>
+    array[findIndexById(array, id)]
