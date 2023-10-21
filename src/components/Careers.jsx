@@ -40,9 +40,9 @@ function SectionGeneral() {
       <h2>Personal Details</h2>
       <DetailDisplay {...personalDetails}></DetailDisplay>
       <form action="" onSubmit={handleSubmit}>
-        <label>Name<input name="fullName" type="text" /></label>
-        <label>Email<input name="email" type="email" /></label>
-        <label>Ph<input name="tel" type="tel" /></label>
+        <label className={styles.label}>Name<input name="fullName" type="text" /></label>
+        <label className={styles.label}>Email<input name="email" type="email" /></label>
+        <label className={styles.label}>Ph<input name="tel" type="tel" /></label>
         <button type="submit">Submit</button>
       </form>
     </section>
@@ -98,10 +98,10 @@ function SectionEducation() {
       <h2>Education</h2>
       <DisplayTable tableRows={educationTable}></DisplayTable>
       <form action="" onSubmit={genericHandleSubmit(addEducation)}>
-        <label>School Name<input type="text" name="studyName" /></label>
-        <label>Title of Study<input type="text" name="studyTitle" /></label>
-        <label>Study Start<input type="date" name="studyStart" /></label>
-        <label>Study End<input type="date" name="studyEnd" /></label>
+        <label className={styles.label}>School Name<input type="text" name="studyName" /></label>
+        <label className={styles.label}>Title of Study<input type="text" name="studyTitle" /></label>
+        <label className={styles.label}>Study Start<input type="date" name="studyStart" /></label>
+        <label className={styles.label}>Study End<input type="date" name="studyEnd" /></label>
         <button type="submit">Add</button>
       </form>
     </section>
@@ -125,11 +125,11 @@ function SectionPractical() {
       <h2>Practical Experience</h2>
       <DisplayTable tableRows={practicalTable} description={true}></DisplayTable>
       <form action="" onSubmit={genericHandleSubmit(addPractical)}>
-        <label>Company Name<input type="text" name="workName" /></label>
-        <label>Position Title<input type="text" name="workTitle" /></label>
-        <label>Responsibilities<textarea type="text" name="workDuties" /></label>
-        <label>Study Start<input type="date" name="workStart" /></label>
-        <label>Study End<input type="date" name="workEnd" /></label>
+        <label className={styles.label}>Company Name<input type="text" name="workName" /></label>
+        <label className={styles.label}>Position Title<input type="text" name="workTitle" /></label>
+        <label className={styles.label}>Responsibilities<textarea type="text" name="workDuties" /></label>
+        <label className={styles.label}>Study Start<input type="date" name="workStart" /></label>
+        <label className={styles.label}>Study End<input type="date" name="workEnd" /></label>
         <button type="submit">Add</button>
       </form>
     </section>

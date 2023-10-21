@@ -17,7 +17,7 @@ export const Shop = () => {
 
     return (
         <main>
-            <h2>Shop!</h2>
+            <h1>Shop!</h1>
             <section className={styles.products}>
                 {products.map(product => <ItemDetails {...product} key={product.id} />)}
             </section>
@@ -25,31 +25,60 @@ export const Shop = () => {
     )
 }
 
-const displayPrice = (price = 0) => {
-    price = price.toString()
-    const decimalPlace = price.indexOf(".")
+const decimalize = (number = 0, places = 2) => {
+    number = number.toString()
+    const decimalPlace = number.indexOf(".")
     if (decimalPlace == -1) {
-        return price + ".00"
+        return number + ".00"
     }
-    const addedZeroes = 3 - price.slice(decimalPlace).length
-    return price + "0".repeat(addedZeroes)
+    const addedZeroes = (places + 1) - number.slice(decimalPlace).length
+    return number + "0".repeat(addedZeroes)
 }
+
+const displayPrice = (price = 0) =>
+    "$"+decimalize(price)
+
 
 const ItemDetails = ({ title = "NOTITLE", price = 0, image = "", description = "" }) =>
     <article className={styles.product}>
         <h3>{title}</h3>
-        <div className={styles.main}>
+        <div>
             <img src={image} alt="" />
-            <p>${displayPrice(price)}</p>
-            <AddToCartForm />
-        </div>
-        <div className={styles.description}>
-            <p>{description}</p>
+            <AddToCartForm /> {displayPrice(price)}
         </div>
     </article>
 
 const AddToCartForm = () =>
     <form action="">
-        <label htmlFor="quantity">#:<input type="number" name="quantity" /></label>
+        <SpinnerInput inputName = "quantity"/>
         <button type="submit"><Icon icon="mdi:cart" />Add to Cart</button>
     </form>
+
+const SpinnerInput = ({ inputName }) => {
+    const [value, setValue] = useState("");
+    
+    const handleClick = (number) => (event) => {
+        event.preventDefault()
+        validSetValue(parseInt(value ? value : 0) + number)
+    }
+
+    const validSetValue = (number) =>{
+        const newValue = parseInt(Math.max(1, number)).toString()
+        setValue(newValue)
+    }
+
+    return (
+        <div className={styles.spinner}>
+            <button onClick={handleClick(-1)}>-</button>
+            <input 
+                type="number" 
+                name={inputName}
+                min="0"
+                value={value} 
+                onChange={e => setValue(e.target.value)} 
+                onBlur={e => validSetValue(e.target.value)}
+            />
+            <button onClick={handleClick(+1)}>+</button>
+        </div>
+    )
+}
