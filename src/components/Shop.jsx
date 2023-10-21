@@ -63,7 +63,7 @@ const SpinnerInput = ({ inputName }) => {
     }
 
     const validSetValue = (number) =>{
-        const newValue = parseInt(Math.max(1, number)).toString()
+        const newValue = parseInt(Math.max(0, number)).toString()
         setValue(newValue)
     }
 
@@ -76,7 +76,7 @@ const SpinnerInput = ({ inputName }) => {
                 min="0"
                 value={value} 
                 onChange={e => setValue(e.target.value)} 
-                onBlur={e => validSetValue(e.target.value)}
+                onBlur={e => value ? validSetValue(e.target.value) : null}
             />
             <button onClick={handleClick(+1)}>+</button>
         </div>
