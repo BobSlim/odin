@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getData, shuffleArray } from './App'
+import { getData, shuffleArray } from './utils'
 import styles from './MemoryCardPage.module.css'
 
 export function MemoryCardGame() {

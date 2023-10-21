@@ -1,21 +1,11 @@
 import { Icon } from "@iconify/react"
-import { useEffect, useState } from "react"
 import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
 import { displayPrice, getData } from "./utils"
+import { useOutletContext } from "react-router-dom"
 
 export const Shop = () => {
-    const [products, setProducts] = useState([])
-
-    const loadData = async () => {
-        const data = await getData('https://fakestoreapi.com/products')
-        setProducts(data)
-    }
-
-    useEffect(() => {
-        loadData();
-    }, [])
-
+    const [cart, setCart, products] = useOutletContext()
     return (
         <main>
             <h1>Shop!</h1>

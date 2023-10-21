@@ -1,9 +1,10 @@
 import { Icon } from "@iconify/react"
 import { Outlet, Link } from "react-router-dom"
-import { Cart } from "./cart"
-import { useState } from "react"
+import { setItem, removeItem } from "./cart"
+import { useState, useEffect } from "react"
+import { getData } from "./utils"
 
-const NavBar = () =>
+const NavBar = ({children}) =>
     <nav>
         <Link to="/"><button>Home</button></Link>
         <Link to="/careers"><button>Careers</button></Link>
@@ -19,13 +20,24 @@ const CartButton = ({ items = 0 }) =>
     </button>
 
 export const App = () => {
-    [Cart([]), setCart] = useState()
+    const [cart, setCart] = useState([])
+    const [products, setProducts] = useState([])
+
+    const loadData = async () => {
+        const data = await getData('https://fakestoreapi.com/products')
+        setProducts(data)
+    }
+
+    useEffect(() => {
+        loadData();
+    }, [])
+
     return (
         <>
             <NavBar>
-                <CartButton/>
+                <CartButton items={cart.length} />
             </NavBar>
-            <Outlet />
+            <Outlet context={[cart, setCart, products]}/>
         </>
     )
 }
