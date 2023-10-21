@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react"
 import { getData } from "./App"
 import { useEffect, useState } from "react"
 import styles from "./Shop.module.css"
+import { SpinnerInput } from "./SpinnerInput"
 
 export const Shop = () => {
     const [products, setProducts] = useState([])
@@ -53,32 +54,3 @@ const AddToCartForm = () =>
         <SpinnerInput inputName = "quantity"/>
         <button type="submit"><Icon icon="mdi:cart" />Add to Cart</button>
     </form>
-
-const SpinnerInput = ({ inputName }) => {
-    const [value, setValue] = useState("");
-    
-    const handleClick = (number) => (event) => {
-        event.preventDefault()
-        validSetValue(parseInt(value ? value : 0) + number)
-    }
-
-    const validSetValue = (number) =>{
-        const newValue = parseInt(Math.max(0, number)).toString()
-        setValue(newValue)
-    }
-
-    return (
-        <div className={styles.spinner}>
-            <button onClick={handleClick(-1)}>-</button>
-            <input 
-                type="number" 
-                name={inputName}
-                min="0"
-                value={value} 
-                onChange={e => setValue(e.target.value)} 
-                onBlur={e => value ? validSetValue(e.target.value) : null}
-            />
-            <button onClick={handleClick(+1)}>+</button>
-        </div>
-    )
-}

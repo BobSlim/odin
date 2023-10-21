@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Spinner > renders 1`] = `
+<div>
+  <div
+    class="_spinner_15c661"
+  >
+    <button>
+      -
+    </button>
+    <input
+      min="0"
+      type="number"
+      value=""
+    />
+    <button>
+      +
+    </button>
+  </div>
+</div>
+`;
