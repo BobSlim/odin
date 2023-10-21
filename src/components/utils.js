@@ -17,7 +17,7 @@ export const getData = async (url, max = 0) => {
     return filtered;
 }
 
-export function shuffleArray(source) {
+export const shuffleArray = (source) => {
     let array = source.slice(0)
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
