@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react"
-import { getData } from "./App"
 import { useEffect, useState } from "react"
 import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
+import { displayPrice, getData } from "./utils"
 
 export const Shop = () => {
     const [products, setProducts] = useState([])
@@ -26,25 +26,11 @@ export const Shop = () => {
     )
 }
 
-const decimalize = (number = 0, places = 2) => {
-    number = number.toString()
-    const decimalPlace = number.indexOf(".")
-    if (decimalPlace == -1) {
-        return number + ".00"
-    }
-    const addedZeroes = (places + 1) - number.slice(decimalPlace).length
-    return number + "0".repeat(addedZeroes)
-}
-
-const displayPrice = (price = 0) =>
-    "$"+decimalize(price)
-
-
-const ItemDetails = ({ title = "NOTITLE", price = 0, image = "", description = "" }) =>
+const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "" }) =>
     <article className={styles.product}>
         <h3>{title}</h3>
         <div>
-            <img src={image} alt="" />
+            <img src={image} alt={title} />
             <AddToCartForm /> {displayPrice(price)}
         </div>
     </article>
