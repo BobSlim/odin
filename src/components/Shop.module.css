@@ -1,10 +1,12 @@
-.shopCards {
+.products {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(60ch, 1fr));
     gap: 2rem;
 }
 
-.card_shop {
+.product {
+    width: 100%;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
@@ -13,14 +15,25 @@
         "title title";
 }
 
-.card_shop .card_shop_header {
+.product h3 {
     grid-area: title;
+    font-size: 2rem;
+        width: auto;
 }
 
-.card_shop .card_main {
+.product .main {
     grid-area: main;
 }
 
-.card_shop .card_description {
+.product .description {
     grid-area: description;
+    display: flex;
+        place-items: center;
+    }
+    
+    .product img {
+        width: 100%;
+        max-height: 16rem;
+        object-fit: scale-down;
+        background-color: white;
 }

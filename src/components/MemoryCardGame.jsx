@@ -32,7 +32,7 @@ export function MemoryCardGame() {
             <h1>Memory Game</h1>
             <p>Click a card if you haven't clicked it before. Mistakes reset your score.</p>
             <p>Score: {clicked.size}</p>
-            <section className="cards">
+            <section className={styles.cards}>
                 {cardDetails.map(cardDetail => <Card {...cardDetail} key={cardDetail.id} handleClick={handleClick(cardDetail.id)}></Card>)}
             </section>
         </main>
@@ -41,7 +41,7 @@ export function MemoryCardGame() {
 
 function Card({ title, image, handleClick }) {
     return (
-        <button onClick={handleClick} className="card" style={{ backgroundImage: `url(${image})` }}>
+        <button onClick={handleClick} className={styles.card} style={{ backgroundImage: `url(${image})` }}>
             <div className="overlay">
                 <h3>{title}</h3>
             </div>

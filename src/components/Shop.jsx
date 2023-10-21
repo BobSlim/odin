@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import { getData } from "./App"
 import { useEffect, useState } from "react"
+import styles from "./Shop.module.css"
 
 export const Shop = () => {
     const [products, setProducts] = useState([])
@@ -17,22 +18,32 @@ export const Shop = () => {
     return (
         <main>
             <h2>Shop!</h2>
-            <section className="shopCards">
+            <section className={styles.products}>
                 {products.map(product => <ItemDetails {...product} key={product.id} />)}
             </section>
         </main>
     )
 }
 
+const displayPrice = (price = 0) => {
+    price = price.toString()
+    const decimalPlace = price.indexOf(".")
+    if (decimalPlace == -1) {
+        return price + ".00"
+    }
+    const addedZeroes = 3 - price.slice(decimalPlace).length
+    return price + "0".repeat(addedZeroes)
+}
+
 const ItemDetails = ({ title = "NOTITLE", price = 0, image = "", description = "" }) =>
-    <article className="card card_shop">
-        <h3 className="card_shop_header">{title}</h3>
-        <div className="card_shop_main">
+    <article className={styles.product}>
+        <h3>{title}</h3>
+        <div className={styles.main}>
             <img src={image} alt="" />
-            <p>{price}</p>
+            <p>${displayPrice(price)}</p>
             <AddToCartForm />
         </div>
-        <div className="card_shop_description">
+        <div className={styles.description}>
             <p>{description}</p>
         </div>
     </article>
