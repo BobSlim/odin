@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
-import { getData, shuffleArray } from './utils'
+import { findObjectById, getData, shuffleArray } from './utils'
 import styles from './MemoryCardPage.module.css'
+import { useOutletContext } from 'react-router-dom'
 
 export function MemoryCardGame() {
-    const [cardDetails, setCardDetails] = useState([])
-    const [clicked, setClicked] = useState(new Set([1]))
+    const cardDetails = useOutletContext()[2]
+    const [presentationId, setPresentationId] = useState([])
+    const [clicked, setClicked] = useState(new Set([]))
 
-    const loadData = async () => {
-        const data = await getData('https://fakestoreapi.com/products', 12)
-        setCardDetails(data)
+    const shuffle = () => {
+        const newArray = shuffleArray(cardDetails.map(x => x.id))
+        setPresentationId(newArray)
     }
 
     const handleClick = key => e => {
@@ -19,13 +21,10 @@ export function MemoryCardGame() {
             newSet.add(key)
         }
         setClicked(newSet)
-        const shuffled = shuffleArray(cardDetails)
-        setCardDetails(shuffled)
+        shuffle()
     }
 
-    useEffect(() => {
-        loadData()
-    }, [])
+    useEffect((shuffle), [cardDetails])
 
     return (
         <main>
@@ -33,7 +32,7 @@ export function MemoryCardGame() {
             <p>Click a card if you haven't clicked it before. Mistakes reset your score.</p>
             <p>Score: {clicked.size}</p>
             <section className={styles.cards}>
-                {cardDetails.map(cardDetail => <Card {...cardDetail} key={cardDetail.id} handleClick={handleClick(cardDetail.id)}></Card>)}
+                {presentationId.map(id => <Card {...findObjectById(cardDetails, id)} key={id} handleClick={handleClick(id)}></Card>)}
             </section>
         </main>
     )
