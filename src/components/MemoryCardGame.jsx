@@ -32,13 +32,13 @@ export function MemoryCardGame() {
             <h1>Memory Game</h1>
             <p>Click a card if you haven't clicked it before. Mistakes reset your score.</p>
             <p>Score: {clicked.size}</p>
-            {presentationId.length ? 
+            {/* {presentationId.length ? 
                 <section className={styles.cards}>
                     {presentationId.map(id => <Card {...findObjectById(cardDetails, id)} key={id} handleClick={handleClick(id)}></Card>)}
                 </section>
-                :
+                : */}
                 <LoadingSpinner/>
-            }
+            {/* } */}
             
         </main>
     )
@@ -56,7 +56,7 @@ function Card({ title, image, handleClick }) {
 
 function LoadingSpinner() {
     return (
-        <div className="loadingSpinner">
+        <div className={styles.loadingSpinner}>
             <Icon icon={"mdi:loading"}></Icon>
         </div>
     )

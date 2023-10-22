@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -39,6 +41,12 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 button {
