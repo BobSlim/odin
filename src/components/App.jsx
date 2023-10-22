@@ -14,10 +14,12 @@ const NavBar = ({children}) =>
     </nav>
 
 const CartButton = ({ items = 0 }) =>
-    <button>
-        <Icon icon="mdi:cart"></Icon>
-        {items}
-    </button>
+    <Link to="/cart">
+        <button>
+            <Icon icon="mdi:cart"></Icon>
+            {items}
+        </button>
+    </Link>
 
 export const App = () => {
     const [cart, setCart] = useState([])
@@ -35,7 +37,7 @@ export const App = () => {
     return (
         <>
             <NavBar>
-                <CartButton items={cart.length} />
+                <CartButton items={cart.length == 0 ? 0 : cart.map(basket => basket.quantity).reduce((acc, obj) => parseInt(acc) + parseInt(obj))} />
             </NavBar>
             <Outlet context={[cart, setCart, products]}/>
         </>

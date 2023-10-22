@@ -31,10 +31,14 @@ exports[`App > renders 1`] = `
         Shop
       </button>
     </a>
-    <button>
-      <span />
-      0
-    </button>
+    <a
+      href="/cart"
+    >
+      <button>
+        <span />
+        0
+      </button>
+    </a>
   </nav>
 </div>
 `;

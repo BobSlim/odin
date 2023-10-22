@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MemoryCardGame } from './components/MemoryCardGame.jsx'
 import { App } from './components/App';
 import { Careers } from './components/Careers';
-import { Shop } from './components/Shop';
+import { Shop, Checkout } from './components/Shop';
 import { Home } from './components/Home';
 
 const paths = createBrowserRouter([
@@ -29,6 +29,11 @@ const paths = createBrowserRouter([
         path: "shop",
         element: <Shop />,
       },
+      {
+        path: "cart",
+        element: <Checkout />,
+      },
+
     ]
   },
 ])

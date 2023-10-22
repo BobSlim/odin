@@ -1,12 +1,18 @@
 import { Icon } from "@iconify/react"
 import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
-import { displayPrice, getFormData } from "./utils"
+import { displayPrice, findObjectById, getFormData } from "./utils"
 import { useOutletContext } from "react-router-dom"
 import { LoadingSpinner } from "./LoadingSpinner"
+import { setItem } from "./cart"
 
 export const Shop = () => {
     const [cart, setCart, products] = useOutletContext()
+
+    const addToCart = (basket) => {
+        setCart(setItem(cart, basket))
+    }
+
     return (
         <main>
             <h1>Shop!</h1>
@@ -14,9 +20,38 @@ export const Shop = () => {
                 <section className={styles.products}>
                     {products.map(product =>
                         <ItemDetails {...product} key={product.id}>
-                            <AddToCartForm id={product.id} />
+                            <AddToCartForm id={product.id} addCartItem={addToCart} />
                         </ItemDetails>
                     )}
+                </section>
+                :
+                <LoadingSpinner />
+            }
+        </main>
+    )
+}
+
+export const Checkout = () => {
+    const [cart, setCart, products] = useOutletContext()
+
+    const addToCart = (basket) => {
+        setCart(setItem(cart, basket))
+    }
+
+    return (
+        <main>
+            <h1>Your Cart</h1>
+            {products.length ?
+                <section className={styles.products}>
+                    {cart.map(basket => {
+                        const product = findObjectById(products, basket.id)
+                        return (
+                            <ItemDetails {...product} key={basket.id}>
+                                <AddToCartForm id={basket.id} addCartItem={addToCart} />
+                            </ItemDetails>
+                        )
+                    })}
+                    
                 </section>
                 :
                 <LoadingSpinner />
