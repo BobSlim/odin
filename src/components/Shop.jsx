@@ -3,19 +3,24 @@ import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
 import { displayPrice, getFormData } from "./utils"
 import { useOutletContext } from "react-router-dom"
+import { LoadingSpinner } from "./LoadingSpinner"
 
 export const Shop = () => {
     const [cart, setCart, products] = useOutletContext()
     return (
         <main>
             <h1>Shop!</h1>
-            <section className={styles.products}>
-                {products.map(product => 
-                    <ItemDetails {...product} key={product.id}>
-                        <AddToCartForm id={product.id} />
-                    </ItemDetails>
-                )}
-            </section>
+            {products.length ?
+                <section className={styles.products}>
+                    {products.map(product =>
+                        <ItemDetails {...product} key={product.id}>
+                            <AddToCartForm id={product.id} />
+                        </ItemDetails>
+                    )}
+                </section>
+                :
+                <LoadingSpinner />
+            }
         </main>
     )
 }

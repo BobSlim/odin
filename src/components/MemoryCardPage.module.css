@@ -30,11 +30,3 @@
     width: 100%;
     object-fit: cover;
 }
-
-.loadingSpinner {
-    height: 100%;
-    display: flex;
-    place-items: center;
-    justify-content: center;
-    font-size: 4rem;
-}
