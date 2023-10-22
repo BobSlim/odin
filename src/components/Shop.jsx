@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react"
 import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
-import { displayPrice, getData, getFormData } from "./utils"
+import { displayPrice, getFormData } from "./utils"
 import { useOutletContext } from "react-router-dom"
 
 export const Shop = () => {
@@ -10,18 +10,23 @@ export const Shop = () => {
         <main>
             <h1>Shop!</h1>
             <section className={styles.products}>
-                {products.map(product => <ItemDetails {...product} key={product.id} />)}
+                {products.map(product => 
+                    <ItemDetails {...product} key={product.id}>
+                        <AddToCartForm id={product.id} />
+                    </ItemDetails>
+                )}
             </section>
         </main>
     )
 }
 
-export const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "" }) =>
+export const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "", children }) =>
     <article className={styles.product}>
         <h3>{title}</h3>
         <div>
             <img src={image} alt={title} />
-            <AddToCartForm id={id}/> {displayPrice(price)}
+            {displayPrice(price)}
+            {children}
         </div>
     </article>
 
