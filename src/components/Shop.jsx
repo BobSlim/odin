@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react"
 import styles from "./Shop.module.css"
 import { SpinnerInput } from "./SpinnerInput"
-import { displayPrice, getData } from "./utils"
+import { displayPrice, getData, getFormData } from "./utils"
 import { useOutletContext } from "react-router-dom"
 
 export const Shop = () => {
@@ -16,17 +16,31 @@ export const Shop = () => {
     )
 }
 
-const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "" }) =>
+export const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "" }) =>
     <article className={styles.product}>
         <h3>{title}</h3>
         <div>
             <img src={image} alt={title} />
-            <AddToCartForm /> {displayPrice(price)}
+            <AddToCartForm id={id}/> {displayPrice(price)}
         </div>
     </article>
 
-const AddToCartForm = () =>
-    <form action="">
-        <SpinnerInput inputName = "quantity"/>
-        <button type="submit"><Icon icon="mdi:cart" />Add to Cart</button>
-    </form>
+export const AddToCartForm = ({id, addCartItem = (...args) => console.log(args)}) => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const submitData = getFormData(e.target)
+        if(submitData.quantity == ''){
+            submitData.quantity = '1'
+        }
+        addCartItem(submitData)
+        e.target.reset()
+    }
+
+    return (
+        <form action="" onSubmit={handleSubmit}>
+            <SpinnerInput inputName="quantity" />
+            <input type="hidden" name="id" value={id}/>
+            <button type="submit" ><Icon icon="mdi:cart" />Add to Cart</button>
+        </form>
+    )
+}

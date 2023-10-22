@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AddToCartForm > renders 1`] = `
+<div>
+  <form
+    action=""
+  >
+    <div
+      class="_spinner_15c661"
+    >
+      <button>
+        -
+      </button>
+      <input
+        min="0"
+        name="quantity"
+        type="number"
+        value=""
+      />
+      <button>
+        +
+      </button>
+    </div>
+    <input
+      name="id"
+      type="hidden"
+      value="2"
+    />
+    <button
+      type="submit"
+    >
+      <span />
+      Add to Cart
+    </button>
+  </form>
+</div>
+`;
+
+exports[`Shop > renders 1`] = `<div />`;

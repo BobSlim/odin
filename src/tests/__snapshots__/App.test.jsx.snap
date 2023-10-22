@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > renders 1`] = `
+<div>
+  <nav>
+    <a
+      href="/"
+    >
+      <button>
+        Home
+      </button>
+    </a>
+    <a
+      href="/careers"
+    >
+      <button>
+        Careers
+      </button>
+    </a>
+    <a
+      href="/game"
+    >
+      <button>
+        Game
+      </button>
+    </a>
+    <a
+      href="/shop"
+    >
+      <button>
+        Shop
+      </button>
+    </a>
+    <button>
+      <span />
+      0
+    </button>
+  </nav>
+</div>
+`;

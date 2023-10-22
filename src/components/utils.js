@@ -31,3 +31,8 @@ export const findIndexById = (array, id) =>
 
 export const findObjectById = (array, id) =>
     array[findIndexById(array, id)]
+
+export const getFormData = (form) => {
+    const formData = new FormData(form)
+    return Object.fromEntries(formData.entries())
+}
