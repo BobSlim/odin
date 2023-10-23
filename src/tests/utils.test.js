@@ -25,13 +25,17 @@ describe("cart", () => {
         let cart = []
         cart = setItem(cart, {id: 0, quantity: 4})
         expect(cart).toEqual([{ id: 0, quantity: 4 }])
-        cart = setItem(cart, { id: 0, quantity: 5 })
-        expect(cart).toEqual([{ id: 0, quantity: 5 }])
 
     })
+    it("overwrites set item", () => {
+        let cart = [{id: 0, quantity: 2}]
+        cart = setItem(cart, { id: 0, quantity: 5 })
+        expect(cart).toEqual([{ id: 0, quantity: 5 }])
+    })
+
     it("removes item", () => {
-        let cart = []
-        removeItem([{id:0}], 0)
+        let cart = [{id: 0}]
+        cart = removeItem(cart, 0)
         expect(cart).toEqual([])
     })
     
