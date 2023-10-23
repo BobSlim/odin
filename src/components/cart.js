@@ -11,7 +11,7 @@ export const setItem = (cart, { id, quantity }) => {
 }
 
 export const removeItem = (cart, id) =>
-    [...cart.splice(findIndexById(cart, id), 1)]
+    [...cart.toSpliced(findIndexById(cart, id), 1)]
 
 export const getSubTotal = (products) => (cart, id) =>
     findObjectById(cart, id).quantity * findObjectById(products, id).price
