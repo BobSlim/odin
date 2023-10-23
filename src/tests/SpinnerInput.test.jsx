@@ -11,13 +11,15 @@ describe("Spinner", () => {
     let incButton
     let decButton
 
-    let setSpy = vi.fn()
-    let value = ""
-    let setValue = (newValue) => {
-        value = newValue
+    const MockParent = () => {
+        const [value, setValue] = useState()
+        return (
+            <SpinnerInput value={value} setValue={setValue}/>
+        )
     }
+
     beforeEach(() => {
-        container = render(<SpinnerInput value={value} setValue={setValue} />).container;
+        container = render(<MockParent />).container;
         user = userEvent.setup()
         input = screen.getByRole("spinbutton", { name: "" })
         incButton = screen.getByRole("button", { name: "+" })
@@ -41,12 +43,12 @@ describe("Spinner", () => {
         expect(input.value).toMatch("1")
     })
     it("decrements", async () => {
-        input.value = "2"
+        await user.type(input, "2")
         await user.click(decButton)
         expect(input.value).toMatch("1")
     })
     it("refuses to decrement below 0", async () => {
-        input.value = "1"
+        await user.type(input, "1")
         await user.click(decButton)
         await user.click(decButton)
         expect(input.value).toMatch("0")
