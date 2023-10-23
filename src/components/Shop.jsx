@@ -5,6 +5,7 @@ import { displayPrice, findObjectById, getFormData } from "./utils"
 import { useOutletContext } from "react-router-dom"
 import { LoadingSpinner } from "./LoadingSpinner"
 import { setItem } from "./cart"
+import { useState } from "react"
 
 export const Shop = () => {
     const [cart, setCart, products] = useOutletContext()
@@ -70,22 +71,31 @@ export const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "
         </div>
     </article>
 
-export const AddToCartForm = ({id, addCartItem = (...args) => console.log(args)}) => {
+export const AddToCartForm = ({
+        id, 
+        fn = (...args) => console.log(args)
+    }) => {
+    const [spinnerValue, setSpinnerValue] = useState()
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const submitData = getFormData(e.target)
         if(submitData.quantity == ''){
             submitData.quantity = '1'
         }
-        addCartItem(submitData)
+        fn(submitData)
         e.target.reset()
     }
 
     return (
         <form action="" onSubmit={handleSubmit}>
-            <SpinnerInput inputName="quantity" />
+            <SpinnerInput 
+                inputName="quantity" 
+                value={spinnerValue}
+                setValue={setSpinnerValue}
+            />
             <input type="hidden" name="id" value={id}/>
-            <button type="submit" ><Icon icon="mdi:cart" />Add to Cart</button>
+            <button type="submit"><Icon icon="mdi:cart" />Add to Cart</button>
         </form>
     )
 }

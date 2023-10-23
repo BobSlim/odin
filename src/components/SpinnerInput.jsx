@@ -1,10 +1,6 @@
-import { useState } from "react";
 import styles from "./SpinnerInput.module.css";
 
-
-
-export const SpinnerInput = ({ inputName }) => {
-    const [value, setValue] = useState("")
+export const SpinnerInput = ({ inputName, value, setValue }) => {
 
     const handleClick = (number) => (event) => {
         event.preventDefault()

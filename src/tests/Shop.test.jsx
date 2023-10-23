@@ -26,7 +26,7 @@ describe('AddToCartForm', () => {
     beforeEach(() => {
         spy = vi.fn()
         user = userEvent.setup()
-        container = render(<AddToCartForm id = {2} addCartItem = {spy}/>).container
+        container = render(<AddToCartForm id = {2} fn = {spy}/>).container
         addButton = screen.getByRole('button', { name: 'Add to Cart' })
         input = screen.getByRole("spinbutton", { name: "" })
     })
