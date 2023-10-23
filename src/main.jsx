@@ -5,8 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MemoryCardGame } from './components/MemoryCardGame.jsx'
 import { App } from './components/App';
 import { Careers } from './components/Careers';
-import { Shop, Checkout } from './components/Shop';
+import { Shop } from './components/Shop';
 import { Home } from './components/Home';
+import { Checkout } from './components/Checkout';
 
 const paths = createBrowserRouter([
   {
