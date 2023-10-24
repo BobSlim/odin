@@ -17,4 +17,4 @@ export const getSubTotal = (products) => (cart, id) =>
     findObjectById(cart, id).quantity * findObjectById(products, id).price
 
 export const getCartTotal = (products) => (cart) =>
-    cart.map(basket => getSubTotal(products)(cart, basket.id)).reduce((a, x) => a + x)
+    cart.map(basket => getSubTotal(products)(cart, basket.id)).reduce((a, x) => a + x, 0)

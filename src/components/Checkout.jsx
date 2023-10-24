@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom"
-import { getSubTotal, removeItem, setItem } from "./cart"
+import { getCartTotal, getSubTotal, removeItem, setItem } from "./cart"
 import { findObjectById, displayPrice } from "./utils"
 import { LoadingSpinner } from "./LoadingSpinner"
 import styles from "./Checkout.module.css"
@@ -37,6 +37,12 @@ export const Checkout = () => {
                                 )
                             })}
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total:</td>
+                                <td>{getCartTotal(products)(cart)}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </section>
                 :
