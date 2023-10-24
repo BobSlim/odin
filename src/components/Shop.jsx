@@ -21,7 +21,7 @@ export const Shop = () => {
                 <section className={styles.products}>
                     {products.map(product =>
                         <ItemDetails {...product} key={product.id}>
-                            <AddToCartForm id={product.id} addCartItem={addToCart} />
+                            <AddToCartForm id={product.id} fn={addToCart} />
                         </ItemDetails>
                     )}
                 </section>
@@ -32,7 +32,7 @@ export const Shop = () => {
     )
 }
 
-export const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "", children }) =>
+const ItemDetails = ({ id = null, title = "NOTITLE", price = 0, image = "", description = "", children }) =>
     <article className={styles.product}>
         <h3>{title}</h3>
         <div>
