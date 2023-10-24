@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom"
-import { removeItem, setItem } from "./cart"
+import { getSubTotal, removeItem, setItem } from "./cart"
 import { findObjectById, displayPrice } from "./utils"
 import { LoadingSpinner } from "./LoadingSpinner"
 import styles from "./Checkout.module.css"
@@ -23,6 +23,7 @@ export const Checkout = () => {
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
+                                <th>Subtotal</th>
                                 <th>Button</th>
                             </tr>
                         </thead>
@@ -52,11 +53,16 @@ const CartRow = ({
     quantity = 1, 
     image = "",
     children
-}) =>
-    <tr className={styles.product}>
-        <td><img src={image} alt={title} /></td>
-        <td>{title}</td>
-        <td>{displayPrice(price)}</td>
-        <td>{quantity}</td>
-        <td>{children}</td>
-    </tr>
+}) => {
+    const subtotal = price * quantity
+    return (
+        <tr className={styles.product}>
+            <td><img src={image} alt={title} /></td>
+            <td>{title}</td>
+            <td>{displayPrice(price)}</td>
+            <td>{quantity}</td>
+            <td>{displayPrice(subtotal)}</td>
+            <td>{children}</td>
+        </tr>
+    )
+}
