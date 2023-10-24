@@ -39,8 +39,12 @@ export const Checkout = () => {
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>Total:</td>
-                                <td>{getCartTotal(products)(cart)}</td>
+                                <td>{displayPrice(getCartTotal(products)(cart))}</td>
+                                <td><button>Checkout</button></td>
                             </tr>
                         </tfoot>
                     </table>

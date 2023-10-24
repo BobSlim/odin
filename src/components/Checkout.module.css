@@ -1,5 +1,6 @@
 .products{
     border-spacing: 1rem;
+    empty-cells: show;
 }
 
 .product {

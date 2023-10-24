@@ -4,7 +4,7 @@ const decimalize = (number = 0, places = 2) => {
     if (decimalPlace == -1) {
         return number + ".00";
     }
-    const addedZeroes = (places + 1) - number.slice(decimalPlace).length;
+    const addedZeroes = (places + 1) - Math.min(3, number.slice(decimalPlace).length);
     return number + "0".repeat(addedZeroes);
 };
 
