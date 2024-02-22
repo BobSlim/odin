@@ -7,9 +7,13 @@ const game = new Game(allQuotes)
 
 const container = document.getElementById('unfinished')
 const form = document.getElementById('form')
+const input = form.getElementsByTagName('input')[0]
 const log = document.getElementById('log')
 const counter = document.getElementById('counter')
 
+document.addEventListener('click', (e) => {
+    input.focus()
+})
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -17,6 +21,7 @@ form.addEventListener('submit', (e) => {
     form.reset()
     playSound(data?.quote?.correct ? 'yes' : 'no')
     render(data)
+    input.focus()
 })
 
 const render = (data) => {
