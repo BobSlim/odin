@@ -1,0 +1,67 @@
+html {
+    font-family: sans-serif;
+    line-height: 1.5;
+}
+
+body {
+    min-height: 100dvh;
+    margin: 0;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    margin: auto;
+    background-color: white;
+    width: fit-content;
+    box-shadow: 1rem 1rem 1.5rem black;
+}
+
+form {
+    max-width: 70ch;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.big-label {
+    padding: 4rem;
+}
+
+.nice-submit {
+    background-color: lightblue;
+    padding: 1rem;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: none;
+}
+
+.log {
+    padding: 1rem;
+}
+
+.log__content {
+    margin: auto;
+    max-width: 70ch;
+    text-align: center;
+}
+
+.log.log--yes {
+    background-color: lightgreen;
+}
+
+.log.log--no {
+    background-color: pink;
+}
+
+#unfinished {
+    font-size: 1.5em;
+    font-weight: bold;
+}
