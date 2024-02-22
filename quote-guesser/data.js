@@ -15,6 +15,6 @@ export const allQuotes = [
     new Quote((str) => `I wish I could get more ${str} ...but I'm a man`, "empathy"),
     new Quote((str) => `${str}? You mean when there are too many boys in me...my stomach`, "Boisterous"),
     new Quote((str) => `Strong male ${str} needs to be put aside for this art`, "tiddy"),
-    new Quote((str) => `Streamer goals. I wish to be ${str}, y'know?`, "haulable"),
+    new Quote((str) => `Streamer goals. I wish to be ${str}able, y'know?`, "haul"),
     new Quote((str) => `Do not ${str} me! I am not a homeopathic remedy`, "dilute"),
 ]
