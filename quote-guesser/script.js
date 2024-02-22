@@ -1,7 +1,7 @@
 import { Game } from "./game.js"
 import { Quote } from "./quote.js"
 import { allQuotes } from "./data.js"
-import { playSound } from "./audioPlayer.js"
+import { PlayerSingle } from "./audioPlayer.js"
 
 const game = new Game(allQuotes)
 
@@ -19,7 +19,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     const data = game.try(new FormData(form).get('guess'))
     form.reset()
-    playSound(data?.quote?.correct ? 'yes' : 'no')
+    PlayerSingle.play(data?.quote?.correct ? 'yes' : 'no')
     render(data)
     input.focus()
 })
@@ -40,7 +40,7 @@ const completeGame = (quoteList) => {
     const correct = quoteList.filter(x => x.correct).length
     form.getElementsByTagName('button')[0].disabled = true
     form.getElementsByTagName('input')[0].disabled = true
-    playSound('finish')
+    PlayerSingle.play('finish')
     return `You got ${correct}/${quoteList.length} correct.`
 }
 
