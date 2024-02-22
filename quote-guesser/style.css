@@ -1,12 +1,14 @@
 html {
-    font-family: sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     line-height: 1.5;
+    --spacing-magic: calc(2rem + 3dvw);
+    --spacing-magic-small: calc(var(--spacing-magic) / 2);
 }
 
 body {
     min-height: 100dvh;
     margin: 0;
-    background-color: gray;
+    background-color: rgb(210, 193, 231);
     display: flex;
     flex-direction: column;
 }
@@ -15,11 +17,10 @@ main {
     margin: auto;
     background-color: white;
     width: fit-content;
-    box-shadow: 1rem 1rem 1.5rem black;
+    box-shadow: 0.5rem 0.5rem 1rem gray;
 }
 
 form {
-    max-width: 70ch;
     display: flex;
     flex-direction: column;
 }
@@ -28,11 +29,26 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+}
+
+progress {
+    height: 1.5rem;
+    margin: auto;
+    display: block;
+}
+
+input {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+footer {
+    padding: 2rem;
 }
 
 .big-label {
-    padding: 4rem;
+    padding: var(--spacing-magic-small) var(--spacing-magic);
 }
 
 .nice-submit {
@@ -41,6 +57,7 @@ label {
     font-size: 1.5em;
     font-weight: bold;
     border: none;
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .log {
@@ -51,6 +68,7 @@ label {
     margin: auto;
     max-width: 70ch;
     text-align: center;
+    text-wrap: balance;
 }
 
 .log.log--yes {
@@ -64,4 +82,6 @@ label {
 #unfinished {
     font-size: 1.5em;
     font-weight: bold;
+    text-wrap: balance;
+    text-align: center;
 }

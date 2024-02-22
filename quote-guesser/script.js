@@ -41,7 +41,9 @@ const completeGame = (quoteList) => {
 
 const updateCounter = (quoteList) => {
     const length = quoteList.length
-    counter.innerText = `${length - quoteList.filter(x => x.state == Quote.CODE.MAYBE).length}/${length}`
+    const finished = length - quoteList.filter(x => x.state == Quote.CODE.MAYBE).length
+    counter.innerText = `${finished}/${length}`
+    counter.value = finished
 }
 
 const renderLog = (data = {}) => {

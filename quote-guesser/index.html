@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Para Quote Guesser</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <script defer type="module" src="./script.js"></script>
 </head>
@@ -13,17 +14,19 @@
     <main>
         <form id="form" action="">
             <label class="big-label">
-                <span id="counter">0/17</span>
                 <span id="unfinished"></span>
-                Guess:
                 <input type="text" name="guess" id="" autofocus />
             </label>
             <div id="log" class="log">
                 <div class="log__content">Answers show up here!</div>
+                <progress value="0" max="17" id="counter">0/17</progress>
             </div>
             <button class="nice-submit" type="submit">Submit</button>
         </form>
     </main>
+    <footer>
+        shout out to my boy <a href="https://www.twitch.tv/parasocial_work">parasocial_work</a>
+    </footer>
 </body>
 
 </html>
