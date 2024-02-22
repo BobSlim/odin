@@ -17,30 +17,33 @@ document.addEventListener('click', (e) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    const data = game.try(new FormData(form).get('guess'))
-    form.reset()
-    PlayerSingle.play(data?.quote?.correct ? 'yes' : 'no')
-    render(data)
+    const formData = new FormData(form)
+    const data = game.try(formData.get('guess'))
+    const vol = formData.get('volume')
+    console.log(vol)
+    input.value = ""
+    PlayerSingle.play(data?.quote?.correct ? 'yes' : 'no', vol)
+    render(data, vol)
     input.focus()
 })
 
-const render = (data) => {
+const render = (data, vol) => {
     if(data != undefined) {
         renderLog(data)
     }
     updateCounter(game.quotes)
     let nextQuote = game.next?.emptyQuote
     if (nextQuote == undefined) {
-        nextQuote = completeGame(game.quotes)
+        nextQuote = completeGame(game.quotes, vol)
     }
     container.innerText = nextQuote
 }
 
-const completeGame = (quoteList) => {
+const completeGame = (quoteList, vol) => {
     const correct = quoteList.filter(x => x.correct).length
     form.getElementsByTagName('button')[0].disabled = true
     form.getElementsByTagName('input')[0].disabled = true
-    PlayerSingle.play('finish')
+    PlayerSingle.play('finish', vol)
     return `You got ${correct}/${quoteList.length} correct.`
 }
 

@@ -1,9 +1,10 @@
 const sounds = [
-    { tag: 'no', src: './incorrect.mp3', volume: 0.5 },
-    { tag: 'no', src: './incorrect2.mp3', volume: 0.5 },
-    { tag: 'yes', src: './correct.mp3', volume: 0.5 },
-    { tag: 'yes', src: './correct2.mp3', volume: 0.5 },
-    { tag: 'finish', src: './finish.mp3', volume: 0.5 },
+    { tag: 'no', src: './incorrect.mp3', volume: 1 },
+    { tag: 'no', src: './incorrect2.mp3', volume: 1 },
+    { tag: 'no', src: './incorrect3.mp3', volume: 1},
+    { tag: 'yes', src: './correct.mp3', volume: 1 },
+    { tag: 'yes', src: './correct2.mp3', volume: 1 },
+    { tag: 'finish', src: './finish.mp3', volume: 1 },
 ]
 
 class Player {
