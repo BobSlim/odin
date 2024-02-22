@@ -20,7 +20,6 @@ form.addEventListener('submit', (e) => {
     const formData = new FormData(form)
     const data = game.try(formData.get('guess'))
     const vol = formData.get('volume')
-    console.log(vol)
     input.value = ""
     PlayerSingle.play(data?.quote?.correct ? 'yes' : 'no', vol)
     render(data, vol)
