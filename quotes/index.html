@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Quote Guesser</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script defer type="module" src="./script.js"></script>
+</head>
+
+<body>
+    <header>
+        <label>
+            Volume
+            <input name="volume" form="form" type="range" max="1" min="0" value="0.25" step="0.01"></input>
+        </label>
+    </header>
+    <main>
+        <form id="form" action="">
+            <label class="big-label">
+                <div id="unfinished"></div>
+                <input type="text" name="guess" id="" autofocus required />
+            </label>
+            <div id="log" class="log">
+                <div class="log__content">Answers show up here!</div>
+                <progress value="0" max="17" id="counter">0/17</progress>
+            </div>
+            <button class="nice-submit" type="submit">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <span>
+            shout out to my boy
+            <a href="https://www.twitch.tv/parasocial_work"> parasocial_work</a>
+        </span>
+    </footer>
+</body>
+
+</html>

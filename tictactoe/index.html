@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <main>
+      <div class="gamepanel">
+        <ul class="playerpanel">
+          <li>
+            <label for="player2_name">Name</label>
+            <input
+              class="playerpanel_name"
+              type="text"
+              name=""
+              id="player2_name"
+              placeholder="Player2"
+              value="Player2"
+            />
+          </li>
+          <li>
+            <label for="player2_symbol">Symbol</label>
+            <input
+              size="1"
+              maxlength="1"
+              class="playerpanel_symbol"
+              type="text"
+              name=""
+              id="player2_symbol"
+              placeholder="O"
+              value="O"
+            />
+          </li>
+        </ul>
+        <div class="gameboard">
+          <svg viewbox="0 0 344 344" class="winStroke"></svg>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+          <button class="gamecell"></button>
+        </div>
+        <ul class="playerpanel currentTurn">
+          <li>
+            <label for="player1_name">Name</label>
+            <input
+              class="playerpanel_name"
+              type="text"
+              name=""
+              id="player1_name"
+              placeholder="Player1"
+              value="Player1"
+            />
+          </li>
+          <li>
+            <label for="player1_symbol">Symbol</label>
+            <input
+              size="1"
+              maxlength="1"
+              class="playerpanel_symbol"
+              type="text"
+              name=""
+              id="player1_symbol"
+              placeholder="X"
+              value="X"
+            />
+          </li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

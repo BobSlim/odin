@@ -1,3 +1,0 @@
-file 'vid1.webm'
-file 'vid2.webm'
-file 'vid3.webm'
