@@ -1,0 +1,33 @@
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.hiddenEmpty:empty {
+  display: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid white;
+  padding: 0rem 1rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

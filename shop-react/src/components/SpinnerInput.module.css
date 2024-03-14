@@ -1,0 +1,33 @@
+.spinner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 2rem;
+}
+
+.spinner input {
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.spinner button {
+    visibility: hidden;
+    padding: 0;
+    display: block;
+    height: 100%;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    border-radius: 0px;
+    text-align: center;
+}
+
+.spinner:hover button {
+    visibility: visible;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

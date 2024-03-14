@@ -1,0 +1,27 @@
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+    gap: 2rem;
+}
+
+.product {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+}
+
+.product h3 {
+    width: auto;
+    margin: 0;
+}
+    
+.product img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: scale-down;
+    background-color: white;
+    border-radius: 2rem;
+}

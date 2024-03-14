@@ -1,0 +1,32 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    aspect-ratio: 1/1.6;
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    border: 0;
+    outline: 2px outset white;
+}
+
+.card:hover {
+    outline: 2px outset purple;
+}
+
+.card h3 {
+    font-size: 2rem;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.card img {
+    width: 100%;
+    object-fit: cover;
+}

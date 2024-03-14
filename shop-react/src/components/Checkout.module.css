@@ -1,0 +1,28 @@
+.products{
+    border-spacing: 1rem;
+    empty-cells: show;
+}
+
+.product {
+    box-sizing: border-box;
+    border: none;
+}
+
+.product td {
+    padding: 1rem;
+}
+
+.product h3 {
+    width: auto;
+    margin: 0;
+}
+
+.product img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: scale-down;
+    background-color: white;
+    border-radius: 2rem;
+    max-height: 8rem;
+    display: block;
+}
