@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oh my darling...</title>
+    <style>
+        body {
+            background-color: rgb(48 51 56);
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .centerbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            margin: auto;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="centerbox">
+        <img src="kebob.gif" alt="">
+        <audio id="audio" loop>
+            <source src="UnchainedMelody-RighteousBrothers.ogg" type="audio/ogg" />
+        </audio>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('click', () => {
+        const player = document.getElementById("audio")
+        player.volume = 0.7
+        player.play()
+    }, { once: true })
+</script>
+
+</html>
