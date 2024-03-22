@@ -23,6 +23,7 @@ export const Renderer = (frame, doc, fnClick) => {
         cellDOM.classList.add("gamecell")
         if(cell.isHit){
             cellDOM.classList.add(cell.shipRef ? "gamecell--hit" : "gamecell--miss")
+            cellDOM.disabled = true;
         }
         if(isPlayer){
             cellDOM.innerText = cell.shipRef ? cell.symbol : ""
@@ -46,6 +47,7 @@ export const Renderer = (frame, doc, fnClick) => {
         const playerBoard = renderBoard(game.player, true)
         const computerBoard = renderBoard(game.computer)
         logRef = doc.createElement("div")
+        logRef.classList.add("log")
         playerBoardRef = playerBoard
         computerBoardRef = computerBoard
         frame.appendChild(playerBoard)

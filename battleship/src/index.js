@@ -1,6 +1,6 @@
-import { Game, Renderer } from "./game"
-import { Gameboard } from "./gameboard"
-import { Fleet, defaultShips } from "./ship"
+import { Game, Renderer } from "./game.js"
+import { Gameboard } from "./gameboard.js"
+import { Fleet, defaultShips } from "./ship.js"
 const fleets = [Fleet(), Fleet()]
 fleets.forEach(fleet => {
     fleet.placeShips(defaultShips())
