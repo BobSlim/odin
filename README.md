@@ -1,7 +1,11 @@
-# odin-foundations
+[battleship](/battleship/)
 
-welcome to my things!
+[etch](/etch/)
 
-1. [Humble beginnings - the recipes page.](/odin-recipes/index.html)
-2. [A landing page - look at me, ma, I can make a real website!](/odin-landing-page/index.html)
-3. [Check it out, rock paper scissors. I liked making this cool.](/odin-rockpaperscissors/index.html)
+[quotes](/quotes/)
+
+[rps](/rps/)
+
+[tictactoe](/tictactoe/)
+
+[weather](/weather/)

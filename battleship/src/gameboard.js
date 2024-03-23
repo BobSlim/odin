@@ -1,5 +1,4 @@
-import { Ship, defaultShips, shipCoords } from "./ship"
-import { add, chooseRandomElement, randomInt, scale, directionArray } from "./vector"
+import { chooseRandomElement } from "./vector.js"
 
 //a vector is an array of [x, y].
 

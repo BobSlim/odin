@@ -1,0 +1,48 @@
+:root {
+    font-family: sans-serif;
+    height: 100dvh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-height: 100%;
+}
+
+#main {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    max-height: 100%;
+}
+
+.gamecell {
+    height: 100%;
+    width: 100%;
+    min-width: 16px;
+    min-height: 16px;
+    font-size: xx-large;
+    background-color: turquoise;
+}
+
+.gamecell.gamecell--miss {
+    background-color: white;
+}
+
+.gamecell.gamecell--hit {
+    background-color: red;
+}
+
+.gameboard {
+    aspect-ratio: 1/1;
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.log {
+    flex: 1;
+    min-width: 40ch;
+}

@@ -1,4 +1,4 @@
-import { add, isPointValid, scale, getRandomCoords, getRandomDirection } from "./vector";
+import { add, isPointValid, scale, getRandomCoords, getRandomDirection } from "./vector.js";
 
 export const defaultShips = () => [
     Ship("Carrier", 5),
